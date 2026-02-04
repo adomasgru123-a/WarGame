@@ -1172,6 +1172,30 @@
             questLevel: 'starter'
         };
 
+        // Save game to localStorage
+        function saveGame() {
+            if (gameState.country) {
+                const saveKey = 'warGame_' + gameState.country;
+                localStorage.setItem(saveKey, JSON.stringify(gameState));
+            }
+        }
+
+        // Load game from localStorage
+        function loadGame(country, flag) {
+            const saveKey = 'warGame_' + country;
+            const savedData = localStorage.getItem(saveKey);
+
+            if (savedData) {
+                const parsed = JSON.parse(savedData);
+                gameState = parsed;
+                // Ensure country and flag are set correctly
+                gameState.country = country;
+                gameState.flag = flag;
+                return true;
+            }
+            return false;
+        }
+
         // Quest definitions
         const starterQuests = [
             { id: 'attack_country', name: 'Attack a country', reward: 100, check: () => gameState.battlesWon + gameState.battlesLost >= 1 },
@@ -1208,11 +1232,17 @@
         // Start Game
         startBtn.addEventListener('click', () => {
             if (gameState.country) {
+                // Try to load saved game for this country
+                const country = gameState.country;
+                const flag = gameState.flag;
+                loadGame(country, flag);
+
                 document.getElementById('country-selection').style.display = 'none';
                 document.getElementById('game-screen').style.display = 'block';
                 document.getElementById('player-flag').textContent = gameState.flag;
                 document.getElementById('player-country').textContent = gameState.country;
                 updateDisplays();
+                saveGame(); // Save initial state
             }
         });
 
@@ -1272,6 +1302,7 @@
                 gameState.totalPurchased += amount;
                 gameState.goldSpent += cost;
                 updateDisplays();
+                saveGame();
             } else {
                 alert('Not enough gold!');
             }
@@ -1283,6 +1314,7 @@
                 gameState[unitType] += amount;
                 gameState.goldSpent += cost;
                 updateDisplays();
+                saveGame();
             } else {
                 alert('Not enough gold!');
             }
@@ -1295,6 +1327,11 @@
 
         function resetGame() {
             if (confirm('Are you sure you want to reset the game?')) {
+                // Clear saved data for this country
+                if (gameState.country) {
+                    localStorage.removeItem('warGame_' + gameState.country);
+                }
+
                 gameState = {
                     country: null,
                     flag: null,
@@ -1323,6 +1360,7 @@
             if (gameState.country) {
                 gameState.gold += 10;
                 updateDisplays();
+                saveGame();
             }
         }, 5000);
 
@@ -1556,6 +1594,7 @@
                 { soldiers: enemySoldiers, tanks: enemyTanks, planes: enemyPlanes, ships: enemyShips, power: enemyPower },
                 losses, gained, goldReward);
             updateDisplays();
+            saveGame();
         }
 
         // Show battle result modal
@@ -1744,6 +1783,7 @@
                 checkQuestLevelComplete();
                 renderQuests();
                 updateDisplays();
+                saveGame();
             }
         }
     </script>
