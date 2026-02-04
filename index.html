@@ -706,6 +706,68 @@
             font-weight: bold;
             margin-bottom: 10px;
         }
+
+        /* Attacking Progress Screen */
+        .attacking-content {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .attacking-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .attacking-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #e74c3c;
+        }
+
+        .attacking-target {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .progress-container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 30px;
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
+            border-radius: 12px;
+            width: 0%;
+            transition: width 0.1s linear;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 50px;
+        }
+
+        .progress-text {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 20px;
+            color: #e74c3c;
+        }
+
+        .attacking-status {
+            font-size: 1rem;
+            opacity: 0.7;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -1062,6 +1124,25 @@
         </div>
     </div>
 
+    <!-- Attacking Progress Modal -->
+    <div class="modal-overlay" id="attacking-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>⚔️ Attacking...</h2>
+            </div>
+            <div class="attacking-content">
+                <div class="attacking-icon">⚔️</div>
+                <div class="attacking-title">ATTACKING</div>
+                <div class="attacking-target" id="attacking-target-display"></div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="attack-progress-bar"></div>
+                </div>
+                <div class="progress-text" id="attack-progress-text">0%</div>
+                <div class="attacking-status" id="attacking-status">Preparing forces...</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Quests Modal -->
     <div class="modal-overlay" id="quests-modal">
         <div class="modal">
@@ -1374,6 +1455,50 @@
 
             closeModal('attack-setup');
 
+            // Show attacking progress screen
+            document.getElementById('attacking-target-display').textContent = `${attackTarget.flag} ${attackTarget.name}`;
+            openModal('attacking');
+
+            // Animate progress bar over 5 seconds
+            let progress = 0;
+            const progressBar = document.getElementById('attack-progress-bar');
+            const progressText = document.getElementById('attack-progress-text');
+            const statusText = document.getElementById('attacking-status');
+
+            const statusMessages = [
+                'Preparing forces...',
+                'Deploying troops...',
+                'Engaging enemy...',
+                'Battle in progress...',
+                'Finalizing assault...'
+            ];
+
+            const interval = setInterval(() => {
+                progress += 2; // 2% every 100ms = 100% in 5 seconds
+                progressBar.style.width = progress + '%';
+                progressText.textContent = progress + '%';
+
+                // Update status message at different stages
+                if (progress <= 20) statusText.textContent = statusMessages[0];
+                else if (progress <= 40) statusText.textContent = statusMessages[1];
+                else if (progress <= 60) statusText.textContent = statusMessages[2];
+                else if (progress <= 80) statusText.textContent = statusMessages[3];
+                else statusText.textContent = statusMessages[4];
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+
+                    // Close attacking modal and process battle
+                    setTimeout(() => {
+                        closeModal('attacking');
+                        processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent);
+                    }, 300);
+                }
+            }, 100);
+        }
+
+        // Process battle result after progress completes
+        function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent) {
             // Calculate player power
             const playerPower = soldiersSent + (tanksSent * 50) + (planesSent * 75) + (shipsSent * 100);
 
