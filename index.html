@@ -769,6 +769,109 @@
             margin-top: 15px;
         }
 
+        /* Code Button Style */
+        .menu-btn.code-btn {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+        }
+
+        .menu-btn.code-btn:hover {
+            box-shadow: 0 3px 15px rgba(155, 89, 182, 0.5);
+        }
+
+        /* Code Modal Styles */
+        .code-input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .code-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .code-input:focus {
+            border-color: #9b59b6;
+        }
+
+        .code-input::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .redeem-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .redeem-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 15px rgba(155, 89, 182, 0.5);
+        }
+
+        .code-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .code-message.success {
+            display: block;
+            background: rgba(76, 175, 80, 0.3);
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+        }
+
+        .code-message.error {
+            display: block;
+            background: rgba(231, 76, 60, 0.3);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
+
+        .redeemed-codes {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .redeemed-codes h3 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        #redeemed-list {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .redeemed-code-item {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .redeemed-code-item:last-child {
+            border-bottom: none;
+        }
+
         /* Responsive Design */
 
         /* Tablets and small desktops */
@@ -1593,6 +1696,26 @@
         </div>
     </div>
 
+    <!-- Code Redemption Modal -->
+    <div class="modal-overlay" id="code-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>🎁 Redeem Code</h2>
+                <button class="close-btn" onclick="closeModal('code')">&times;</button>
+            </div>
+            <p style="margin-bottom: 20px; opacity: 0.8;">Enter a code to receive rewards!</p>
+            <div class="code-input-container">
+                <input type="text" id="code-input" placeholder="Enter code here..." class="code-input">
+                <button class="redeem-btn" onclick="redeemCode()">Redeem</button>
+            </div>
+            <div id="code-message" class="code-message"></div>
+            <div class="redeemed-codes">
+                <h3>Redeemed Codes:</h3>
+                <div id="redeemed-list"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Game State
         let gameState = {
@@ -1608,7 +1731,13 @@
             battlesWon: 0,
             battlesLost: 0,
             questsCompleted: [],
-            questLevel: 'starter'
+            questLevel: 'starter',
+            redeemedCodes: []
+        };
+
+        // Available codes
+        const availableCodes = {
+            'Free': { reward: 'army', amount: 10000, description: '+10,000 Army' }
         };
 
         // Save game to localStorage
@@ -1716,6 +1845,11 @@
             if (type === 'quests') {
                 renderQuests();
             }
+            if (type === 'code') {
+                renderRedeemedCodes();
+                document.getElementById('code-input').value = '';
+                document.getElementById('code-message').className = 'code-message';
+            }
             document.getElementById(type + '-modal').classList.add('active');
             updateDisplays();
         }
@@ -1784,7 +1918,8 @@
                     battlesWon: 0,
                     battlesLost: 0,
                     questsCompleted: [],
-                    questLevel: 'starter'
+                    questLevel: 'starter',
+                    redeemedCodes: []
                 };
                 document.getElementById('game-screen').style.display = 'none';
                 document.getElementById('country-selection').style.display = 'flex';
@@ -2223,6 +2358,83 @@
                 renderQuests();
                 updateDisplays();
                 saveGame();
+            }
+        }
+
+        // Redeem code function
+        function redeemCode() {
+            const input = document.getElementById('code-input');
+            const message = document.getElementById('code-message');
+            const code = input.value.trim();
+
+            // Reset message
+            message.className = 'code-message';
+            message.textContent = '';
+
+            if (!code) {
+                message.className = 'code-message error';
+                message.textContent = 'Please enter a code!';
+                return;
+            }
+
+            // Check if code already redeemed
+            if (gameState.redeemedCodes && gameState.redeemedCodes.includes(code)) {
+                message.className = 'code-message error';
+                message.textContent = 'Code already redeemed!';
+                return;
+            }
+
+            // Check if code exists
+            if (availableCodes[code]) {
+                const codeData = availableCodes[code];
+
+                // Apply reward
+                if (codeData.reward === 'army') {
+                    gameState.army += codeData.amount;
+                } else if (codeData.reward === 'gold') {
+                    gameState.gold += codeData.amount;
+                } else if (codeData.reward === 'tanks') {
+                    gameState.tanks += codeData.amount;
+                } else if (codeData.reward === 'planes') {
+                    gameState.planes += codeData.amount;
+                } else if (codeData.reward === 'ships') {
+                    gameState.ships += codeData.amount;
+                }
+
+                // Mark code as redeemed
+                if (!gameState.redeemedCodes) {
+                    gameState.redeemedCodes = [];
+                }
+                gameState.redeemedCodes.push(code);
+
+                // Show success message
+                message.className = 'code-message success';
+                message.textContent = `Code redeemed! ${codeData.description}`;
+
+                // Clear input
+                input.value = '';
+
+                // Update displays and save
+                updateDisplays();
+                saveGame();
+                renderRedeemedCodes();
+            } else {
+                message.className = 'code-message error';
+                message.textContent = 'Invalid code!';
+            }
+        }
+
+        // Render redeemed codes list
+        function renderRedeemedCodes() {
+            const list = document.getElementById('redeemed-list');
+            if (!gameState.redeemedCodes || gameState.redeemedCodes.length === 0) {
+                list.innerHTML = '<p style="opacity: 0.5;">No codes redeemed yet</p>';
+            } else {
+                list.innerHTML = gameState.redeemedCodes.map(code => {
+                    const codeData = availableCodes[code];
+                    const desc = codeData ? codeData.description : 'Unknown reward';
+                    return `<div class="redeemed-code-item">✓ ${code} - ${desc}</div>`;
+                }).join('');
             }
         }
     </script>
