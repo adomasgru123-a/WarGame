@@ -1341,6 +1341,14 @@
                 <div class="country-flag">🇧🇪</div>
                 <div class="country-name">Belgium</div>
             </div>
+            <div class="country-card" data-country="Poland" data-flag="🇵🇱">
+                <div class="country-flag">🇵🇱</div>
+                <div class="country-name">Poland</div>
+            </div>
+            <div class="country-card" data-country="Netherlands" data-flag="🇳🇱">
+                <div class="country-flag">🇳🇱</div>
+                <div class="country-name">Netherlands</div>
+            </div>
         </div>
         <button id="start-btn">START GAME</button>
     </div>
@@ -1737,7 +1745,8 @@
 
         // Available codes
         const availableCodes = {
-            'Free': { reward: 'army', amount: 10000, description: '+10,000 Army' }
+            'Free': { reward: 'army', amount: 10000, description: '+10,000 Army' },
+            'Gogo': { reward: 'gold', amount: 10000, description: '+10,000 Gold' }
         };
 
         // Save game to localStorage
@@ -1939,14 +1948,23 @@
         }, 5000);
 
         // All countries data
+        // Country data with difficulty levels
+        // difficulty: 1 = easy, 2 = medium, 3 = hard, 4 = very hard, 5 = boss
         const allCountries = [
-            { name: 'Spain', flag: '🇪🇸' },
-            { name: 'France', flag: '🇫🇷' },
-            { name: 'Germany', flag: '🇩🇪' },
-            { name: 'United Kingdom', flag: '🇬🇧' },
-            { name: 'Italy', flag: '🇮🇹' },
-            { name: 'Lithuania', flag: '🇱🇹' },
-            { name: 'Belgium', flag: '🇧🇪' }
+            { name: 'Spain', flag: '🇪🇸', difficulty: 1 },
+            { name: 'France', flag: '🇫🇷', difficulty: 1 },
+            { name: 'Germany', flag: '🇩🇪', difficulty: 2 },
+            { name: 'United Kingdom', flag: '🇬🇧', difficulty: 2 },
+            { name: 'Italy', flag: '🇮🇹', difficulty: 1 },
+            { name: 'Lithuania', flag: '🇱🇹', difficulty: 1 },
+            { name: 'Belgium', flag: '🇧🇪', difficulty: 1 },
+            { name: 'Poland', flag: '🇵🇱', difficulty: 2 },
+            { name: 'Netherlands', flag: '🇳🇱', difficulty: 2 },
+            { name: 'Russia', flag: '🇷🇺', difficulty: 3 },
+            { name: 'China', flag: '🇨🇳', difficulty: 3 },
+            { name: 'USA', flag: '🇺🇸', difficulty: 4 },
+            { name: 'Japan', flag: '🇯🇵', difficulty: 3 },
+            { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true }
         ];
 
         // Generate enemy countries list (excluding player's country)
@@ -1954,19 +1972,35 @@
             const container = document.getElementById('attack-countries-list');
             container.innerHTML = '';
 
-            allCountries.forEach(country => {
+            // Sort by difficulty
+            const sortedCountries = [...allCountries].sort((a, b) => a.difficulty - b.difficulty);
+
+            sortedCountries.forEach(country => {
                 if (country.name !== gameState.country) {
                     const enemyDiv = document.createElement('div');
-                    enemyDiv.className = 'enemy-country';
+                    enemyDiv.className = 'enemy-country' + (country.isBoss ? ' boss-country' : '');
+
+                    // Difficulty label
+                    let diffLabel = '';
+                    let diffClass = '';
+                    switch(country.difficulty) {
+                        case 1: diffLabel = '⭐ Easy'; diffClass = 'diff-easy'; break;
+                        case 2: diffLabel = '⭐⭐ Medium'; diffClass = 'diff-medium'; break;
+                        case 3: diffLabel = '⭐⭐⭐ Hard'; diffClass = 'diff-hard'; break;
+                        case 4: diffLabel = '⭐⭐⭐⭐ Very Hard'; diffClass = 'diff-veryhard'; break;
+                        case 5: diffLabel = '💀 BOSS'; diffClass = 'diff-boss'; break;
+                    }
+
                     enemyDiv.innerHTML = `
                         <div class="enemy-info">
                             <span class="enemy-flag">${country.flag}</span>
                             <div>
                                 <div class="enemy-name">${country.name}</div>
+                                <div class="enemy-difficulty ${diffClass}">${diffLabel}</div>
                                 <div class="enemy-army">Forces: ???</div>
                             </div>
                         </div>
-                        <button class="attack-country-btn" onclick="selectTarget('${country.name}', '${country.flag}')">⚔️ Attack</button>
+                        <button class="attack-country-btn ${country.isBoss ? 'boss-attack-btn' : ''}" onclick="selectTarget('${country.name}', '${country.flag}', ${country.difficulty}, ${country.isBoss || false})">⚔️ Attack</button>
                     `;
                     container.appendChild(enemyDiv);
                 }
@@ -1974,11 +2008,11 @@
         }
 
         // Attack setup state
-        let attackTarget = { name: '', flag: '' };
+        let attackTarget = { name: '', flag: '', difficulty: 1, isBoss: false };
 
         // Select target country and open setup
-        function selectTarget(name, flag) {
-            attackTarget = { name, flag };
+        function selectTarget(name, flag, difficulty = 1, isBoss = false) {
+            attackTarget = { name, flag, difficulty, isBoss };
             closeModal('attack');
 
             document.getElementById('target-country-name').textContent = name;
@@ -2114,16 +2148,36 @@
             // Calculate player power
             const playerPower = soldiersSent + (tanksSent * 50) + (planesSent * 75) + (shipsSent * 100);
 
-            // Generate enemy forces
-            const enemySoldiers = Math.floor(Math.random() * (playerPower * 0.6)) + Math.floor(playerPower * 0.2);
-            const enemyTanks = Math.floor(Math.random() * (tanksSent + 2));
-            const enemyPlanes = Math.floor(Math.random() * (planesSent + 2));
-            const enemyShips = Math.floor(Math.random() * (shipsSent + 1));
-            const enemyPower = enemySoldiers + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100);
+            // Difficulty multipliers
+            const difficulty = attackTarget.difficulty || 1;
+            const isBoss = attackTarget.isBoss || false;
 
-            // Add randomness to battle
-            const playerRoll = playerPower + Math.floor(Math.random() * 50);
-            const enemyRoll = enemyPower + Math.floor(Math.random() * 50);
+            // Base multiplier based on difficulty
+            // 1 = 0.5-0.8x, 2 = 0.8-1.2x, 3 = 1.2-1.8x, 4 = 1.8-2.5x, 5 (boss) = 3-5x
+            let diffMultiplier;
+            switch(difficulty) {
+                case 1: diffMultiplier = 0.5 + Math.random() * 0.3; break;
+                case 2: diffMultiplier = 0.8 + Math.random() * 0.4; break;
+                case 3: diffMultiplier = 1.2 + Math.random() * 0.6; break;
+                case 4: diffMultiplier = 1.8 + Math.random() * 0.7; break;
+                case 5: diffMultiplier = 3 + Math.random() * 2; break; // Boss is very hard
+                default: diffMultiplier = 0.5 + Math.random() * 0.3;
+            }
+
+            // Generate enemy forces based on difficulty
+            const baseSoldiers = Math.floor(playerPower * diffMultiplier);
+            const enemySoldiers = Math.max(10, baseSoldiers + Math.floor(Math.random() * 50 * difficulty));
+            const enemyTanks = Math.floor((tanksSent + difficulty) * diffMultiplier) + Math.floor(Math.random() * difficulty * 2);
+            const enemyPlanes = Math.floor((planesSent + difficulty) * diffMultiplier) + Math.floor(Math.random() * difficulty * 2);
+            const enemyShips = Math.floor((shipsSent + Math.floor(difficulty / 2)) * diffMultiplier) + Math.floor(Math.random() * difficulty);
+
+            // Boss gets extra bonus units
+            const bossBonus = isBoss ? 500 + Math.floor(Math.random() * 500) : 0;
+            const enemyPower = (enemySoldiers + bossBonus) + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100);
+
+            // Add randomness to battle (less random advantage for player against harder enemies)
+            const playerRoll = playerPower + Math.floor(Math.random() * (60 - difficulty * 10));
+            const enemyRoll = enemyPower + Math.floor(Math.random() * (20 + difficulty * 10));
 
             const victory = playerRoll > enemyRoll;
 
