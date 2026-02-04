@@ -872,6 +872,76 @@
             border-bottom: none;
         }
 
+        /* Difficulty Labels */
+        .enemy-difficulty {
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 3px 0;
+        }
+
+        .diff-easy {
+            color: #4CAF50;
+        }
+
+        .diff-medium {
+            color: #f39c12;
+        }
+
+        .diff-hard {
+            color: #e67e22;
+        }
+
+        .diff-veryhard {
+            color: #e74c3c;
+        }
+
+        .diff-boss {
+            color: #9b59b6;
+            font-size: 1rem;
+            text-shadow: 0 0 10px rgba(155, 89, 182, 0.5);
+            animation: bossGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bossGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(155, 89, 182, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(155, 89, 182, 0.8), 0 0 30px rgba(155, 89, 182, 0.5); }
+        }
+
+        /* Boss Country Styling */
+        .boss-country {
+            background: linear-gradient(135deg, rgba(155, 89, 182, 0.3), rgba(142, 68, 173, 0.3));
+            border: 2px solid #9b59b6;
+            animation: bossBorder 2s ease-in-out infinite;
+        }
+
+        @keyframes bossBorder {
+            0%, 100% { border-color: #9b59b6; box-shadow: 0 0 10px rgba(155, 89, 182, 0.3); }
+            50% { border-color: #8e44ad; box-shadow: 0 0 20px rgba(155, 89, 182, 0.6); }
+        }
+
+        .boss-country .enemy-flag {
+            font-size: 2.5rem;
+        }
+
+        .boss-country .enemy-name {
+            color: #9b59b6;
+            font-size: 1.3rem;
+        }
+
+        .boss-attack-btn {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad) !important;
+            animation: bossButtonPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes bossButtonPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .boss-attack-btn:hover {
+            box-shadow: 0 0 20px rgba(155, 89, 182, 0.7) !important;
+        }
+
         /* Responsive Design */
 
         /* Tablets and small desktops */
@@ -1746,7 +1816,9 @@
         // Available codes
         const availableCodes = {
             'Free': { reward: 'army', amount: 10000, description: '+10,000 Army' },
-            'Gogo': { reward: 'gold', amount: 10000, description: '+10,000 Gold' }
+            'Gogo': { reward: 'gold', amount: 10000, description: '+10,000 Gold' },
+            'Gogojam': { reward: 'gold', amount: 100000, description: '+100,000 Gold' },
+            'Justas': { reward: 'ships', amount: 1000, description: '+1,000 Battleships' }
         };
 
         // Save game to localStorage
@@ -2194,7 +2266,12 @@
                 gained.tanks = Math.floor(enemyTanks * 0.3);
                 gained.planes = Math.floor(enemyPlanes * 0.25);
                 gained.ships = Math.floor(enemyShips * 0.2);
-                goldReward = Math.floor(Math.random() * 500) + 200;
+
+                // Gold reward scales with difficulty
+                const baseGold = 200 * difficulty;
+                const bonusGold = Math.floor(Math.random() * 300 * difficulty);
+                const bossGoldBonus = isBoss ? 5000 : 0;
+                goldReward = baseGold + bonusGold + bossGoldBonus;
 
                 gameState.army = gameState.army - losses.soldiers + gained.soldiers;
                 gameState.tanks = gameState.tanks - losses.tanks + gained.tanks;
