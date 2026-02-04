@@ -435,6 +435,31 @@
             background: rgba(255,255,255,0.2);
         }
 
+        /* Scrollable attack countries list */
+        #attack-countries-list {
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        #attack-countries-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #attack-countries-list::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+
+        #attack-countries-list::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 4px;
+        }
+
+        #attack-countries-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.5);
+        }
+
         .enemy-info {
             display: flex;
             align-items: center;
@@ -2224,32 +2249,64 @@
             const difficulty = attackTarget.difficulty || 1;
             const isBoss = attackTarget.isBoss || false;
 
-            // Base multiplier based on difficulty
-            // 1 = 0.5-0.8x, 2 = 0.8-1.2x, 3 = 1.2-1.8x, 4 = 1.8-2.5x, 5 (boss) = 3-5x
-            let diffMultiplier;
+            // Base enemy forces per difficulty (fixed amounts, not scaling with player)
+            // Easy countries have small armies, harder ones have bigger armies
+            let baseEnemySoldiers, baseEnemyTanks, baseEnemyPlanes, baseEnemyShips;
             switch(difficulty) {
-                case 1: diffMultiplier = 0.5 + Math.random() * 0.3; break;
-                case 2: diffMultiplier = 0.8 + Math.random() * 0.4; break;
-                case 3: diffMultiplier = 1.2 + Math.random() * 0.6; break;
-                case 4: diffMultiplier = 1.8 + Math.random() * 0.7; break;
-                case 5: diffMultiplier = 3 + Math.random() * 2; break; // Boss is very hard
-                default: diffMultiplier = 0.5 + Math.random() * 0.3;
+                case 1: // Easy - very small army
+                    baseEnemySoldiers = 50 + Math.floor(Math.random() * 100);
+                    baseEnemyTanks = Math.floor(Math.random() * 3);
+                    baseEnemyPlanes = Math.floor(Math.random() * 2);
+                    baseEnemyShips = Math.floor(Math.random() * 2);
+                    break;
+                case 2: // Medium
+                    baseEnemySoldiers = 200 + Math.floor(Math.random() * 300);
+                    baseEnemyTanks = 2 + Math.floor(Math.random() * 5);
+                    baseEnemyPlanes = 1 + Math.floor(Math.random() * 4);
+                    baseEnemyShips = Math.floor(Math.random() * 3);
+                    break;
+                case 3: // Hard
+                    baseEnemySoldiers = 800 + Math.floor(Math.random() * 700);
+                    baseEnemyTanks = 10 + Math.floor(Math.random() * 15);
+                    baseEnemyPlanes = 8 + Math.floor(Math.random() * 12);
+                    baseEnemyShips = 5 + Math.floor(Math.random() * 10);
+                    break;
+                case 4: // Very Hard
+                    baseEnemySoldiers = 2000 + Math.floor(Math.random() * 2000);
+                    baseEnemyTanks = 30 + Math.floor(Math.random() * 30);
+                    baseEnemyPlanes = 25 + Math.floor(Math.random() * 25);
+                    baseEnemyShips = 15 + Math.floor(Math.random() * 20);
+                    break;
+                case 5: // Boss
+                    baseEnemySoldiers = 10000 + Math.floor(Math.random() * 10000);
+                    baseEnemyTanks = 100 + Math.floor(Math.random() * 100);
+                    baseEnemyPlanes = 80 + Math.floor(Math.random() * 80);
+                    baseEnemyShips = 50 + Math.floor(Math.random() * 50);
+                    break;
+                default:
+                    baseEnemySoldiers = 50 + Math.floor(Math.random() * 100);
+                    baseEnemyTanks = Math.floor(Math.random() * 3);
+                    baseEnemyPlanes = Math.floor(Math.random() * 2);
+                    baseEnemyShips = Math.floor(Math.random() * 2);
             }
 
-            // Generate enemy forces based on difficulty
-            const baseSoldiers = Math.floor(playerPower * diffMultiplier);
-            const enemySoldiers = Math.max(10, baseSoldiers + Math.floor(Math.random() * 50 * difficulty));
-            const enemyTanks = Math.floor((tanksSent + difficulty) * diffMultiplier) + Math.floor(Math.random() * difficulty * 2);
-            const enemyPlanes = Math.floor((planesSent + difficulty) * diffMultiplier) + Math.floor(Math.random() * difficulty * 2);
-            const enemyShips = Math.floor((shipsSent + Math.floor(difficulty / 2)) * diffMultiplier) + Math.floor(Math.random() * difficulty);
+            // Add small scaling based on player power (10-20% of player power for harder enemies)
+            const scalingFactor = difficulty * 0.03; // 3% per difficulty level
+            const scaledBonus = Math.floor(playerPower * scalingFactor);
 
-            // Boss gets extra bonus units
-            const bossBonus = isBoss ? 500 + Math.floor(Math.random() * 500) : 0;
-            const enemyPower = (enemySoldiers + bossBonus) + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100);
+            const enemySoldiers = baseEnemySoldiers + Math.floor(scaledBonus * 0.5);
+            const enemyTanks = baseEnemyTanks + Math.floor(scaledBonus * 0.003);
+            const enemyPlanes = baseEnemyPlanes + Math.floor(scaledBonus * 0.002);
+            const enemyShips = baseEnemyShips + Math.floor(scaledBonus * 0.001);
 
-            // Add randomness to battle (less random advantage for player against harder enemies)
-            const playerRoll = playerPower + Math.floor(Math.random() * (60 - difficulty * 10));
-            const enemyRoll = enemyPower + Math.floor(Math.random() * (20 + difficulty * 10));
+            const enemyPower = enemySoldiers + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100);
+
+            // Battle calculation - player with superior force should win more often
+            // Give player a bonus based on power advantage
+            const powerRatio = playerPower / Math.max(enemyPower, 1);
+            const playerBonus = Math.floor(playerPower * 0.1 * Math.min(powerRatio, 3)); // Up to 30% bonus if 3x stronger
+            const playerRoll = playerPower + playerBonus + Math.floor(Math.random() * 100);
+            const enemyRoll = enemyPower + Math.floor(Math.random() * (50 + difficulty * 20));
 
             const victory = playerRoll > enemyRoll;
 
