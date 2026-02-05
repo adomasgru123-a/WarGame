@@ -1180,6 +1180,78 @@
             transform: none;
         }
 
+        /* Current playing mode */
+        .current-mode {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .current-mode.team-mode {
+            background: linear-gradient(135deg, rgba(0, 184, 148, 0.3), rgba(0, 206, 201, 0.3));
+            border: 2px solid #00b894;
+        }
+
+        .current-mode.solo-mode {
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.3), rgba(162, 155, 254, 0.3));
+            border: 2px solid #6c5ce7;
+        }
+
+        .mode-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .mode-team-name {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            color: #00b894;
+        }
+
+        .mode-resources {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+        }
+
+        .mode-info {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+
+        .leave-team-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .leave-team-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .teams-section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        .team-resources-preview {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 3px;
+        }
+
         /* Country select in create team */
         .country-select-grid {
             display: grid;
@@ -2475,8 +2547,9 @@
             planes: 0,
             ships: 0,
             totalPurchased: 0,
-            teams: [], // Array of { name, description, isPrivate, code, country, flag }
+            teams: [], // Array of { name, description, isPrivate, code, country, flag, gold, army, tanks, planes, ships }
             activeTeamIndex: null, // Index of currently active team
+            personalResources: null, // Saved personal resources when in a team
             goldSpent: 0,
             battlesWon: 0,
             battlesLost: 0,
@@ -2496,6 +2569,16 @@
         // Save game to localStorage
         function saveGame() {
             if (gameState.country) {
+                // If in a team, sync current resources to the team
+                if (gameState.activeTeamIndex !== null && gameState.teams[gameState.activeTeamIndex]) {
+                    const activeTeam = gameState.teams[gameState.activeTeamIndex];
+                    activeTeam.gold = gameState.gold;
+                    activeTeam.army = gameState.army;
+                    activeTeam.tanks = gameState.tanks;
+                    activeTeam.planes = gameState.planes;
+                    activeTeam.ships = gameState.ships;
+                }
+
                 const saveKey = 'warGame_' + gameState.country;
                 localStorage.setItem(saveKey, JSON.stringify(gameState));
             }
@@ -2526,7 +2609,8 @@
                     questLevel: parsed.questLevel || 'starter',
                     redeemedCodes: parsed.redeemedCodes || [],
                     teams: parsed.teams || [],
-                    activeTeamIndex: parsed.activeTeamIndex !== undefined ? parsed.activeTeamIndex : null
+                    activeTeamIndex: parsed.activeTeamIndex !== undefined ? parsed.activeTeamIndex : null,
+                    personalResources: parsed.personalResources || null
                 };
                 return true;
             } else {
@@ -2547,7 +2631,8 @@
                     questLevel: 'starter',
                     redeemedCodes: [],
                     teams: [],
-                    activeTeamIndex: null
+                    activeTeamIndex: null,
+                    personalResources: null
                 };
             }
             return false;
@@ -2713,7 +2798,8 @@
                     questLevel: 'starter',
                     redeemedCodes: [],
                     teams: [],
-                    activeTeamIndex: null
+                    activeTeamIndex: null,
+                    personalResources: null
                 };
                 document.getElementById('game-screen').style.display = 'none';
                 document.getElementById('country-selection').style.display = 'flex';
@@ -2732,32 +2818,35 @@
             }
         }, 5000);
 
-        // All countries data
-        // Country data with difficulty levels
-        // difficulty: 1 = easy, 2 = medium, 3 = hard, 4 = very hard, 5 = boss
-        // difficulty: 1=easy, 2=medium, 3=hard, 4=very hard, 5=boss, 6=legendary, 7=mythic, 8=IMPOSSIBLE
+        // All countries data with FIXED power levels
+        // Each country has set soldiers, tanks, planes, ships values
         const allCountries = [
-            { name: 'Spain', flag: '🇪🇸', difficulty: 1 },
-            { name: 'France', flag: '🇫🇷', difficulty: 1 },
-            { name: 'Germany', flag: '🇩🇪', difficulty: 2 },
-            { name: 'United Kingdom', flag: '🇬🇧', difficulty: 2 },
-            { name: 'Italy', flag: '🇮🇹', difficulty: 1 },
-            { name: 'Lithuania', flag: '🇱🇹', difficulty: 1 },
-            { name: 'Belgium', flag: '🇧🇪', difficulty: 1 },
-            { name: 'Poland', flag: '🇵🇱', difficulty: 2 },
-            { name: 'Netherlands', flag: '🇳🇱', difficulty: 2 },
-            { name: 'Russia', flag: '🇷🇺', difficulty: 3 },
-            { name: 'China', flag: '🇨🇳', difficulty: 3 },
-            { name: 'USA', flag: '🇺🇸', difficulty: 4 },
-            { name: 'Japan', flag: '🇯🇵', difficulty: 3 },
-            { name: 'Brazil', flag: '🇧🇷', difficulty: 3 },
-            { name: 'India', flag: '🇮🇳', difficulty: 4 },
-            { name: 'South Korea', flag: '🇰🇷', difficulty: 4 },
-            { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true },
-            { name: 'Mongol Empire', flag: '🐎', difficulty: 6, isBoss: true },
-            { name: 'Ottoman Empire', flag: '🌙', difficulty: 6, isBoss: true },
-            { name: 'British Empire', flag: '👑', difficulty: 7, isBoss: true },
-            { name: 'Galactic Federation', flag: '🌌', difficulty: 8, isBoss: true, isSuperboss: true }
+            // Easy countries (difficulty 1) - need ~50-100 soldiers to beat
+            { name: 'Spain', flag: '🇪🇸', difficulty: 1, soldiers: 30, tanks: 0, planes: 0, ships: 0 },
+            { name: 'France', flag: '🇫🇷', difficulty: 1, soldiers: 40, tanks: 0, planes: 0, ships: 0 },
+            { name: 'Italy', flag: '🇮🇹', difficulty: 1, soldiers: 35, tanks: 0, planes: 0, ships: 0 },
+            { name: 'Lithuania', flag: '🇱🇹', difficulty: 1, soldiers: 25, tanks: 0, planes: 0, ships: 0 },
+            { name: 'Belgium', flag: '🇧🇪', difficulty: 1, soldiers: 30, tanks: 0, planes: 0, ships: 0 },
+            // Medium countries (difficulty 2) - need ~150-300 soldiers to beat
+            { name: 'Germany', flag: '🇩🇪', difficulty: 2, soldiers: 100, tanks: 2, planes: 0, ships: 0 },
+            { name: 'United Kingdom', flag: '🇬🇧', difficulty: 2, soldiers: 120, tanks: 1, planes: 1, ships: 0 },
+            { name: 'Poland', flag: '🇵🇱', difficulty: 2, soldiers: 90, tanks: 2, planes: 0, ships: 0 },
+            { name: 'Netherlands', flag: '🇳🇱', difficulty: 2, soldiers: 80, tanks: 1, planes: 1, ships: 1 },
+            // Hard countries (difficulty 3) - need ~500-800 soldiers to beat
+            { name: 'Russia', flag: '🇷🇺', difficulty: 3, soldiers: 300, tanks: 5, planes: 3, ships: 2 },
+            { name: 'China', flag: '🇨🇳', difficulty: 3, soldiers: 350, tanks: 4, planes: 4, ships: 2 },
+            { name: 'Japan', flag: '🇯🇵', difficulty: 3, soldiers: 250, tanks: 3, planes: 6, ships: 4 },
+            { name: 'Brazil', flag: '🇧🇷', difficulty: 3, soldiers: 280, tanks: 4, planes: 2, ships: 3 },
+            // Very Hard countries (difficulty 4) - need ~1000-2000 soldiers to beat
+            { name: 'USA', flag: '🇺🇸', difficulty: 4, soldiers: 600, tanks: 10, planes: 15, ships: 8 },
+            { name: 'India', flag: '🇮🇳', difficulty: 4, soldiers: 700, tanks: 8, planes: 6, ships: 5 },
+            { name: 'South Korea', flag: '🇰🇷', difficulty: 4, soldiers: 500, tanks: 12, planes: 10, ships: 6 },
+            // Boss countries (difficulty 5+) - need massive armies
+            { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true, soldiers: 2000, tanks: 20, planes: 10, ships: 10 },
+            { name: 'Mongol Empire', flag: '🐎', difficulty: 6, isBoss: true, soldiers: 4000, tanks: 30, planes: 20, ships: 15 },
+            { name: 'Ottoman Empire', flag: '🌙', difficulty: 6, isBoss: true, soldiers: 3500, tanks: 35, planes: 25, ships: 20 },
+            { name: 'British Empire', flag: '👑', difficulty: 7, isBoss: true, soldiers: 8000, tanks: 50, planes: 40, ships: 50 },
+            { name: 'Galactic Federation', flag: '🌌', difficulty: 8, isBoss: true, isSuperboss: true, soldiers: 20000, tanks: 100, planes: 100, ships: 2000 }
         ];
 
         // Generate enemy countries list (excluding player's country)
@@ -2790,13 +2879,16 @@
                         case 8: diffLabel = '☠️ IMPOSSIBLE'; diffClass = 'diff-impossible'; break;
                     }
 
+                    // Calculate total power for display
+                    const totalPower = country.soldiers + (country.tanks * 50) + (country.planes * 75) + (country.ships * 100);
+
                     enemyDiv.innerHTML = `
                         <div class="enemy-info">
                             <span class="enemy-flag">${country.flag}</span>
                             <div>
                                 <div class="enemy-name">${country.name}</div>
                                 <div class="enemy-difficulty ${diffClass}">${diffLabel}</div>
-                                <div class="enemy-army">Forces: ???</div>
+                                <div class="enemy-army">⚔️${country.soldiers} 🛡️${country.tanks} ✈️${country.planes} 🚢${country.ships} = 💪${totalPower}</div>
                             </div>
                         </div>
                         <button class="attack-country-btn ${country.isSuperboss ? 'superboss-attack-btn' : (country.isBoss ? 'boss-attack-btn' : '')}" onclick="selectTarget('${country.name}', '${country.flag}', ${country.difficulty}, ${country.isBoss || false}, ${country.isSuperboss || false})">⚔️ Attack</button>
@@ -2947,53 +3039,20 @@
             // Calculate player power
             const playerPower = soldiersSent + (tanksSent * 50) + (planesSent * 75) + (shipsSent * 100);
 
-            // Difficulty multipliers
+            // Get the FIXED enemy forces from country data
+            const countryData = allCountries.find(c => c.name === attackTarget.name);
             const difficulty = attackTarget.difficulty || 1;
             const isBoss = attackTarget.isBoss || false;
-
-
-            // Base multiplier based on difficulty
-            // 1 = 0.5-0.8x, 2 = 0.8-1.2x, 3 = 1.2-1.8x, 4 = 1.8-2.5x, 5 (boss) = 3-5x
             const isSuperboss = attackTarget.isSuperboss || false;
 
-            let diffMultiplier;
-            switch(difficulty) {
-                case 1: diffMultiplier = 0.5 + Math.random() * 0.3; break;
-                case 2: diffMultiplier = 0.8 + Math.random() * 0.4; break;
-                case 3: diffMultiplier = 1.2 + Math.random() * 0.6; break;
-                case 4: diffMultiplier = 1.8 + Math.random() * 0.7; break;
-                case 5: diffMultiplier = 3 + Math.random() * 2; break; // Boss
-                case 6: diffMultiplier = 5 + Math.random() * 3; break; // Legendary
-                case 7: diffMultiplier = 8 + Math.random() * 4; break; // Mythic
-                case 8: diffMultiplier = 15 + Math.random() * 5; break; // IMPOSSIBLE - Superboss
-                default: diffMultiplier = 0.5 + Math.random() * 0.3;
-            }
+            // Use FIXED values from country data (no more random!)
+            const enemySoldiers = countryData ? countryData.soldiers : 30;
+            const enemyTanks = countryData ? countryData.tanks : 0;
+            const enemyPlanes = countryData ? countryData.planes : 0;
+            const enemyShips = countryData ? countryData.ships : 0;
 
-            // Generate enemy forces based on difficulty
-            let baseSoldiers = Math.floor(playerPower * diffMultiplier);
-
-            // Superboss (Galactic Federation) has minimum requirements: 20,000 soldiers + 2,000 ships
-            if (isSuperboss) {
-                baseSoldiers = Math.max(baseSoldiers, 20000);
-            }
-            const enemySoldiers = Math.max(10, baseSoldiers + Math.floor(Math.random() * 50 * difficulty));
-            const enemyTanks = Math.floor((tanksSent + difficulty) * diffMultiplier) + Math.floor(Math.random() * difficulty * 2);
-            const enemyPlanes = Math.floor((planesSent + difficulty) * diffMultiplier) + Math.floor(Math.random() * difficulty * 2);
-            let enemyShips = Math.floor((shipsSent + Math.floor(difficulty / 2)) * diffMultiplier) + Math.floor(Math.random() * difficulty);
-
-            // Superboss has minimum 2000 ships
-            if (isSuperboss) {
-                enemyShips = Math.max(enemyShips, 2000);
-            }
-
-            // Boss gets extra bonus units (more for higher difficulties)
-            let bossBonus = 0;
-            if (isSuperboss) {
-                bossBonus = 5000 + Math.floor(Math.random() * 5000); // Superboss: 5000-10000 extra
-            } else if (isBoss) {
-                bossBonus = 500 * (difficulty - 4) + Math.floor(Math.random() * 500 * (difficulty - 4));
-            }
-            const enemyPower = (enemySoldiers + bossBonus) + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100);
+            // Calculate enemy power from fixed values
+            const enemyPower = enemySoldiers + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100);
 
             // Battle calculation - player with superior force should win more often
             // Give player a bonus based on power advantage
@@ -3361,11 +3420,47 @@
 
             let html = '';
 
+            // Show current playing mode
+            if (gameState.activeTeamIndex !== null && gameState.teams[gameState.activeTeamIndex]) {
+                const activeTeam = gameState.teams[gameState.activeTeamIndex];
+                html += `
+                    <div class="current-mode team-mode">
+                        <div class="mode-title">🎮 Playing as Team</div>
+                        <div class="mode-team-name">${activeTeam.flag} ${activeTeam.name}</div>
+                        <div class="mode-resources">
+                            <span>💰 ${gameState.gold}</span>
+                            <span>⚔️ ${gameState.army}</span>
+                            <span>🛡️ ${gameState.tanks}</span>
+                            <span>✈️ ${gameState.planes}</span>
+                            <span>🚢 ${gameState.ships}</span>
+                        </div>
+                        <div class="mode-info">All resources are shared with team members!</div>
+                        <button class="leave-team-btn" onclick="leaveTeam()">🚪 Leave Team (Play Solo)</button>
+                    </div>
+                `;
+            } else {
+                html += `
+                    <div class="current-mode solo-mode">
+                        <div class="mode-title">👤 Playing Solo</div>
+                        <div class="mode-resources">
+                            <span>💰 ${gameState.gold}</span>
+                            <span>⚔️ ${gameState.army}</span>
+                            <span>🛡️ ${gameState.tanks}</span>
+                            <span>✈️ ${gameState.planes}</span>
+                            <span>🚢 ${gameState.ships}</span>
+                        </div>
+                        <div class="mode-info">Join a team to share resources!</div>
+                    </div>
+                `;
+            }
+
             // Show teams list if there are teams
             if (gameState.teams.length > 0) {
+                html += '<div class="teams-section-title">Your Teams:</div>';
                 html += '<div class="teams-list">';
                 gameState.teams.forEach((team, index) => {
                     const isActive = gameState.activeTeamIndex === index;
+                    const teamPower = (team.gold || 0) + (team.army || 0) + ((team.tanks || 0) * 50) + ((team.planes || 0) * 75) + ((team.ships || 0) * 100);
                     html += `
                         <div class="team-list-item ${isActive ? 'active' : ''}">
                             <div class="team-list-info">
@@ -3373,6 +3468,9 @@
                                 <div class="team-list-details">
                                     <div class="team-list-name">${team.name}</div>
                                     <div class="team-list-desc">${team.description || 'No description'}</div>
+                                    <div class="team-resources-preview">
+                                        💰${team.gold || 0} ⚔️${team.army || 0} 🛡️${team.tanks || 0} ✈️${team.planes || 0} 🚢${team.ships || 0}
+                                    </div>
                                     <span class="team-list-badge ${team.isPrivate ? 'private' : 'public'}">
                                         ${team.isPrivate ? '🔒 Private' : '🌍 Public'}
                                     </span>
@@ -3387,7 +3485,7 @@
                 });
                 html += '</div>';
             } else {
-                html += '<div class="no-teams-message">You don\'t have any teams yet.</div>';
+                html += '<div class="no-teams-message">You don\'t have any teams yet. Create or join one!</div>';
             }
 
             // Show create/join buttons
@@ -3489,27 +3587,111 @@
                 gameState.teams = [];
             }
 
+            // Save personal resources before joining team
+            if (gameState.activeTeamIndex === null) {
+                gameState.personalResources = {
+                    gold: gameState.gold,
+                    army: gameState.army,
+                    tanks: gameState.tanks,
+                    planes: gameState.planes,
+                    ships: gameState.ships
+                };
+            }
+
+            // Create team with shared resources (starting with player's current resources)
             const newTeam = {
                 name: name,
                 description: description,
                 country: selectedTeamCountry,
                 flag: selectedTeamFlag,
                 isPrivate: selectedPrivacy === 'private',
-                code: selectedPrivacy === 'private' ? generatedTeamCode : null
+                code: selectedPrivacy === 'private' ? generatedTeamCode : null,
+                // Team shared resources
+                gold: gameState.gold,
+                army: gameState.army,
+                tanks: gameState.tanks,
+                planes: gameState.planes,
+                ships: gameState.ships
             };
 
             gameState.teams.push(newTeam);
             gameState.activeTeamIndex = gameState.teams.length - 1; // Auto-join the new team
 
             saveGame();
+            updateDisplays();
             closeModal('create-team');
             openModal('team');
         }
 
         // Join team (switch active team)
         function joinTeam(index) {
+            // If not currently in a team, save personal resources
+            if (gameState.activeTeamIndex === null) {
+                gameState.personalResources = {
+                    gold: gameState.gold,
+                    army: gameState.army,
+                    tanks: gameState.tanks,
+                    planes: gameState.planes,
+                    ships: gameState.ships
+                };
+            } else {
+                // Save current team's resources before switching
+                const currentTeam = gameState.teams[gameState.activeTeamIndex];
+                if (currentTeam) {
+                    currentTeam.gold = gameState.gold;
+                    currentTeam.army = gameState.army;
+                    currentTeam.tanks = gameState.tanks;
+                    currentTeam.planes = gameState.planes;
+                    currentTeam.ships = gameState.ships;
+                }
+            }
+
+            // Switch to new team
             gameState.activeTeamIndex = index;
+            const newTeam = gameState.teams[index];
+
+            // Load team's shared resources
+            if (newTeam) {
+                gameState.gold = newTeam.gold || 1000;
+                gameState.army = newTeam.army || 10;
+                gameState.tanks = newTeam.tanks || 0;
+                gameState.planes = newTeam.planes || 0;
+                gameState.ships = newTeam.ships || 0;
+            }
+
             saveGame();
+            updateDisplays();
+            renderTeamContent();
+        }
+
+        // Leave current team and restore personal resources
+        function leaveTeam() {
+            if (gameState.activeTeamIndex === null) return;
+
+            // Save current team's resources before leaving
+            const currentTeam = gameState.teams[gameState.activeTeamIndex];
+            if (currentTeam) {
+                currentTeam.gold = gameState.gold;
+                currentTeam.army = gameState.army;
+                currentTeam.tanks = gameState.tanks;
+                currentTeam.planes = gameState.planes;
+                currentTeam.ships = gameState.ships;
+            }
+
+            // Leave team
+            gameState.activeTeamIndex = null;
+
+            // Restore personal resources
+            if (gameState.personalResources) {
+                gameState.gold = gameState.personalResources.gold;
+                gameState.army = gameState.personalResources.army;
+                gameState.tanks = gameState.personalResources.tanks;
+                gameState.planes = gameState.personalResources.planes;
+                gameState.ships = gameState.personalResources.ships;
+            }
+
+            saveGame();
+            updateDisplays();
             renderTeamContent();
         }
 
@@ -3529,6 +3711,17 @@
                 gameState.teams = [];
             }
 
+            // Save personal resources before joining team
+            if (gameState.activeTeamIndex === null) {
+                gameState.personalResources = {
+                    gold: gameState.gold,
+                    army: gameState.army,
+                    tanks: gameState.tanks,
+                    planes: gameState.planes,
+                    ships: gameState.ships
+                };
+            }
+
             // In a real app, this would check against a server
             // For now, we'll create a team with that code
             const newTeam = {
@@ -3537,13 +3730,28 @@
                 country: 'Unknown',
                 flag: '🏳️',
                 isPrivate: true,
-                code: code
+                code: code,
+                // Team shared resources (start fresh for joined teams)
+                gold: 1000,
+                army: 10,
+                tanks: 0,
+                planes: 0,
+                ships: 0
             };
 
             gameState.teams.push(newTeam);
-            gameState.activeTeamIndex = gameState.teams.length - 1;
+            const newIndex = gameState.teams.length - 1;
+            gameState.activeTeamIndex = newIndex;
+
+            // Load team's resources
+            gameState.gold = newTeam.gold;
+            gameState.army = newTeam.army;
+            gameState.tanks = newTeam.tanks;
+            gameState.planes = newTeam.planes;
+            gameState.ships = newTeam.ships;
 
             saveGame();
+            updateDisplays();
             message.className = 'code-message success';
             message.textContent = 'Successfully joined team!';
 
