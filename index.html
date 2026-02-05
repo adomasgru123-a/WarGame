@@ -2508,11 +2508,47 @@
 
             if (savedData) {
                 const parsed = JSON.parse(savedData);
-                gameState = parsed;
-                // Ensure country and flag are set correctly
-                gameState.country = country;
-                gameState.flag = flag;
+
+                // Merge saved data with default values (for new properties added after save)
+                gameState = {
+                    country: country,
+                    flag: flag,
+                    gold: parsed.gold !== undefined ? parsed.gold : 1000,
+                    army: parsed.army !== undefined ? parsed.army : 10,
+                    tanks: parsed.tanks !== undefined ? parsed.tanks : 0,
+                    planes: parsed.planes !== undefined ? parsed.planes : 0,
+                    ships: parsed.ships !== undefined ? parsed.ships : 0,
+                    totalPurchased: parsed.totalPurchased || 0,
+                    goldSpent: parsed.goldSpent || 0,
+                    battlesWon: parsed.battlesWon || 0,
+                    battlesLost: parsed.battlesLost || 0,
+                    questsCompleted: parsed.questsCompleted || [],
+                    questLevel: parsed.questLevel || 'starter',
+                    redeemedCodes: parsed.redeemedCodes || [],
+                    teams: parsed.teams || [],
+                    activeTeamIndex: parsed.activeTeamIndex !== undefined ? parsed.activeTeamIndex : null
+                };
                 return true;
+            } else {
+                // No saved data - initialize fresh state for this country
+                gameState = {
+                    country: country,
+                    flag: flag,
+                    gold: 1000,
+                    army: 10,
+                    tanks: 0,
+                    planes: 0,
+                    ships: 0,
+                    totalPurchased: 0,
+                    goldSpent: 0,
+                    battlesWon: 0,
+                    battlesLost: 0,
+                    questsCompleted: [],
+                    questLevel: 'starter',
+                    redeemedCodes: [],
+                    teams: [],
+                    activeTeamIndex: null
+                };
             }
             return false;
         }
