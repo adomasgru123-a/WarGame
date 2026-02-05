@@ -1324,6 +1324,107 @@
             box-shadow: 0 0 20px rgba(155, 89, 182, 0.7) !important;
         }
 
+        /* Legendary Difficulty */
+        .diff-legendary {
+            color: #ff6b35;
+            font-size: 1rem;
+            text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+            animation: legendaryGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes legendaryGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255, 107, 53, 0.5); }
+            50% { text-shadow: 0 0 20px rgba(255, 107, 53, 0.8), 0 0 30px rgba(255, 107, 53, 0.5); }
+        }
+
+        /* Mythic Difficulty */
+        .diff-mythic {
+            color: #00d4ff;
+            font-size: 1.1rem;
+            text-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+            animation: mythicGlow 1.2s ease-in-out infinite;
+        }
+
+        @keyframes mythicGlow {
+            0%, 100% { text-shadow: 0 0 15px rgba(0, 212, 255, 0.6); }
+            50% { text-shadow: 0 0 25px rgba(0, 212, 255, 0.9), 0 0 40px rgba(0, 212, 255, 0.5); }
+        }
+
+        /* Impossible Difficulty */
+        .diff-impossible {
+            color: #ff0040;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 0, 64, 0.7);
+            animation: impossibleGlow 0.8s ease-in-out infinite;
+        }
+
+        @keyframes impossibleGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 0, 64, 0.7), 0 0 40px rgba(255, 0, 64, 0.3); }
+            50% { text-shadow: 0 0 30px rgba(255, 0, 64, 1), 0 0 60px rgba(255, 0, 64, 0.6); }
+        }
+
+        /* Superboss Country Styling */
+        .superboss-country {
+            background: linear-gradient(135deg, rgba(255, 0, 64, 0.4), rgba(139, 0, 0, 0.4));
+            border: 3px solid #ff0040;
+            animation: superbossBorder 1.5s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .superboss-country::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 0, 64, 0.1), transparent);
+            animation: superbossShine 3s linear infinite;
+        }
+
+        @keyframes superbossShine {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes superbossBorder {
+            0%, 100% { border-color: #ff0040; box-shadow: 0 0 20px rgba(255, 0, 64, 0.5), inset 0 0 20px rgba(255, 0, 64, 0.1); }
+            50% { border-color: #ff3366; box-shadow: 0 0 40px rgba(255, 0, 64, 0.8), inset 0 0 30px rgba(255, 0, 64, 0.2); }
+        }
+
+        .superboss-country .enemy-flag {
+            font-size: 3rem;
+            animation: superbossIcon 2s ease-in-out infinite;
+        }
+
+        @keyframes superbossIcon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .superboss-country .enemy-name {
+            color: #ff0040;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 0, 64, 0.5);
+        }
+
+        .superboss-attack-btn {
+            background: linear-gradient(135deg, #ff0040, #8b0000) !important;
+            animation: superbossButtonPulse 1s ease-in-out infinite;
+            font-size: 1.1rem !important;
+        }
+
+        @keyframes superbossButtonPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 0, 64, 0.5); }
+            50% { transform: scale(1.08); box-shadow: 0 0 40px rgba(255, 0, 64, 0.8); }
+        }
+
+        .superboss-attack-btn:hover {
+            box-shadow: 0 0 40px rgba(255, 0, 64, 0.9) !important;
+        }
+
         /* Responsive Design */
 
         /* Tablets and small desktops */
@@ -2484,6 +2585,7 @@
         // All countries data
         // Country data with difficulty levels
         // difficulty: 1 = easy, 2 = medium, 3 = hard, 4 = very hard, 5 = boss
+        // difficulty: 1=easy, 2=medium, 3=hard, 4=very hard, 5=boss, 6=legendary, 7=mythic, 8=IMPOSSIBLE
         const allCountries = [
             { name: 'Spain', flag: '🇪🇸', difficulty: 1 },
             { name: 'France', flag: '🇫🇷', difficulty: 1 },
@@ -2498,7 +2600,14 @@
             { name: 'China', flag: '🇨🇳', difficulty: 3 },
             { name: 'USA', flag: '🇺🇸', difficulty: 4 },
             { name: 'Japan', flag: '🇯🇵', difficulty: 3 },
-            { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true }
+            { name: 'Brazil', flag: '🇧🇷', difficulty: 3 },
+            { name: 'India', flag: '🇮🇳', difficulty: 4 },
+            { name: 'South Korea', flag: '🇰🇷', difficulty: 4 },
+            { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true },
+            { name: 'Mongol Empire', flag: '🐎', difficulty: 6, isBoss: true },
+            { name: 'Ottoman Empire', flag: '🌙', difficulty: 6, isBoss: true },
+            { name: 'British Empire', flag: '👑', difficulty: 7, isBoss: true },
+            { name: 'Galactic Federation', flag: '🌌', difficulty: 8, isBoss: true, isSuperboss: true }
         ];
 
         // Generate enemy countries list (excluding player's country)
@@ -2512,7 +2621,10 @@
             sortedCountries.forEach(country => {
                 if (country.name !== gameState.country) {
                     const enemyDiv = document.createElement('div');
-                    enemyDiv.className = 'enemy-country' + (country.isBoss ? ' boss-country' : '');
+                    let extraClass = '';
+                    if (country.isSuperboss) extraClass = ' superboss-country';
+                    else if (country.isBoss) extraClass = ' boss-country';
+                    enemyDiv.className = 'enemy-country' + extraClass;
 
                     // Difficulty label
                     let diffLabel = '';
@@ -2523,6 +2635,9 @@
                         case 3: diffLabel = '⭐⭐⭐ Hard'; diffClass = 'diff-hard'; break;
                         case 4: diffLabel = '⭐⭐⭐⭐ Very Hard'; diffClass = 'diff-veryhard'; break;
                         case 5: diffLabel = '💀 BOSS'; diffClass = 'diff-boss'; break;
+                        case 6: diffLabel = '🔥 LEGENDARY'; diffClass = 'diff-legendary'; break;
+                        case 7: diffLabel = '⚡ MYTHIC'; diffClass = 'diff-mythic'; break;
+                        case 8: diffLabel = '☠️ IMPOSSIBLE'; diffClass = 'diff-impossible'; break;
                     }
 
                     enemyDiv.innerHTML = `
@@ -2534,7 +2649,7 @@
                                 <div class="enemy-army">Forces: ???</div>
                             </div>
                         </div>
-                        <button class="attack-country-btn ${country.isBoss ? 'boss-attack-btn' : ''}" onclick="selectTarget('${country.name}', '${country.flag}', ${country.difficulty}, ${country.isBoss || false})">⚔️ Attack</button>
+                        <button class="attack-country-btn ${country.isSuperboss ? 'superboss-attack-btn' : (country.isBoss ? 'boss-attack-btn' : '')}" onclick="selectTarget('${country.name}', '${country.flag}', ${country.difficulty}, ${country.isBoss || false}, ${country.isSuperboss || false})">⚔️ Attack</button>
                     `;
                     container.appendChild(enemyDiv);
                 }
@@ -2542,11 +2657,11 @@
         }
 
         // Attack setup state
-        let attackTarget = { name: '', flag: '', difficulty: 1, isBoss: false };
+        let attackTarget = { name: '', flag: '', difficulty: 1, isBoss: false, isSuperboss: false };
 
         // Select target country and open setup
-        function selectTarget(name, flag, difficulty = 1, isBoss = false) {
-            attackTarget = { name, flag, difficulty, isBoss };
+        function selectTarget(name, flag, difficulty = 1, isBoss = false, isSuperboss = false) {
+            attackTarget = { name, flag, difficulty, isBoss, isSuperboss };
             closeModal('attack');
 
             document.getElementById('target-country-name').textContent = name;
@@ -2686,6 +2801,7 @@
             const difficulty = attackTarget.difficulty || 1;
             const isBoss = attackTarget.isBoss || false;
 
+<<<<<<< HEAD
             // Base enemy forces per difficulty (fixed amounts, not scaling with player)
             // Easy countries have small armies, harder ones have bigger armies
             let baseEnemySoldiers, baseEnemyTanks, baseEnemyPlanes, baseEnemyShips;
@@ -2735,6 +2851,50 @@
             const enemyTanks = baseEnemyTanks + Math.floor(scaledBonus * 0.003);
             const enemyPlanes = baseEnemyPlanes + Math.floor(scaledBonus * 0.002);
             const enemyShips = baseEnemyShips + Math.floor(scaledBonus * 0.001);
+=======
+            // Base multiplier based on difficulty
+            // 1 = 0.5-0.8x, 2 = 0.8-1.2x, 3 = 1.2-1.8x, 4 = 1.8-2.5x, 5 (boss) = 3-5x
+            const isSuperboss = attackTarget.isSuperboss || false;
+
+            let diffMultiplier;
+            switch(difficulty) {
+                case 1: diffMultiplier = 0.5 + Math.random() * 0.3; break;
+                case 2: diffMultiplier = 0.8 + Math.random() * 0.4; break;
+                case 3: diffMultiplier = 1.2 + Math.random() * 0.6; break;
+                case 4: diffMultiplier = 1.8 + Math.random() * 0.7; break;
+                case 5: diffMultiplier = 3 + Math.random() * 2; break; // Boss
+                case 6: diffMultiplier = 5 + Math.random() * 3; break; // Legendary
+                case 7: diffMultiplier = 8 + Math.random() * 4; break; // Mythic
+                case 8: diffMultiplier = 15 + Math.random() * 5; break; // IMPOSSIBLE - Superboss
+                default: diffMultiplier = 0.5 + Math.random() * 0.3;
+            }
+
+            // Generate enemy forces based on difficulty
+            let baseSoldiers = Math.floor(playerPower * diffMultiplier);
+
+            // Superboss (Galactic Federation) has minimum requirements: 20,000 soldiers + 2,000 ships
+            if (isSuperboss) {
+                baseSoldiers = Math.max(baseSoldiers, 20000);
+            }
+            const enemySoldiers = Math.max(10, baseSoldiers + Math.floor(Math.random() * 50 * difficulty));
+            const enemyTanks = Math.floor((tanksSent + difficulty) * diffMultiplier) + Math.floor(Math.random() * difficulty * 2);
+            const enemyPlanes = Math.floor((planesSent + difficulty) * diffMultiplier) + Math.floor(Math.random() * difficulty * 2);
+            let enemyShips = Math.floor((shipsSent + Math.floor(difficulty / 2)) * diffMultiplier) + Math.floor(Math.random() * difficulty);
+
+            // Superboss has minimum 2000 ships
+            if (isSuperboss) {
+                enemyShips = Math.max(enemyShips, 2000);
+            }
+
+            // Boss gets extra bonus units (more for higher difficulties)
+            let bossBonus = 0;
+            if (isSuperboss) {
+                bossBonus = 5000 + Math.floor(Math.random() * 5000); // Superboss: 5000-10000 extra
+            } else if (isBoss) {
+                bossBonus = 500 * (difficulty - 4) + Math.floor(Math.random() * 500 * (difficulty - 4));
+            }
+            const enemyPower = (enemySoldiers + bossBonus) + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100);
+>>>>>>> 9596c5e (ASD)
 
             const enemyPower = enemySoldiers + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100);
 
@@ -2762,9 +2922,13 @@
                 gained.ships = Math.floor(enemyShips * 0.2);
 
                 // Gold reward scales with difficulty
-                const baseGold = 200 * difficulty;
-                const bonusGold = Math.floor(Math.random() * 300 * difficulty);
-                const bossGoldBonus = isBoss ? 5000 : 0;
+                const baseGold = 200 * difficulty * difficulty; // Exponential scaling
+                const bonusGold = Math.floor(Math.random() * 500 * difficulty);
+                let bossGoldBonus = 0;
+                if (isSuperboss) bossGoldBonus = 50000; // Superboss gives 50k gold
+                else if (difficulty >= 7) bossGoldBonus = 20000;
+                else if (difficulty >= 6) bossGoldBonus = 10000;
+                else if (isBoss) bossGoldBonus = 5000;
                 goldReward = baseGold + bonusGold + bossGoldBonus;
 
                 gameState.army = gameState.army - losses.soldiers + gained.soldiers;
