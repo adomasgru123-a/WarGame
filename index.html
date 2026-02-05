@@ -36,22 +36,23 @@
 
         .countries-container {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 40px;
             flex-wrap: wrap;
             justify-content: center;
-            max-width: 900px;
+            max-width: 1200px;
+            padding: 0 20px;
         }
 
         .country-card {
             background: rgba(255,255,255,0.1);
             border: 3px solid transparent;
             border-radius: 15px;
-            padding: 20px;
+            padding: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            width: 150px;
+            width: 120px;
         }
 
         .country-card:hover {
@@ -64,13 +65,78 @@
             background: rgba(76, 175, 80, 0.3);
         }
 
+        /* Boss Country Cards */
+        .country-card.boss-card {
+            border: 2px solid #9b59b6;
+            background: rgba(155, 89, 182, 0.2);
+        }
+
+        .country-card.boss-card:hover {
+            background: rgba(155, 89, 182, 0.3);
+            box-shadow: 0 0 15px rgba(155, 89, 182, 0.5);
+        }
+
+        .country-card.boss-card .country-name {
+            color: #9b59b6;
+        }
+
+        /* Mythic Country Cards */
+        .country-card.mythic-card {
+            border: 2px solid #00d4ff;
+            background: rgba(0, 212, 255, 0.2);
+            animation: mythicCardGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes mythicCardGlow {
+            0%, 100% { box-shadow: 0 0 10px rgba(0, 212, 255, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(0, 212, 255, 0.6); }
+        }
+
+        .country-card.mythic-card:hover {
+            background: rgba(0, 212, 255, 0.3);
+        }
+
+        .country-card.mythic-card .country-name {
+            color: #00d4ff;
+        }
+
+        /* Superboss Country Cards */
+        .country-card.superboss-card {
+            border: 3px solid #ff0040;
+            background: linear-gradient(135deg, rgba(255, 0, 64, 0.3), rgba(139, 0, 0, 0.3));
+            animation: superbossCardGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes superbossCardGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 64, 0.5); }
+            50% { box-shadow: 0 0 30px rgba(255, 0, 64, 0.8); }
+        }
+
+        .country-card.superboss-card:hover {
+            background: linear-gradient(135deg, rgba(255, 0, 64, 0.4), rgba(139, 0, 0, 0.4));
+        }
+
+        .country-card.superboss-card .country-name {
+            color: #ff0040;
+            font-weight: bold;
+        }
+
+        .country-card.superboss-card .country-flag {
+            animation: superbossFlagPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes superbossFlagPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
         .country-flag {
-            font-size: 4rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 10px;
         }
 
         .country-name {
-            font-size: 1.3rem;
+            font-size: 1rem;
             font-weight: bold;
         }
 
@@ -1901,6 +1967,54 @@
             <div class="country-card" data-country="Netherlands" data-flag="🇳🇱">
                 <div class="country-flag">🇳🇱</div>
                 <div class="country-name">Netherlands</div>
+            </div>
+            <div class="country-card" data-country="Russia" data-flag="🇷🇺">
+                <div class="country-flag">🇷🇺</div>
+                <div class="country-name">Russia</div>
+            </div>
+            <div class="country-card" data-country="China" data-flag="🇨🇳">
+                <div class="country-flag">🇨🇳</div>
+                <div class="country-name">China</div>
+            </div>
+            <div class="country-card" data-country="USA" data-flag="🇺🇸">
+                <div class="country-flag">🇺🇸</div>
+                <div class="country-name">USA</div>
+            </div>
+            <div class="country-card" data-country="Japan" data-flag="🇯🇵">
+                <div class="country-flag">🇯🇵</div>
+                <div class="country-name">Japan</div>
+            </div>
+            <div class="country-card" data-country="Brazil" data-flag="🇧🇷">
+                <div class="country-flag">🇧🇷</div>
+                <div class="country-name">Brazil</div>
+            </div>
+            <div class="country-card" data-country="India" data-flag="🇮🇳">
+                <div class="country-flag">🇮🇳</div>
+                <div class="country-name">India</div>
+            </div>
+            <div class="country-card" data-country="South Korea" data-flag="🇰🇷">
+                <div class="country-flag">🇰🇷</div>
+                <div class="country-name">South Korea</div>
+            </div>
+            <div class="country-card boss-card" data-country="Roman Empire" data-flag="🏛️">
+                <div class="country-flag">🏛️</div>
+                <div class="country-name">Roman Empire</div>
+            </div>
+            <div class="country-card boss-card" data-country="Mongol Empire" data-flag="🐎">
+                <div class="country-flag">🐎</div>
+                <div class="country-name">Mongol Empire</div>
+            </div>
+            <div class="country-card boss-card" data-country="Ottoman Empire" data-flag="🌙">
+                <div class="country-flag">🌙</div>
+                <div class="country-name">Ottoman Empire</div>
+            </div>
+            <div class="country-card mythic-card" data-country="British Empire" data-flag="👑">
+                <div class="country-flag">👑</div>
+                <div class="country-name">British Empire</div>
+            </div>
+            <div class="country-card superboss-card" data-country="Galactic Federation" data-flag="🌌">
+                <div class="country-flag">🌌</div>
+                <div class="country-name">Galactic Federation</div>
             </div>
         </div>
         <button id="start-btn">START GAME</button>
