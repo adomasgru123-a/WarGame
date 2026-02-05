@@ -2915,57 +2915,7 @@
             const difficulty = attackTarget.difficulty || 1;
             const isBoss = attackTarget.isBoss || false;
 
-<<<<<<< HEAD
-            // Base enemy forces per difficulty (fixed amounts, not scaling with player)
-            // Easy countries have small armies, harder ones have bigger armies
-            let baseEnemySoldiers, baseEnemyTanks, baseEnemyPlanes, baseEnemyShips;
-            switch(difficulty) {
-                case 1: // Easy - very small army
-                    baseEnemySoldiers = 50 + Math.floor(Math.random() * 100);
-                    baseEnemyTanks = Math.floor(Math.random() * 3);
-                    baseEnemyPlanes = Math.floor(Math.random() * 2);
-                    baseEnemyShips = Math.floor(Math.random() * 2);
-                    break;
-                case 2: // Medium
-                    baseEnemySoldiers = 200 + Math.floor(Math.random() * 300);
-                    baseEnemyTanks = 2 + Math.floor(Math.random() * 5);
-                    baseEnemyPlanes = 1 + Math.floor(Math.random() * 4);
-                    baseEnemyShips = Math.floor(Math.random() * 3);
-                    break;
-                case 3: // Hard
-                    baseEnemySoldiers = 800 + Math.floor(Math.random() * 700);
-                    baseEnemyTanks = 10 + Math.floor(Math.random() * 15);
-                    baseEnemyPlanes = 8 + Math.floor(Math.random() * 12);
-                    baseEnemyShips = 5 + Math.floor(Math.random() * 10);
-                    break;
-                case 4: // Very Hard
-                    baseEnemySoldiers = 2000 + Math.floor(Math.random() * 2000);
-                    baseEnemyTanks = 30 + Math.floor(Math.random() * 30);
-                    baseEnemyPlanes = 25 + Math.floor(Math.random() * 25);
-                    baseEnemyShips = 15 + Math.floor(Math.random() * 20);
-                    break;
-                case 5: // Boss
-                    baseEnemySoldiers = 10000 + Math.floor(Math.random() * 10000);
-                    baseEnemyTanks = 100 + Math.floor(Math.random() * 100);
-                    baseEnemyPlanes = 80 + Math.floor(Math.random() * 80);
-                    baseEnemyShips = 50 + Math.floor(Math.random() * 50);
-                    break;
-                default:
-                    baseEnemySoldiers = 50 + Math.floor(Math.random() * 100);
-                    baseEnemyTanks = Math.floor(Math.random() * 3);
-                    baseEnemyPlanes = Math.floor(Math.random() * 2);
-                    baseEnemyShips = Math.floor(Math.random() * 2);
-            }
 
-            // Add small scaling based on player power (10-20% of player power for harder enemies)
-            const scalingFactor = difficulty * 0.03; // 3% per difficulty level
-            const scaledBonus = Math.floor(playerPower * scalingFactor);
-
-            const enemySoldiers = baseEnemySoldiers + Math.floor(scaledBonus * 0.5);
-            const enemyTanks = baseEnemyTanks + Math.floor(scaledBonus * 0.003);
-            const enemyPlanes = baseEnemyPlanes + Math.floor(scaledBonus * 0.002);
-            const enemyShips = baseEnemyShips + Math.floor(scaledBonus * 0.001);
-=======
             // Base multiplier based on difficulty
             // 1 = 0.5-0.8x, 2 = 0.8-1.2x, 3 = 1.2-1.8x, 4 = 1.8-2.5x, 5 (boss) = 3-5x
             const isSuperboss = attackTarget.isSuperboss || false;
