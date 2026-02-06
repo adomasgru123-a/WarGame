@@ -213,88 +213,83 @@
     <div class="modal-overlay" id="shop-modal">
         <div class="modal">
             <div class="modal-header">
-                <h2>🛒 Shop</h2>
+                <h2>🛒 <span data-translate="shopTitle">Shop</span></h2>
                 <button class="close-btn" onclick="closeModal('shop')">&times;</button>
             </div>
+
+            <!-- Soldiers -->
             <div class="shop-item">
                 <div class="shop-item-info">
-                    <span class="shop-item-icon">🗡️</span>
+                    <span class="shop-item-icon">⚔️</span>
                     <div>
-                        <div class="shop-item-name">Infantry</div>
-                        <div class="shop-item-desc">+10 Army</div>
+                        <div class="shop-item-name" data-translate="soldiers">Soldiers</div>
+                        <div class="shop-item-desc">💰 10 gold each (1 power)</div>
                     </div>
                 </div>
-                <button class="buy-btn" onclick="buyArmy(10, 100)">💰 100</button>
-            </div>
-            <div class="shop-item">
-                <div class="shop-item-info">
-                    <span class="shop-item-icon">🏹</span>
-                    <div>
-                        <div class="shop-item-name">Archers</div>
-                        <div class="shop-item-desc">+25 Army</div>
-                    </div>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-soldiers" class="shop-qty-input" value="10" min="1" onchange="updateShopCost('soldiers', 10)">
+                    <button class="buy-btn" onclick="buyFromShop('soldiers', 10)">💰 <span id="cost-soldiers">100</span></button>
                 </div>
-                <button class="buy-btn" onclick="buyArmy(25, 200)">💰 200</button>
             </div>
-            <div class="shop-item">
-                <div class="shop-item-info">
-                    <span class="shop-item-icon">🐴</span>
-                    <div>
-                        <div class="shop-item-name">Cavalry</div>
-                        <div class="shop-item-desc">+50 Army</div>
-                    </div>
-                </div>
-                <button class="buy-btn" onclick="buyArmy(50, 350)">💰 350</button>
-            </div>
-            <div class="shop-item">
-                <div class="shop-item-info">
-                    <span class="shop-item-icon">🏰</span>
-                    <div>
-                        <div class="shop-item-name">Elite Knights</div>
-                        <div class="shop-item-desc">+100 Army</div>
-                    </div>
-                </div>
-                <button class="buy-btn" onclick="buyArmy(100, 600)">💰 600</button>
-            </div>
+
+            <!-- Tanks -->
             <div class="shop-item" style="border: 2px solid #f39c12;">
                 <div class="shop-item-info">
                     <span class="shop-item-icon">🛡️</span>
                     <div>
-                        <div class="shop-item-name">Tank</div>
-                        <div class="shop-item-desc">+1 Tank (= 50 power)</div>
+                        <div class="shop-item-name" data-translate="tank">Tank</div>
+                        <div class="shop-item-desc">💰 300 gold each (50 power)</div>
                     </div>
                 </div>
-                <button class="buy-btn" onclick="buyUnit('tanks', 1, 300)">💰 300</button>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-tanks" class="shop-qty-input" value="1" min="1" onchange="updateShopCost('tanks', 300)">
+                    <button class="buy-btn" onclick="buyFromShop('tanks', 300)">💰 <span id="cost-tanks">300</span></button>
+                </div>
             </div>
+
+            <!-- Planes -->
             <div class="shop-item" style="border: 2px solid #3498db;">
                 <div class="shop-item-info">
                     <span class="shop-item-icon">✈️</span>
                     <div>
-                        <div class="shop-item-name">Fighter Plane</div>
-                        <div class="shop-item-desc">+1 Plane (= 75 power)</div>
+                        <div class="shop-item-name" data-translate="plane">Plane</div>
+                        <div class="shop-item-desc">💰 400 gold each (75 power)</div>
                     </div>
                 </div>
-                <button class="buy-btn" onclick="buyUnit('planes', 1, 400)">💰 400</button>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-planes" class="shop-qty-input" value="1" min="1" onchange="updateShopCost('planes', 400)">
+                    <button class="buy-btn" onclick="buyFromShop('planes', 400)">💰 <span id="cost-planes">400</span></button>
+                </div>
             </div>
+
+            <!-- Battleships -->
             <div class="shop-item" style="border: 2px solid #9b59b6;">
                 <div class="shop-item-info">
                     <span class="shop-item-icon">🚢</span>
                     <div>
-                        <div class="shop-item-name">Battleship</div>
-                        <div class="shop-item-desc">+1 Ship (= 100 power)</div>
+                        <div class="shop-item-name" data-translate="battleship">Battleship</div>
+                        <div class="shop-item-desc">💰 500 gold each (100 power)</div>
                     </div>
                 </div>
-                <button class="buy-btn" onclick="buyUnit('ships', 1, 500)">💰 500</button>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-ships" class="shop-qty-input" value="1" min="1" onchange="updateShopCost('ships', 500)">
+                    <button class="buy-btn" onclick="buyFromShop('ships', 500)">💰 <span id="cost-ships">500</span></button>
+                </div>
             </div>
+
+            <!-- Combat Drones -->
             <div class="shop-item" style="border: 2px solid #00d4ff;">
                 <div class="shop-item-info">
                     <span class="shop-item-icon">🤖</span>
                     <div>
-                        <div class="shop-item-name">Combat Drone</div>
-                        <div class="shop-item-desc">+1 Drone (= 150 power)</div>
+                        <div class="shop-item-name" data-translate="combatDrone">Combat Drone</div>
+                        <div class="shop-item-desc">💰 700 gold each (150 power)</div>
                     </div>
                 </div>
-                <button class="buy-btn" onclick="buyUnit('drones', 1, 700)">💰 700</button>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-drones" class="shop-qty-input" value="1" min="1" onchange="updateShopCost('drones', 700)">
+                    <button class="buy-btn" onclick="buyFromShop('drones', 700)">💰 <span id="cost-drones">700</span></button>
+                </div>
             </div>
         </div>
     </div>

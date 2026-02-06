@@ -1042,30 +1042,47 @@ function loadGame(country, flag) {
 
     if (savedData) {
         const parsed = JSON.parse(savedData);
+
+        // Backward compatibility: ensure all properties exist with defaults
+        // This handles saves from older versions that don't have newer features
         gameState = {
+            // Core info
             country: country,
             flag: flag,
-            gold: parsed.gold !== undefined ? parsed.gold : 1000,
-            army: parsed.army !== undefined ? parsed.army : 10,
-            tanks: parsed.tanks !== undefined ? parsed.tanks : 0,
-            planes: parsed.planes !== undefined ? parsed.planes : 0,
-            ships: parsed.ships !== undefined ? parsed.ships : 0,
-            drones: parsed.drones !== undefined ? parsed.drones : 0,
+            saveVersion: parsed.saveVersion || 1,
+
+            // Resources - ensure numbers, default if missing
+            gold: typeof parsed.gold === 'number' ? parsed.gold : 1000,
+            army: typeof parsed.army === 'number' ? parsed.army : 10,
+            tanks: typeof parsed.tanks === 'number' ? parsed.tanks : 0,
+            planes: typeof parsed.planes === 'number' ? parsed.planes : 0,
+            ships: typeof parsed.ships === 'number' ? parsed.ships : 0,
+            drones: typeof parsed.drones === 'number' ? parsed.drones : 0,
+
+            // Stats
             totalPurchased: parsed.totalPurchased || 0,
             goldSpent: parsed.goldSpent || 0,
             battlesWon: parsed.battlesWon || 0,
             battlesLost: parsed.battlesLost || 0,
-            questsCompleted: parsed.questsCompleted || [],
+
+            // Progress
+            questsCompleted: Array.isArray(parsed.questsCompleted) ? parsed.questsCompleted : [],
             questLevel: parsed.questLevel || 'starter',
-            redeemedCodes: parsed.redeemedCodes || [],
+            redeemedCodes: Array.isArray(parsed.redeemedCodes) ? parsed.redeemedCodes : [],
+
+            // Multiplayer
             playerId: parsed.playerId || gameState.playerId,
             activeTeamCode: parsed.activeTeamCode || null,
             personalResources: parsed.personalResources || null
         };
+
+        // Update save version for future compatibility
+        gameState.saveVersion = 2;
     } else {
         gameState = {
             country: country,
             flag: flag,
+            saveVersion: 2,
             gold: 1000,
             army: 10,
             tanks: 0,
@@ -1209,6 +1226,44 @@ function resetGame() {
 
 // ==================== SHOP FUNCTIONS ====================
 
+function updateShopCost(unitType, unitPrice) {
+    const input = document.getElementById('buy-' + unitType);
+    const costDisplay = document.getElementById('cost-' + unitType);
+    if (input && costDisplay) {
+        const qty = Math.max(1, parseInt(input.value) || 1);
+        input.value = qty;
+        costDisplay.textContent = (qty * unitPrice).toLocaleString();
+    }
+}
+
+function buyFromShop(unitType, unitPrice) {
+    const input = document.getElementById('buy-' + unitType);
+    const qty = Math.max(1, parseInt(input.value) || 1);
+    const totalCost = qty * unitPrice;
+
+    if (gameState.gold >= totalCost) {
+        gameState.gold -= totalCost;
+        gameState.goldSpent += totalCost;
+
+        if (unitType === 'soldiers') {
+            gameState.army += qty;
+            gameState.totalPurchased += qty;
+        } else {
+            gameState[unitType] += qty;
+        }
+
+        updateDisplays();
+        saveGame();
+
+        // Reset input to 1
+        input.value = 1;
+        updateShopCost(unitType, unitPrice);
+    } else {
+        alert(t('notEnoughGold'));
+    }
+}
+
+// Legacy functions for backward compatibility
 function buyArmy(amount, cost) {
     if (gameState.gold >= cost) {
         gameState.gold -= cost;
