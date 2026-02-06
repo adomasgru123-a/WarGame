@@ -21,6 +21,7 @@ const translations = {
         planes: 'Planes',
         ships: 'Ships',
         drones: 'Drones',
+        bombs: 'Bombs',
         teamMode: 'Team Mode',
 
         // Menu buttons
@@ -39,6 +40,7 @@ const translations = {
         plane: 'Plane',
         battleship: 'Battleship',
         combatDrone: 'Combat Drone',
+        bomb: 'Bomb',
         powerEach: 'power each',
         buy: 'Buy',
 
@@ -92,6 +94,9 @@ const translations = {
         planesCaptured: 'Planes Captured',
         shipsCaptured: 'Ships Captured',
         dronesCaptured: 'Drones Captured',
+        bombsCaptured: 'Bombs Captured',
+        droneLosses: 'Drone Losses',
+        bombLosses: 'Bomb Losses',
         goldLooted: 'Gold Looted',
         yourForcesNow: 'Your Forces Now',
 
@@ -196,6 +201,7 @@ const translations = {
         planes: 'Lektuvai',
         ships: 'Laivai',
         drones: 'Dronai',
+        bombs: 'Bombos',
         teamMode: 'Komandos Rezimas',
 
         // Menu buttons
@@ -821,68 +827,73 @@ const availableCodes = {
 // All countries data with FIXED power levels and cities
 const allCountries = [
     // Easy countries (difficulty 1)
-    { name: 'Spain', flag: '🇪🇸', difficulty: 1, soldiers: 50, tanks: 1, planes: 0, ships: 0, drones: 0,
+    { name: 'Spain', flag: '🇪🇸', difficulty: 1, soldiers: 50, tanks: 1, planes: 0, ships: 0, drones: 0, bombs: 0,
       cities: ['Madrid', 'Barcelona', 'Valencia', 'Seville', 'Bilbao'] },
-    { name: 'France', flag: '🇫🇷', difficulty: 1, soldiers: 60, tanks: 1, planes: 0, ships: 0, drones: 0,
+    { name: 'France', flag: '🇫🇷', difficulty: 1, soldiers: 60, tanks: 1, planes: 0, ships: 0, drones: 0, bombs: 0,
       cities: ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice'] },
-    { name: 'Italy', flag: '🇮🇹', difficulty: 1, soldiers: 55, tanks: 1, planes: 0, ships: 0, drones: 0,
+    { name: 'Italy', flag: '🇮🇹', difficulty: 1, soldiers: 55, tanks: 1, planes: 0, ships: 0, drones: 0, bombs: 0,
       cities: ['Rome', 'Milan', 'Naples', 'Turin', 'Florence'] },
-    { name: 'Lithuania', flag: '🇱🇹', difficulty: 1, soldiers: 40, tanks: 0, planes: 0, ships: 0, drones: 0,
+    { name: 'Lithuania', flag: '🇱🇹', difficulty: 1, soldiers: 40, tanks: 0, planes: 0, ships: 0, drones: 0, bombs: 0,
       cities: ['Vilnius', 'Kaunas', 'Klaipeda', 'Siauliai', 'Panevezys'] },
-    { name: 'Belgium', flag: '🇧🇪', difficulty: 1, soldiers: 45, tanks: 1, planes: 0, ships: 0, drones: 0,
+    { name: 'Belgium', flag: '🇧🇪', difficulty: 1, soldiers: 45, tanks: 1, planes: 0, ships: 0, drones: 0, bombs: 0,
       cities: ['Brussels', 'Antwerp', 'Ghent', 'Bruges', 'Liege'] },
     // Medium countries (difficulty 2)
-    { name: 'Germany', flag: '🇩🇪', difficulty: 2, soldiers: 200, tanks: 5, planes: 2, ships: 1, drones: 0,
+    { name: 'Germany', flag: '🇩🇪', difficulty: 2, soldiers: 200, tanks: 5, planes: 2, ships: 1, drones: 0, bombs: 0,
       cities: ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne'] },
-    { name: 'United Kingdom', flag: '🇬🇧', difficulty: 2, soldiers: 220, tanks: 4, planes: 3, ships: 2, drones: 1,
+    { name: 'United Kingdom', flag: '🇬🇧', difficulty: 2, soldiers: 220, tanks: 4, planes: 3, ships: 2, drones: 1, bombs: 0,
       cities: ['London', 'Manchester', 'Birmingham', 'Glasgow', 'Liverpool'] },
-    { name: 'Poland', flag: '🇵🇱', difficulty: 2, soldiers: 180, tanks: 4, planes: 1, ships: 0, drones: 0,
+    { name: 'Poland', flag: '🇵🇱', difficulty: 2, soldiers: 180, tanks: 4, planes: 1, ships: 0, drones: 0, bombs: 0,
       cities: ['Warsaw', 'Krakow', 'Gdansk', 'Wroclaw', 'Poznan'] },
-    { name: 'Netherlands', flag: '🇳🇱', difficulty: 2, soldiers: 150, tanks: 3, planes: 2, ships: 2, drones: 1,
+    { name: 'Netherlands', flag: '🇳🇱', difficulty: 2, soldiers: 150, tanks: 3, planes: 2, ships: 2, drones: 1, bombs: 0,
       cities: ['Amsterdam', 'Rotterdam', 'The Hague', 'Utrecht', 'Eindhoven'] },
-    { name: 'Sweden', flag: '🇸🇪', difficulty: 2, soldiers: 160, tanks: 3, planes: 2, ships: 1, drones: 1,
+    { name: 'Sweden', flag: '🇸🇪', difficulty: 2, soldiers: 160, tanks: 3, planes: 2, ships: 1, drones: 1, bombs: 0,
       cities: ['Stockholm', 'Gothenburg', 'Malmo', 'Uppsala', 'Vasteras'] },
-    { name: 'Turkey', flag: '🇹🇷', difficulty: 2, soldiers: 250, tanks: 5, planes: 2, ships: 2, drones: 1,
+    { name: 'Turkey', flag: '🇹🇷', difficulty: 2, soldiers: 250, tanks: 5, planes: 2, ships: 2, drones: 1, bombs: 0,
       cities: ['Istanbul', 'Ankara', 'Izmir', 'Bursa', 'Antalya'] },
     // Hard countries (difficulty 3)
-    { name: 'Russia', flag: '🇷🇺', difficulty: 3, soldiers: 600, tanks: 15, planes: 10, ships: 5, drones: 5,
+    { name: 'Russia', flag: '🇷🇺', difficulty: 3, soldiers: 600, tanks: 15, planes: 10, ships: 5, drones: 5, bombs: 1,
       cities: ['Moscow', 'St. Petersburg', 'Novosibirsk', 'Yekaterinburg', 'Kazan'] },
-    { name: 'China', flag: '🇨🇳', difficulty: 3, soldiers: 700, tanks: 12, planes: 12, ships: 6, drones: 8,
+    { name: 'China', flag: '🇨🇳', difficulty: 3, soldiers: 700, tanks: 12, planes: 12, ships: 6, drones: 8, bombs: 1,
       cities: ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Chengdu'] },
-    { name: 'Japan', flag: '🇯🇵', difficulty: 3, soldiers: 500, tanks: 10, planes: 15, ships: 10, drones: 10,
+    { name: 'Japan', flag: '🇯🇵', difficulty: 3, soldiers: 500, tanks: 10, planes: 15, ships: 10, drones: 10, bombs: 0,
       cities: ['Tokyo', 'Osaka', 'Kyoto', 'Yokohama', 'Nagoya'] },
-    { name: 'Brazil', flag: '🇧🇷', difficulty: 3, soldiers: 550, tanks: 10, planes: 6, ships: 6, drones: 4,
+    { name: 'Brazil', flag: '🇧🇷', difficulty: 3, soldiers: 550, tanks: 10, planes: 6, ships: 6, drones: 4, bombs: 0,
       cities: ['Sao Paulo', 'Rio de Janeiro', 'Brasilia', 'Salvador', 'Fortaleza'] },
-    { name: 'Israel', flag: '🇮🇱', difficulty: 3, soldiers: 400, tanks: 12, planes: 15, ships: 4, drones: 15,
+    { name: 'Israel', flag: '🇮🇱', difficulty: 3, soldiers: 400, tanks: 12, planes: 15, ships: 4, drones: 15, bombs: 2,
       cities: ['Jerusalem', 'Tel Aviv', 'Haifa', 'Beersheba', 'Eilat'] },
     // Very Hard countries (difficulty 4)
-    { name: 'USA', flag: '🇺🇸', difficulty: 4, soldiers: 1500, tanks: 30, planes: 40, ships: 25, drones: 30,
+    { name: 'USA', flag: '🇺🇸', difficulty: 4, soldiers: 1500, tanks: 30, planes: 40, ships: 25, drones: 30, bombs: 10,
       cities: ['Washington D.C.', 'New York', 'Los Angeles', 'Chicago', 'Houston'] },
-    { name: 'India', flag: '🇮🇳', difficulty: 4, soldiers: 1400, tanks: 25, planes: 20, ships: 15, drones: 15,
+    { name: 'India', flag: '🇮🇳', difficulty: 4, soldiers: 1400, tanks: 25, planes: 20, ships: 15, drones: 15, bombs: 5,
       cities: ['New Delhi', 'Mumbai', 'Bangalore', 'Kolkata', 'Chennai'] },
-    { name: 'South Korea', flag: '🇰🇷', difficulty: 4, soldiers: 1000, tanks: 30, planes: 25, ships: 15, drones: 20,
+    { name: 'South Korea', flag: '🇰🇷', difficulty: 4, soldiers: 1000, tanks: 30, planes: 25, ships: 15, drones: 20, bombs: 3,
       cities: ['Seoul', 'Busan', 'Incheon', 'Daegu', 'Daejeon'] },
-    { name: 'Australia', flag: '🇦🇺', difficulty: 4, soldiers: 800, tanks: 20, planes: 25, ships: 20, drones: 15,
+    { name: 'Australia', flag: '🇦🇺', difficulty: 4, soldiers: 800, tanks: 20, planes: 25, ships: 20, drones: 15, bombs: 2,
       cities: ['Canberra', 'Sydney', 'Melbourne', 'Brisbane', 'Perth'] },
     // Boss countries (difficulty 5+)
-    { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true, soldiers: 5000, tanks: 50, planes: 30, ships: 30, drones: 20,
+    { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true, soldiers: 5000, tanks: 50, planes: 30, ships: 30, drones: 20, bombs: 5,
       cities: ['Rome', 'Constantinople', 'Alexandria', 'Carthage', 'Athens'] },
-    { name: 'Persian Empire', flag: '🦁', difficulty: 5, isBoss: true, soldiers: 6000, tanks: 45, planes: 35, ships: 25, drones: 25,
+    { name: 'Persian Empire', flag: '🦁', difficulty: 5, isBoss: true, soldiers: 6000, tanks: 45, planes: 35, ships: 25, drones: 25, bombs: 5,
       cities: ['Persepolis', 'Susa', 'Babylon', 'Ecbatana', 'Pasargadae'] },
-    { name: 'Mongol Empire', flag: '🐎', difficulty: 6, isBoss: true, soldiers: 10000, tanks: 80, planes: 50, ships: 40, drones: 40,
+    { name: 'Mongol Empire', flag: '🐎', difficulty: 6, isBoss: true, soldiers: 10000, tanks: 80, planes: 50, ships: 40, drones: 40, bombs: 10,
       cities: ['Karakorum', 'Samarkand', 'Bukhara', 'Tabriz', 'Baghdad'] },
-    { name: 'Ottoman Empire', flag: '🌙', difficulty: 6, isBoss: true, soldiers: 9000, tanks: 90, planes: 60, ships: 50, drones: 45,
+    { name: 'Ottoman Empire', flag: '🌙', difficulty: 6, isBoss: true, soldiers: 9000, tanks: 90, planes: 60, ships: 50, drones: 45, bombs: 10,
       cities: ['Constantinople', 'Ankara', 'Baghdad', 'Damascus', 'Cairo'] },
-    { name: 'Soviet Union', flag: '⭐', difficulty: 7, isBoss: true, soldiers: 15000, tanks: 150, planes: 100, ships: 80, drones: 60,
+    { name: 'Soviet Union', flag: '⭐', difficulty: 7, isBoss: true, soldiers: 15000, tanks: 150, planes: 100, ships: 80, drones: 60, bombs: 50,
       cities: ['Moscow', 'Leningrad', 'Stalingrad', 'Kiev', 'Minsk'] },
-    { name: 'British Empire', flag: '👑', difficulty: 7, isBoss: true, soldiers: 18000, tanks: 120, planes: 100, ships: 150, drones: 80,
+    { name: 'British Empire', flag: '👑', difficulty: 7, isBoss: true, soldiers: 18000, tanks: 120, planes: 100, ships: 150, drones: 80, bombs: 30,
       cities: ['London', 'Delhi', 'Sydney', 'Cape Town', 'Hong Kong'] },
-    { name: 'Ancient Egypt', flag: '🔺', difficulty: 8, isBoss: true, soldiers: 25000, tanks: 200, planes: 150, ships: 100, drones: 100,
+    { name: 'Ancient Egypt', flag: '🔺', difficulty: 8, isBoss: true, soldiers: 25000, tanks: 200, planes: 150, ships: 100, drones: 100, bombs: 50,
       cities: ['Thebes', 'Memphis', 'Alexandria', 'Heliopolis', 'Luxor'] },
-    { name: 'Galactic Federation', flag: '🌌', difficulty: 9, isBoss: true, isSuperboss: true, soldiers: 50000, tanks: 500, planes: 400, ships: 3000, drones: 1000,
+    { name: 'Galactic Federation', flag: '🌌', difficulty: 9, isBoss: true, isSuperboss: true, soldiers: 50000, tanks: 500, planes: 400, ships: 3000, drones: 1000, bombs: 200,
       cities: ['Alpha Centauri', 'Andromeda Prime', 'Nebula City', 'Starbase Omega', 'Cosmic Capital'] },
-    { name: 'Interdimensional Empire', flag: '🌀', difficulty: 10, isBoss: true, isSuperboss: true, soldiers: 100000, tanks: 1000, planes: 800, ships: 5000, drones: 2000,
-      cities: ['Void Citadel', 'Quantum Nexus', 'Infinity Gate', 'Temporal Core', 'The Beyond'] }
+    { name: 'Interdimensional Empire', flag: '🌀', difficulty: 10, isBoss: true, isSuperboss: true, soldiers: 100000, tanks: 1000, planes: 800, ships: 5000, drones: 2000, bombs: 500,
+      cities: ['Void Citadel', 'Quantum Nexus', 'Infinity Gate', 'Temporal Core', 'The Beyond'] },
+    // ULTIMATE BOSS COUNTRIES - Need ~20,000 Combat Drones worth of power (3,000,000+)
+    { name: 'The Multiverse Council', flag: '🔮', difficulty: 11, isBoss: true, isSuperboss: true, soldiers: 500000, tanks: 5000, planes: 4000, ships: 10000, drones: 8000, bombs: 2000,
+      cities: ['Reality Prime', 'Dimension Zero', 'The Nexus', 'Eternity Gate', 'Infinite Core'] },
+    { name: 'The Creator', flag: '✨', difficulty: 12, isBoss: true, isSuperboss: true, soldiers: 1000000, tanks: 10000, planes: 8000, ships: 20000, drones: 15000, bombs: 5000,
+      cities: ['Genesis Point', 'The Origin', 'Cosmic Throne', 'Eternal Light', 'The Singularity'] }
 ];
 
 // Quest definitions
@@ -955,6 +966,7 @@ let gameState = {
     planes: 0,
     ships: 0,
     drones: 0,
+    bombs: 0,
     totalPurchased: 0,
     goldSpent: 0,
     battlesWon: 0,
@@ -1240,6 +1252,8 @@ function updateDisplays() {
         'ships-header-display': gameState.ships,
         'drones-display': gameState.drones,
         'drones-header-display': gameState.drones,
+        'bombs-display': gameState.bombs || 0,
+        'bombs-header-display': gameState.bombs || 0,
         'stat-country': gameState.country,
         'stat-gold': gameState.gold,
         'stat-army': gameState.army,
@@ -1247,6 +1261,7 @@ function updateDisplays() {
         'stat-planes': gameState.planes,
         'stat-ships': gameState.ships,
         'stat-drones': gameState.drones,
+        'stat-bombs': gameState.bombs || 0,
         'stat-purchased': gameState.totalPurchased,
         'stat-spent': gameState.goldSpent,
         'stat-won': gameState.battlesWon || 0,
@@ -1440,7 +1455,7 @@ function generateEnemyList() {
                 case 8: diffLabel = '☠️ ' + t('impossible'); diffClass = 'diff-impossible'; break;
             }
 
-            const totalPower = country.soldiers + (country.tanks * 50) + (country.planes * 75) + (country.ships * 100) + (country.drones * 150);
+            const totalPower = country.soldiers + (country.tanks * 50) + (country.planes * 75) + (country.ships * 100) + (country.drones * 150) + ((country.bombs || 0) * 300);
 
             enemyDiv.innerHTML = `
                 <div class="enemy-info">
@@ -1448,7 +1463,7 @@ function generateEnemyList() {
                     <div>
                         <div class="enemy-name">${country.name}</div>
                         <div class="enemy-difficulty ${diffClass}">${diffLabel}</div>
-                        <div class="enemy-army">⚔️${country.soldiers} 🛡️${country.tanks} ✈️${country.planes} 🚢${country.ships} 🤖${country.drones} = 💪${totalPower}</div>
+                        <div class="enemy-army">⚔️${country.soldiers} 🛡️${country.tanks} ✈️${country.planes} 🚢${country.ships} 🤖${country.drones} 💣${country.bombs || 0} = 💪${totalPower.toLocaleString()}</div>
                     </div>
                 </div>
                 <button class="attack-country-btn ${country.isSuperboss ? 'superboss-attack-btn' : (country.isBoss ? 'boss-attack-btn' : '')}" onclick="selectTarget('${country.name}', '${country.flag}', ${country.difficulty}, ${country.isBoss || false}, ${country.isSuperboss || false})">⚔️ ${t('attack')}</button>
@@ -1479,7 +1494,7 @@ function showCitySelection() {
     // Get country data for enemy forces calculation
     const countryData = allCountries.find(c => c.name === attackTarget.name);
     const basePower = countryData ?
-        countryData.soldiers + (countryData.tanks * 50) + (countryData.planes * 75) + (countryData.ships * 100) + (countryData.drones * 150) : 100;
+        countryData.soldiers + (countryData.tanks * 50) + (countryData.planes * 75) + (countryData.ships * 100) + (countryData.drones * 150) + ((countryData.bombs || 0) * 300) : 100;
 
     // Add Atomic War option at the top
     const atomicCost = Math.floor(basePower * 5); // 5x the total enemy power in gold
@@ -1588,13 +1603,16 @@ function showAtomicResult() {
         tanks: countryData ? Math.floor(countryData.tanks * 0.5) : 0,
         planes: countryData ? Math.floor(countryData.planes * 0.4) : 0,
         ships: countryData ? Math.floor(countryData.ships * 0.3) : 0,
-        drones: countryData ? Math.floor(countryData.drones * 0.3) : 0
+        drones: countryData ? Math.floor(countryData.drones * 0.3) : 0,
+        bombs: countryData ? Math.floor((countryData.bombs || 0) * 0.25) : 0
     };
 
-    // Calculate gold reward
+    // Calculate gold reward - MUCH higher for atomic war (3x base + bonus multiplier)
     const difficulty = attackTarget.difficulty || 1;
-    const baseGold = 500 * difficulty * difficulty;
-    const goldReward = baseGold * attackTarget.cities.length; // Reward for all cities
+    const baseGold = 1500 * difficulty * difficulty; // 3x more than normal
+    const cityBonus = baseGold * attackTarget.cities.length;
+    const atomicBonus = difficulty >= 10 ? 500000 : (difficulty >= 8 ? 100000 : (difficulty >= 6 ? 50000 : 10000));
+    const goldReward = cityBonus + atomicBonus;
 
     // Update game state
     gameState.army += gained.soldiers;
@@ -1602,6 +1620,7 @@ function showAtomicResult() {
     gameState.planes += gained.planes;
     gameState.ships += gained.ships;
     gameState.drones += gained.drones;
+    gameState.bombs = (gameState.bombs || 0) + gained.bombs;
     gameState.gold += goldReward;
     gameState.battlesWon += attackTarget.cities.length; // Count as winning all city battles
 
@@ -1623,20 +1642,22 @@ function showAtomicResult() {
     `;
 
     document.getElementById('gains-display').innerHTML = `
-        <div class="gain-stat">👥 +${gained.soldiers} ${t('soldiersCaptured')}</div>
-        ${gained.tanks > 0 ? `<div class="gain-stat">🛡️ +${gained.tanks} ${t('tanksCaptured')}</div>` : ''}
-        ${gained.planes > 0 ? `<div class="gain-stat">✈️ +${gained.planes} ${t('planesCaptured')}</div>` : ''}
-        ${gained.ships > 0 ? `<div class="gain-stat">🚢 +${gained.ships} ${t('shipsCaptured')}</div>` : ''}
-        ${gained.drones > 0 ? `<div class="gain-stat">🤖 +${gained.drones} ${t('dronesCaptured')}</div>` : ''}
+        <div class="gain-stat">👥 +${gained.soldiers.toLocaleString()} ${t('soldiersCaptured')}</div>
+        ${gained.tanks > 0 ? `<div class="gain-stat">🛡️ +${gained.tanks.toLocaleString()} ${t('tanksCaptured')}</div>` : ''}
+        ${gained.planes > 0 ? `<div class="gain-stat">✈️ +${gained.planes.toLocaleString()} ${t('planesCaptured')}</div>` : ''}
+        ${gained.ships > 0 ? `<div class="gain-stat">🚢 +${gained.ships.toLocaleString()} ${t('shipsCaptured')}</div>` : ''}
+        ${gained.drones > 0 ? `<div class="gain-stat">🤖 +${gained.drones.toLocaleString()} ${t('dronesCaptured')}</div>` : ''}
+        ${gained.bombs > 0 ? `<div class="gain-stat">💣 +${gained.bombs.toLocaleString()} ${t('bombsCaptured')}</div>` : ''}
         <div class="gain-stat gold-reward">💰 +${goldReward.toLocaleString()} ${t('gold')}</div>
     `;
 
     document.getElementById('post-battle-stats').innerHTML = `
-        <div class="post-stat">👥 ${t('army')}: ${gameState.army}</div>
-        <div class="post-stat">🛡️ ${t('tanks')}: ${gameState.tanks}</div>
-        <div class="post-stat">✈️ ${t('planes')}: ${gameState.planes}</div>
-        <div class="post-stat">🚢 ${t('ships')}: ${gameState.ships}</div>
-        <div class="post-stat">🤖 ${t('drones')}: ${gameState.drones}</div>
+        <div class="post-stat">👥 ${t('army')}: ${gameState.army.toLocaleString()}</div>
+        <div class="post-stat">🛡️ ${t('tanks')}: ${gameState.tanks.toLocaleString()}</div>
+        <div class="post-stat">✈️ ${t('planes')}: ${gameState.planes.toLocaleString()}</div>
+        <div class="post-stat">🚢 ${t('ships')}: ${gameState.ships.toLocaleString()}</div>
+        <div class="post-stat">🤖 ${t('drones')}: ${gameState.drones.toLocaleString()}</div>
+        <div class="post-stat">💣 ${t('bombs')}: ${(gameState.bombs || 0).toLocaleString()}</div>
         <div class="post-stat">💰 ${t('gold')}: ${gameState.gold.toLocaleString()}</div>
     `;
 
@@ -1655,12 +1676,14 @@ function selectCity(cityName, defenseModifier) {
     document.getElementById('available-planes').textContent = gameState.planes;
     document.getElementById('available-ships').textContent = gameState.ships;
     document.getElementById('available-drones').textContent = gameState.drones;
+    document.getElementById('available-bombs').textContent = gameState.bombs || 0;
     document.getElementById('soldiers-input').value = Math.min(10, gameState.army);
     document.getElementById('soldiers-input').max = gameState.army;
     document.getElementById('tanks-input').value = 0;
     document.getElementById('planes-input').value = 0;
     document.getElementById('ships-input').value = 0;
     document.getElementById('drones-input').value = 0;
+    document.getElementById('bombs-input').value = 0;
 
     updateTotalPower();
     openModal('attack-setup');
@@ -1698,8 +1721,9 @@ function updateTotalPower() {
     const planes = parseInt(document.getElementById('planes-input').value) || 0;
     const ships = parseInt(document.getElementById('ships-input').value) || 0;
     const drones = parseInt(document.getElementById('drones-input').value) || 0;
-    const totalPower = soldiers + (tanks * 50) + (planes * 75) + (ships * 100) + (drones * 150);
-    document.getElementById('total-power').textContent = totalPower;
+    const bombs = parseInt(document.getElementById('bombs-input').value) || 0;
+    const totalPower = soldiers + (tanks * 50) + (planes * 75) + (ships * 100) + (drones * 150) + (bombs * 300);
+    document.getElementById('total-power').textContent = totalPower.toLocaleString();
 }
 
 function launchAttack() {
@@ -1708,13 +1732,15 @@ function launchAttack() {
     const planesSent = parseInt(document.getElementById('planes-input').value) || 0;
     const shipsSent = parseInt(document.getElementById('ships-input').value) || 0;
     const dronesSent = parseInt(document.getElementById('drones-input').value) || 0;
+    const bombsSent = parseInt(document.getElementById('bombs-input').value) || 0;
 
     if (soldiersSent < 1) {
         alert(t('sendAtLeast1'));
         return;
     }
     if (soldiersSent > gameState.army || tanksSent > gameState.tanks ||
-        planesSent > gameState.planes || shipsSent > gameState.ships || dronesSent > gameState.drones) {
+        planesSent > gameState.planes || shipsSent > gameState.ships ||
+        dronesSent > gameState.drones || bombsSent > gameState.bombs) {
         alert(t('notEnoughUnits'));
         return;
     }
@@ -1749,15 +1775,15 @@ function launchAttack() {
             clearInterval(interval);
             setTimeout(() => {
                 closeModal('attacking');
-                processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dronesSent);
+                processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dronesSent, bombsSent);
             }, 300);
         }
     }, 100);
 }
 
-function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dronesSent) {
+function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dronesSent, bombsSent = 0) {
     // Calculate player power
-    const playerPower = soldiersSent + (tanksSent * 50) + (planesSent * 75) + (shipsSent * 100) + (dronesSent * 150);
+    const playerPower = soldiersSent + (tanksSent * 50) + (planesSent * 75) + (shipsSent * 100) + (dronesSent * 150) + (bombsSent * 300);
 
     // Get fixed enemy forces
     const countryData = allCountries.find(c => c.name === attackTarget.name);
@@ -1770,8 +1796,9 @@ function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dro
     const enemyPlanes = countryData ? countryData.planes : 0;
     const enemyShips = countryData ? countryData.ships : 0;
     const enemyDrones = countryData ? countryData.drones : 0;
+    const enemyBombs = countryData ? (countryData.bombs || 0) : 0;
 
-    let enemyPower = enemySoldiers + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100) + (enemyDrones * 150);
+    let enemyPower = enemySoldiers + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100) + (enemyDrones * 150) + (enemyBombs * 300);
 
     // Apply city defense modifier
     if (selectedCity) {
@@ -1794,12 +1821,14 @@ function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dro
         losses.planes = Math.floor(planesSent * Math.random() * 0.2);
         losses.ships = Math.floor(shipsSent * Math.random() * 0.15);
         losses.drones = Math.floor(dronesSent * Math.random() * 0.15);
+        losses.bombs = Math.floor(bombsSent * Math.random() * 0.1);
 
         gained.soldiers = Math.floor(enemySoldiers * 0.5);
         gained.tanks = Math.floor(enemyTanks * 0.3);
         gained.planes = Math.floor(enemyPlanes * 0.25);
         gained.ships = Math.floor(enemyShips * 0.2);
         gained.drones = Math.floor(enemyDrones * 0.2);
+        gained.bombs = Math.floor(enemyBombs * 0.15);
 
         const baseGold = 200 * difficulty * difficulty;
         const bonusGold = Math.floor(Math.random() * 500 * difficulty);
@@ -1815,6 +1844,7 @@ function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dro
         gameState.planes = gameState.planes - losses.planes + gained.planes;
         gameState.ships = gameState.ships - losses.ships + gained.ships;
         gameState.drones = gameState.drones - losses.drones + gained.drones;
+        gameState.bombs = (gameState.bombs || 0) - losses.bombs + gained.bombs;
         gameState.gold += goldReward;
         gameState.battlesWon = (gameState.battlesWon || 0) + 1;
     } else {
@@ -1823,7 +1853,8 @@ function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dro
         losses.planes = Math.floor(planesSent * (0.3 + Math.random() * 0.3));
         losses.ships = Math.floor(shipsSent * (0.25 + Math.random() * 0.25));
         losses.drones = Math.floor(dronesSent * (0.25 + Math.random() * 0.25));
-        gained = { soldiers: 0, tanks: 0, planes: 0, ships: 0, drones: 0 };
+        losses.bombs = Math.floor(bombsSent * (0.2 + Math.random() * 0.2));
+        gained = { soldiers: 0, tanks: 0, planes: 0, ships: 0, drones: 0, bombs: 0 };
         goldReward = 0;
 
         gameState.army = Math.max(1, gameState.army - losses.soldiers);
@@ -1831,12 +1862,13 @@ function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dro
         gameState.planes = Math.max(0, gameState.planes - losses.planes);
         gameState.ships = Math.max(0, gameState.ships - losses.ships);
         gameState.drones = Math.max(0, gameState.drones - losses.drones);
+        gameState.bombs = Math.max(0, (gameState.bombs || 0) - losses.bombs);
         gameState.battlesLost = (gameState.battlesLost || 0) + 1;
     }
 
     const cityName = selectedCity ? ` - ${selectedCity.name}` : '';
     showBattleResult(victory, attackTarget.name + cityName, attackTarget.flag,
-        { soldiers: enemySoldiers, tanks: enemyTanks, planes: enemyPlanes, ships: enemyShips, drones: enemyDrones, power: enemyPower },
+        { soldiers: enemySoldiers, tanks: enemyTanks, planes: enemyPlanes, ships: enemyShips, drones: enemyDrones, bombs: enemyBombs, power: enemyPower },
         losses, gained, goldReward);
     updateDisplays();
     saveGame();
@@ -1858,31 +1890,34 @@ function showBattleResult(victory, enemyName, enemyFlag, enemyForces, losses, ga
 
             <div class="enemy-forces">
                 <div class="enemy-forces-title">${t('enemyForces')}:</div>
-                <div class="battle-detail-row"><span>⚔️ ${t('soldiers')}</span><span>${enemyForces.soldiers}</span></div>
-                <div class="battle-detail-row"><span>🛡️ ${t('tanks')}</span><span>${enemyForces.tanks}</span></div>
-                <div class="battle-detail-row"><span>✈️ ${t('planes')}</span><span>${enemyForces.planes}</span></div>
-                <div class="battle-detail-row"><span>🚢 ${t('ships')}</span><span>${enemyForces.ships}</span></div>
-                <div class="battle-detail-row"><span>🤖 ${t('drones')}</span><span>${enemyForces.drones}</span></div>
-                <div class="battle-detail-row"><span>💪 ${t('totalPower')}</span><span>${enemyForces.power}</span></div>
+                <div class="battle-detail-row"><span>⚔️ ${t('soldiers')}</span><span>${enemyForces.soldiers.toLocaleString()}</span></div>
+                <div class="battle-detail-row"><span>🛡️ ${t('tanks')}</span><span>${enemyForces.tanks.toLocaleString()}</span></div>
+                <div class="battle-detail-row"><span>✈️ ${t('planes')}</span><span>${enemyForces.planes.toLocaleString()}</span></div>
+                <div class="battle-detail-row"><span>🚢 ${t('ships')}</span><span>${enemyForces.ships.toLocaleString()}</span></div>
+                <div class="battle-detail-row"><span>🤖 ${t('drones')}</span><span>${enemyForces.drones.toLocaleString()}</span></div>
+                <div class="battle-detail-row"><span>💣 ${t('bombs')}</span><span>${(enemyForces.bombs || 0).toLocaleString()}</span></div>
+                <div class="battle-detail-row"><span>💪 ${t('totalPower')}</span><span>${enemyForces.power.toLocaleString()}</span></div>
             </div>
 
             <div class="battle-details">
-                <div class="battle-detail-row"><span>${t('soldierLosses')}</span><span class="battle-loss">-${losses.soldiers}</span></div>
-                ${losses.tanks > 0 ? `<div class="battle-detail-row"><span>${t('tankLosses')}</span><span class="battle-loss">-${losses.tanks}</span></div>` : ''}
-                ${losses.planes > 0 ? `<div class="battle-detail-row"><span>${t('planeLosses')}</span><span class="battle-loss">-${losses.planes}</span></div>` : ''}
-                ${losses.ships > 0 ? `<div class="battle-detail-row"><span>${t('shipLosses')}</span><span class="battle-loss">-${losses.ships}</span></div>` : ''}
-                ${losses.drones > 0 ? `<div class="battle-detail-row"><span>${t('droneLosses')}</span><span class="battle-loss">-${losses.drones}</span></div>` : ''}
+                <div class="battle-detail-row"><span>${t('soldierLosses')}</span><span class="battle-loss">-${losses.soldiers.toLocaleString()}</span></div>
+                ${losses.tanks > 0 ? `<div class="battle-detail-row"><span>${t('tankLosses')}</span><span class="battle-loss">-${losses.tanks.toLocaleString()}</span></div>` : ''}
+                ${losses.planes > 0 ? `<div class="battle-detail-row"><span>${t('planeLosses')}</span><span class="battle-loss">-${losses.planes.toLocaleString()}</span></div>` : ''}
+                ${losses.ships > 0 ? `<div class="battle-detail-row"><span>${t('shipLosses')}</span><span class="battle-loss">-${losses.ships.toLocaleString()}</span></div>` : ''}
+                ${losses.drones > 0 ? `<div class="battle-detail-row"><span>${t('droneLosses')}</span><span class="battle-loss">-${losses.drones.toLocaleString()}</span></div>` : ''}
+                ${(losses.bombs || 0) > 0 ? `<div class="battle-detail-row"><span>${t('bombLosses')}</span><span class="battle-loss">-${losses.bombs.toLocaleString()}</span></div>` : ''}
                 ${victory ? `
-                <div class="battle-detail-row"><span>${t('soldiersCaptured')}</span><span class="battle-reward">+${gained.soldiers}</span></div>
-                ${gained.tanks > 0 ? `<div class="battle-detail-row"><span>${t('tanksCaptured')}</span><span class="battle-reward">+${gained.tanks}</span></div>` : ''}
-                ${gained.planes > 0 ? `<div class="battle-detail-row"><span>${t('planesCaptured')}</span><span class="battle-reward">+${gained.planes}</span></div>` : ''}
-                ${gained.ships > 0 ? `<div class="battle-detail-row"><span>${t('shipsCaptured')}</span><span class="battle-reward">+${gained.ships}</span></div>` : ''}
-                ${gained.drones > 0 ? `<div class="battle-detail-row"><span>${t('dronesCaptured')}</span><span class="battle-reward">+${gained.drones}</span></div>` : ''}
-                <div class="battle-detail-row"><span>${t('goldLooted')}</span><span class="battle-reward">+${goldReward}</span></div>
+                <div class="battle-detail-row"><span>${t('soldiersCaptured')}</span><span class="battle-reward">+${gained.soldiers.toLocaleString()}</span></div>
+                ${gained.tanks > 0 ? `<div class="battle-detail-row"><span>${t('tanksCaptured')}</span><span class="battle-reward">+${gained.tanks.toLocaleString()}</span></div>` : ''}
+                ${gained.planes > 0 ? `<div class="battle-detail-row"><span>${t('planesCaptured')}</span><span class="battle-reward">+${gained.planes.toLocaleString()}</span></div>` : ''}
+                ${gained.ships > 0 ? `<div class="battle-detail-row"><span>${t('shipsCaptured')}</span><span class="battle-reward">+${gained.ships.toLocaleString()}</span></div>` : ''}
+                ${gained.drones > 0 ? `<div class="battle-detail-row"><span>${t('dronesCaptured')}</span><span class="battle-reward">+${gained.drones.toLocaleString()}</span></div>` : ''}
+                ${(gained.bombs || 0) > 0 ? `<div class="battle-detail-row"><span>${t('bombsCaptured')}</span><span class="battle-reward">+${gained.bombs.toLocaleString()}</span></div>` : ''}
+                <div class="battle-detail-row"><span>${t('goldLooted')}</span><span class="battle-reward">+${goldReward.toLocaleString()}</span></div>
                 ` : ''}
                 <div class="battle-detail-row" style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 10px; padding-top: 15px;">
                     <span>${t('yourForcesNow')}</span>
-                    <span>⚔️${gameState.army} 🛡️${gameState.tanks} ✈️${gameState.planes} 🚢${gameState.ships} 🤖${gameState.drones}</span>
+                    <span>⚔️${gameState.army.toLocaleString()} 🛡️${gameState.tanks.toLocaleString()} ✈️${gameState.planes.toLocaleString()} 🚢${gameState.ships.toLocaleString()} 🤖${gameState.drones.toLocaleString()} 💣${(gameState.bombs || 0).toLocaleString()}</span>
                 </div>
             </div>
         </div>
