@@ -156,6 +156,26 @@ const translations = {
         mythic: 'MYTHIC',
         impossible: 'IMPOSSIBLE',
 
+        // City Selection & Atomic War
+        atomicWar: 'Atomic War',
+        atomicWarDesc: 'Destroy entire country with nuclear weapons',
+        cost: 'Cost',
+        launch: 'Launch',
+        orAttackCity: 'Or attack city by city',
+        defense: 'Defense',
+        enemyPower: 'Enemy Power',
+        recommended: 'Recommended',
+        power: 'power',
+        launchingNuke: 'Launching nuclear missiles...',
+        nukeInFlight: 'Warheads in flight...',
+        targetAcquired: 'Target acquired...',
+        impactImminent: 'Impact imminent...',
+        totalDestruction: 'Total destruction!',
+        atomicVictory: 'Total Victory',
+        destroyed: 'has been destroyed!',
+        allCitiesDestroyed: 'All cities annihilated',
+        noLosses: 'No losses (nuclear strike)',
+
         // Misc
         notEnoughGold: 'Not enough gold!',
         notEnoughUnits: 'Not enough units!',
@@ -310,6 +330,26 @@ const translations = {
         legendary: 'LEGENDINIS',
         mythic: 'MITINIS',
         impossible: 'NEIMANOMA',
+
+        // City Selection & Atomic War
+        atomicWar: 'Atominis Karas',
+        atomicWarDesc: 'Sunaikink visa sali branduoliniais ginklais',
+        cost: 'Kaina',
+        launch: 'Paleisti',
+        orAttackCity: 'Arba pulk miesta po miesto',
+        defense: 'Gynyba',
+        enemyPower: 'Prieso Galia',
+        recommended: 'Rekomenduojama',
+        power: 'galia',
+        launchingNuke: 'Paleidziamos branduolines raketos...',
+        nukeInFlight: 'Koviniai uzgaisiai skrenda...',
+        targetAcquired: 'Taikinys aptiktas...',
+        impactImminent: 'Smugis neisvengiamas...',
+        totalDestruction: 'Visiskas sunaikinimas!',
+        atomicVictory: 'Visiskas Laimejimas',
+        destroyed: 'buvo sunaikinta!',
+        allCitiesDestroyed: 'Visi miestai sunaikinti',
+        noLosses: 'Jokiu nuostoliu (branduolinis smugis)',
 
         // Misc
         notEnoughGold: 'Nepakanka aukso!',
@@ -466,6 +506,26 @@ const translations = {
         mythic: 'MITICO',
         impossible: 'IMPOSIBLE',
 
+        // City Selection & Atomic War
+        atomicWar: 'Guerra Atomica',
+        atomicWarDesc: 'Destruye todo el pais con armas nucleares',
+        cost: 'Costo',
+        launch: 'Lanzar',
+        orAttackCity: 'O ataca ciudad por ciudad',
+        defense: 'Defensa',
+        enemyPower: 'Poder Enemigo',
+        recommended: 'Recomendado',
+        power: 'poder',
+        launchingNuke: 'Lanzando misiles nucleares...',
+        nukeInFlight: 'Ojivas en vuelo...',
+        targetAcquired: 'Objetivo adquirido...',
+        impactImminent: 'Impacto inminente...',
+        totalDestruction: 'Destruccion total!',
+        atomicVictory: 'Victoria Total',
+        destroyed: 'ha sido destruido!',
+        allCitiesDestroyed: 'Todas las ciudades aniquiladas',
+        noLosses: 'Sin perdidas (ataque nuclear)',
+
         // Misc
         notEnoughGold: 'No hay suficiente oro!',
         notEnoughUnits: 'No hay suficientes unidades!',
@@ -621,6 +681,26 @@ const translations = {
         mythic: 'МИФИЧЕСКИЙ',
         impossible: 'НЕВОЗМОЖНО',
 
+        // City Selection & Atomic War
+        atomicWar: 'Атомная Война',
+        atomicWarDesc: 'Уничтожить всю страну ядерным оружием',
+        cost: 'Стоимость',
+        launch: 'Запуск',
+        orAttackCity: 'Или атакуй город за городом',
+        defense: 'Защита',
+        enemyPower: 'Сила Врага',
+        recommended: 'Рекомендуется',
+        power: 'сила',
+        launchingNuke: 'Запуск ядерных ракет...',
+        nukeInFlight: 'Боеголовки в полете...',
+        targetAcquired: 'Цель захвачена...',
+        impactImminent: 'Удар неизбежен...',
+        totalDestruction: 'Полное уничтожение!',
+        atomicVictory: 'Полная Победа',
+        destroyed: 'уничтожена!',
+        allCitiesDestroyed: 'Все города уничтожены',
+        noLosses: 'Без потерь (ядерный удар)',
+
         // Misc
         notEnoughGold: 'Недостаточно золота!',
         notEnoughUnits: 'Недостаточно юнитов!',
@@ -660,7 +740,20 @@ const translations = {
         victory: 'Sieg!',
         defeat: 'Niederlage!',
         notEnoughGold: 'Nicht genug Gold!',
-        confirmReset: 'Bist du sicher?'
+        confirmReset: 'Bist du sicher?',
+        atomicWar: 'Atomkrieg',
+        atomicWarDesc: 'Vernichte das ganze Land mit Atomwaffen',
+        cost: 'Kosten',
+        launch: 'Starten',
+        orAttackCity: 'Oder greife Stadt fur Stadt an',
+        defense: 'Verteidigung',
+        enemyPower: 'Feindliche Macht',
+        recommended: 'Empfohlen',
+        power: 'macht',
+        atomicVictory: 'Totaler Sieg',
+        destroyed: 'wurde zerstort!',
+        allCitiesDestroyed: 'Alle Stadte vernichtet',
+        noLosses: 'Keine Verluste (Atomschlag)'
     },
     fr: {
         chooseCountry: 'Choisissez Votre Pays',
@@ -694,7 +787,20 @@ const translations = {
         victory: 'Victoire!',
         defeat: 'Defaite!',
         notEnoughGold: 'Pas assez dor!',
-        confirmReset: 'Etes-vous sur?'
+        confirmReset: 'Etes-vous sur?',
+        atomicWar: 'Guerre Atomique',
+        atomicWarDesc: 'Detruire tout le pays avec des armes nucleaires',
+        cost: 'Cout',
+        launch: 'Lancer',
+        orAttackCity: 'Ou attaque ville par ville',
+        defense: 'Defense',
+        enemyPower: 'Puissance Ennemie',
+        recommended: 'Recommande',
+        power: 'puissance',
+        atomicVictory: 'Victoire Totale',
+        destroyed: 'a ete detruit!',
+        allCitiesDestroyed: 'Toutes les villes detruites',
+        noLosses: 'Aucune perte (frappe nucleaire)'
     }
 };
 
@@ -715,52 +821,68 @@ const availableCodes = {
 // All countries data with FIXED power levels and cities
 const allCountries = [
     // Easy countries (difficulty 1)
-    { name: 'Spain', flag: '🇪🇸', difficulty: 1, soldiers: 30, tanks: 0, planes: 0, ships: 0, drones: 0,
+    { name: 'Spain', flag: '🇪🇸', difficulty: 1, soldiers: 50, tanks: 1, planes: 0, ships: 0, drones: 0,
       cities: ['Madrid', 'Barcelona', 'Valencia', 'Seville', 'Bilbao'] },
-    { name: 'France', flag: '🇫🇷', difficulty: 1, soldiers: 40, tanks: 0, planes: 0, ships: 0, drones: 0,
+    { name: 'France', flag: '🇫🇷', difficulty: 1, soldiers: 60, tanks: 1, planes: 0, ships: 0, drones: 0,
       cities: ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice'] },
-    { name: 'Italy', flag: '🇮🇹', difficulty: 1, soldiers: 35, tanks: 0, planes: 0, ships: 0, drones: 0,
+    { name: 'Italy', flag: '🇮🇹', difficulty: 1, soldiers: 55, tanks: 1, planes: 0, ships: 0, drones: 0,
       cities: ['Rome', 'Milan', 'Naples', 'Turin', 'Florence'] },
-    { name: 'Lithuania', flag: '🇱🇹', difficulty: 1, soldiers: 25, tanks: 0, planes: 0, ships: 0, drones: 0,
+    { name: 'Lithuania', flag: '🇱🇹', difficulty: 1, soldiers: 40, tanks: 0, planes: 0, ships: 0, drones: 0,
       cities: ['Vilnius', 'Kaunas', 'Klaipeda', 'Siauliai', 'Panevezys'] },
-    { name: 'Belgium', flag: '🇧🇪', difficulty: 1, soldiers: 30, tanks: 0, planes: 0, ships: 0, drones: 0,
+    { name: 'Belgium', flag: '🇧🇪', difficulty: 1, soldiers: 45, tanks: 1, planes: 0, ships: 0, drones: 0,
       cities: ['Brussels', 'Antwerp', 'Ghent', 'Bruges', 'Liege'] },
     // Medium countries (difficulty 2)
-    { name: 'Germany', flag: '🇩🇪', difficulty: 2, soldiers: 100, tanks: 2, planes: 0, ships: 0, drones: 0,
+    { name: 'Germany', flag: '🇩🇪', difficulty: 2, soldiers: 200, tanks: 5, planes: 2, ships: 1, drones: 0,
       cities: ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne'] },
-    { name: 'United Kingdom', flag: '🇬🇧', difficulty: 2, soldiers: 120, tanks: 1, planes: 1, ships: 0, drones: 0,
+    { name: 'United Kingdom', flag: '🇬🇧', difficulty: 2, soldiers: 220, tanks: 4, planes: 3, ships: 2, drones: 1,
       cities: ['London', 'Manchester', 'Birmingham', 'Glasgow', 'Liverpool'] },
-    { name: 'Poland', flag: '🇵🇱', difficulty: 2, soldiers: 90, tanks: 2, planes: 0, ships: 0, drones: 0,
+    { name: 'Poland', flag: '🇵🇱', difficulty: 2, soldiers: 180, tanks: 4, planes: 1, ships: 0, drones: 0,
       cities: ['Warsaw', 'Krakow', 'Gdansk', 'Wroclaw', 'Poznan'] },
-    { name: 'Netherlands', flag: '🇳🇱', difficulty: 2, soldiers: 80, tanks: 1, planes: 1, ships: 1, drones: 0,
+    { name: 'Netherlands', flag: '🇳🇱', difficulty: 2, soldiers: 150, tanks: 3, planes: 2, ships: 2, drones: 1,
       cities: ['Amsterdam', 'Rotterdam', 'The Hague', 'Utrecht', 'Eindhoven'] },
+    { name: 'Sweden', flag: '🇸🇪', difficulty: 2, soldiers: 160, tanks: 3, planes: 2, ships: 1, drones: 1,
+      cities: ['Stockholm', 'Gothenburg', 'Malmo', 'Uppsala', 'Vasteras'] },
+    { name: 'Turkey', flag: '🇹🇷', difficulty: 2, soldiers: 250, tanks: 5, planes: 2, ships: 2, drones: 1,
+      cities: ['Istanbul', 'Ankara', 'Izmir', 'Bursa', 'Antalya'] },
     // Hard countries (difficulty 3)
-    { name: 'Russia', flag: '🇷🇺', difficulty: 3, soldiers: 300, tanks: 5, planes: 3, ships: 2, drones: 1,
+    { name: 'Russia', flag: '🇷🇺', difficulty: 3, soldiers: 600, tanks: 15, planes: 10, ships: 5, drones: 5,
       cities: ['Moscow', 'St. Petersburg', 'Novosibirsk', 'Yekaterinburg', 'Kazan'] },
-    { name: 'China', flag: '🇨🇳', difficulty: 3, soldiers: 350, tanks: 4, planes: 4, ships: 2, drones: 2,
+    { name: 'China', flag: '🇨🇳', difficulty: 3, soldiers: 700, tanks: 12, planes: 12, ships: 6, drones: 8,
       cities: ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Chengdu'] },
-    { name: 'Japan', flag: '🇯🇵', difficulty: 3, soldiers: 250, tanks: 3, planes: 6, ships: 4, drones: 3,
+    { name: 'Japan', flag: '🇯🇵', difficulty: 3, soldiers: 500, tanks: 10, planes: 15, ships: 10, drones: 10,
       cities: ['Tokyo', 'Osaka', 'Kyoto', 'Yokohama', 'Nagoya'] },
-    { name: 'Brazil', flag: '🇧🇷', difficulty: 3, soldiers: 280, tanks: 4, planes: 2, ships: 3, drones: 1,
+    { name: 'Brazil', flag: '🇧🇷', difficulty: 3, soldiers: 550, tanks: 10, planes: 6, ships: 6, drones: 4,
       cities: ['Sao Paulo', 'Rio de Janeiro', 'Brasilia', 'Salvador', 'Fortaleza'] },
+    { name: 'Israel', flag: '🇮🇱', difficulty: 3, soldiers: 400, tanks: 12, planes: 15, ships: 4, drones: 15,
+      cities: ['Jerusalem', 'Tel Aviv', 'Haifa', 'Beersheba', 'Eilat'] },
     // Very Hard countries (difficulty 4)
-    { name: 'USA', flag: '🇺🇸', difficulty: 4, soldiers: 600, tanks: 10, planes: 15, ships: 8, drones: 10,
+    { name: 'USA', flag: '🇺🇸', difficulty: 4, soldiers: 1500, tanks: 30, planes: 40, ships: 25, drones: 30,
       cities: ['Washington D.C.', 'New York', 'Los Angeles', 'Chicago', 'Houston'] },
-    { name: 'India', flag: '🇮🇳', difficulty: 4, soldiers: 700, tanks: 8, planes: 6, ships: 5, drones: 5,
+    { name: 'India', flag: '🇮🇳', difficulty: 4, soldiers: 1400, tanks: 25, planes: 20, ships: 15, drones: 15,
       cities: ['New Delhi', 'Mumbai', 'Bangalore', 'Kolkata', 'Chennai'] },
-    { name: 'South Korea', flag: '🇰🇷', difficulty: 4, soldiers: 500, tanks: 12, planes: 10, ships: 6, drones: 8,
+    { name: 'South Korea', flag: '🇰🇷', difficulty: 4, soldiers: 1000, tanks: 30, planes: 25, ships: 15, drones: 20,
       cities: ['Seoul', 'Busan', 'Incheon', 'Daegu', 'Daejeon'] },
+    { name: 'Australia', flag: '🇦🇺', difficulty: 4, soldiers: 800, tanks: 20, planes: 25, ships: 20, drones: 15,
+      cities: ['Canberra', 'Sydney', 'Melbourne', 'Brisbane', 'Perth'] },
     // Boss countries (difficulty 5+)
-    { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true, soldiers: 2000, tanks: 20, planes: 10, ships: 10, drones: 5,
+    { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true, soldiers: 5000, tanks: 50, planes: 30, ships: 30, drones: 20,
       cities: ['Rome', 'Constantinople', 'Alexandria', 'Carthage', 'Athens'] },
-    { name: 'Mongol Empire', flag: '🐎', difficulty: 6, isBoss: true, soldiers: 4000, tanks: 30, planes: 20, ships: 15, drones: 10,
+    { name: 'Persian Empire', flag: '🦁', difficulty: 5, isBoss: true, soldiers: 6000, tanks: 45, planes: 35, ships: 25, drones: 25,
+      cities: ['Persepolis', 'Susa', 'Babylon', 'Ecbatana', 'Pasargadae'] },
+    { name: 'Mongol Empire', flag: '🐎', difficulty: 6, isBoss: true, soldiers: 10000, tanks: 80, planes: 50, ships: 40, drones: 40,
       cities: ['Karakorum', 'Samarkand', 'Bukhara', 'Tabriz', 'Baghdad'] },
-    { name: 'Ottoman Empire', flag: '🌙', difficulty: 6, isBoss: true, soldiers: 3500, tanks: 35, planes: 25, ships: 20, drones: 15,
+    { name: 'Ottoman Empire', flag: '🌙', difficulty: 6, isBoss: true, soldiers: 9000, tanks: 90, planes: 60, ships: 50, drones: 45,
       cities: ['Constantinople', 'Ankara', 'Baghdad', 'Damascus', 'Cairo'] },
-    { name: 'British Empire', flag: '👑', difficulty: 7, isBoss: true, soldiers: 8000, tanks: 50, planes: 40, ships: 50, drones: 30,
+    { name: 'Soviet Union', flag: '⭐', difficulty: 7, isBoss: true, soldiers: 15000, tanks: 150, planes: 100, ships: 80, drones: 60,
+      cities: ['Moscow', 'Leningrad', 'Stalingrad', 'Kiev', 'Minsk'] },
+    { name: 'British Empire', flag: '👑', difficulty: 7, isBoss: true, soldiers: 18000, tanks: 120, planes: 100, ships: 150, drones: 80,
       cities: ['London', 'Delhi', 'Sydney', 'Cape Town', 'Hong Kong'] },
-    { name: 'Galactic Federation', flag: '🌌', difficulty: 8, isBoss: true, isSuperboss: true, soldiers: 20000, tanks: 100, planes: 100, ships: 2000, drones: 500,
-      cities: ['Alpha Centauri', 'Andromeda Prime', 'Nebula City', 'Starbase Omega', 'Cosmic Capital'] }
+    { name: 'Ancient Egypt', flag: '🔺', difficulty: 8, isBoss: true, soldiers: 25000, tanks: 200, planes: 150, ships: 100, drones: 100,
+      cities: ['Thebes', 'Memphis', 'Alexandria', 'Heliopolis', 'Luxor'] },
+    { name: 'Galactic Federation', flag: '🌌', difficulty: 9, isBoss: true, isSuperboss: true, soldiers: 50000, tanks: 500, planes: 400, ships: 3000, drones: 1000,
+      cities: ['Alpha Centauri', 'Andromeda Prime', 'Nebula City', 'Starbase Omega', 'Cosmic Capital'] },
+    { name: 'Interdimensional Empire', flag: '🌀', difficulty: 10, isBoss: true, isSuperboss: true, soldiers: 100000, tanks: 1000, planes: 800, ships: 5000, drones: 2000,
+      cities: ['Void Citadel', 'Quantum Nexus', 'Infinity Gate', 'Temporal Core', 'The Beyond'] }
 ];
 
 // Quest definitions
@@ -1354,6 +1476,34 @@ function showCitySelection() {
     titleEl.textContent = `${attackTarget.flag} ${attackTarget.name} - ${t('selectCity')}`;
     container.innerHTML = '';
 
+    // Get country data for enemy forces calculation
+    const countryData = allCountries.find(c => c.name === attackTarget.name);
+    const basePower = countryData ?
+        countryData.soldiers + (countryData.tanks * 50) + (countryData.planes * 75) + (countryData.ships * 100) + (countryData.drones * 150) : 100;
+
+    // Add Atomic War option at the top
+    const atomicCost = Math.floor(basePower * 5); // 5x the total enemy power in gold
+    const atomicDiv = document.createElement('div');
+    atomicDiv.className = 'city-item atomic-war-item';
+    atomicDiv.innerHTML = `
+        <div class="city-info">
+            <span class="city-icon">☢️</span>
+            <div>
+                <div class="city-name atomic-name">${t('atomicWar')}</div>
+                <div class="city-defense atomic-desc">${t('atomicWarDesc')}</div>
+                <div class="city-defense">💰 ${t('cost')}: ${atomicCost.toLocaleString()} ${t('gold')}</div>
+            </div>
+        </div>
+        <button class="attack-city-btn atomic-btn" onclick="launchAtomicWar(${atomicCost})">☢️ ${t('launch')}</button>
+    `;
+    container.appendChild(atomicDiv);
+
+    // Divider
+    const divider = document.createElement('div');
+    divider.className = 'city-divider';
+    divider.innerHTML = `<span>${t('orAttackCity')}</span>`;
+    container.appendChild(divider);
+
     attackTarget.cities.forEach((city, index) => {
         const cityDiv = document.createElement('div');
         cityDiv.className = 'city-item';
@@ -1362,12 +1512,18 @@ function showCitySelection() {
         const defenseModifier = 1 + (index * 0.1);
         const cityDefense = Math.floor(100 * defenseModifier);
 
+        // Calculate required forces for this city
+        const cityPower = Math.floor(basePower * defenseModifier);
+        const recommendedPower = Math.floor(cityPower * 1.2); // 20% more than enemy for safe win
+
         cityDiv.innerHTML = `
             <div class="city-info">
                 <span class="city-icon">🏙️</span>
                 <div>
                     <div class="city-name">${city}</div>
-                    <div class="city-defense">🛡️ Defense: ${cityDefense}%</div>
+                    <div class="city-defense">🛡️ ${t('defense')}: ${cityDefense}%</div>
+                    <div class="city-forces">⚔️ ${t('enemyPower')}: ${cityPower.toLocaleString()}</div>
+                    <div class="city-recommended">💡 ${t('recommended')}: ${recommendedPower.toLocaleString()}+ ${t('power')}</div>
                 </div>
             </div>
             <button class="attack-city-btn" onclick="selectCity('${city}', ${defenseModifier})">⚔️ ${t('attack')}</button>
@@ -1376,6 +1532,115 @@ function showCitySelection() {
     });
 
     openModal('city-selection');
+}
+
+function launchAtomicWar(cost) {
+    if (gameState.gold < cost) {
+        alert(t('notEnoughGold'));
+        return;
+    }
+
+    // Deduct cost
+    gameState.gold -= cost;
+    gameState.goldSpent += cost;
+
+    closeModal('city-selection');
+
+    // Show atomic attack animation
+    document.getElementById('attacking-target-display').textContent = `☢️ ${attackTarget.flag} ${attackTarget.name}`;
+    document.getElementById('attacking-status').textContent = t('launchingNuke');
+    openModal('attacking');
+
+    let progress = 0;
+    const progressBar = document.getElementById('attack-progress-bar');
+    const progressText = document.getElementById('attack-progress-text');
+    const statusText = document.getElementById('attacking-status');
+
+    const statusMessages = [t('launchingNuke'), t('nukeInFlight'), t('targetAcquired'), t('impactImminent'), t('totalDestruction')];
+
+    const interval = setInterval(() => {
+        progress += 4;
+        progressBar.style.width = progress + '%';
+        progressText.textContent = progress + '%';
+
+        if (progress <= 20) statusText.textContent = statusMessages[0];
+        else if (progress <= 40) statusText.textContent = statusMessages[1];
+        else if (progress <= 60) statusText.textContent = statusMessages[2];
+        else if (progress <= 80) statusText.textContent = statusMessages[3];
+        else statusText.textContent = statusMessages[4];
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+                closeModal('attacking');
+                showAtomicResult();
+            }, 300);
+        }
+    }, 80);
+}
+
+function showAtomicResult() {
+    const countryData = allCountries.find(c => c.name === attackTarget.name);
+
+    // Capture ALL enemy forces
+    const gained = {
+        soldiers: countryData ? Math.floor(countryData.soldiers * 0.7) : 50,
+        tanks: countryData ? Math.floor(countryData.tanks * 0.5) : 0,
+        planes: countryData ? Math.floor(countryData.planes * 0.4) : 0,
+        ships: countryData ? Math.floor(countryData.ships * 0.3) : 0,
+        drones: countryData ? Math.floor(countryData.drones * 0.3) : 0
+    };
+
+    // Calculate gold reward
+    const difficulty = attackTarget.difficulty || 1;
+    const baseGold = 500 * difficulty * difficulty;
+    const goldReward = baseGold * attackTarget.cities.length; // Reward for all cities
+
+    // Update game state
+    gameState.army += gained.soldiers;
+    gameState.tanks += gained.tanks;
+    gameState.planes += gained.planes;
+    gameState.ships += gained.ships;
+    gameState.drones += gained.drones;
+    gameState.gold += goldReward;
+    gameState.battlesWon += attackTarget.cities.length; // Count as winning all city battles
+
+    updateDisplays();
+    saveGame();
+    syncWithTeam();
+
+    // Show result
+    document.getElementById('result-title').textContent = `☢️ ${t('atomicVictory')}!`;
+    document.getElementById('result-title').className = 'result-title victory';
+    document.getElementById('result-country').textContent = `${attackTarget.flag} ${attackTarget.name} ${t('destroyed')}`;
+
+    document.getElementById('enemy-forces-display').innerHTML = `
+        <div class="enemy-stat">☢️ ${t('allCitiesDestroyed')}</div>
+    `;
+
+    document.getElementById('losses-display').innerHTML = `
+        <div class="loss-stat">⚔️ ${t('noLosses')}</div>
+    `;
+
+    document.getElementById('gains-display').innerHTML = `
+        <div class="gain-stat">👥 +${gained.soldiers} ${t('soldiersCaptured')}</div>
+        ${gained.tanks > 0 ? `<div class="gain-stat">🛡️ +${gained.tanks} ${t('tanksCaptured')}</div>` : ''}
+        ${gained.planes > 0 ? `<div class="gain-stat">✈️ +${gained.planes} ${t('planesCaptured')}</div>` : ''}
+        ${gained.ships > 0 ? `<div class="gain-stat">🚢 +${gained.ships} ${t('shipsCaptured')}</div>` : ''}
+        ${gained.drones > 0 ? `<div class="gain-stat">🤖 +${gained.drones} ${t('dronesCaptured')}</div>` : ''}
+        <div class="gain-stat gold-reward">💰 +${goldReward.toLocaleString()} ${t('gold')}</div>
+    `;
+
+    document.getElementById('post-battle-stats').innerHTML = `
+        <div class="post-stat">👥 ${t('army')}: ${gameState.army}</div>
+        <div class="post-stat">🛡️ ${t('tanks')}: ${gameState.tanks}</div>
+        <div class="post-stat">✈️ ${t('planes')}: ${gameState.planes}</div>
+        <div class="post-stat">🚢 ${t('ships')}: ${gameState.ships}</div>
+        <div class="post-stat">🤖 ${t('drones')}: ${gameState.drones}</div>
+        <div class="post-stat">💰 ${t('gold')}: ${gameState.gold.toLocaleString()}</div>
+    `;
+
+    openModal('result');
 }
 
 function selectCity(cityName, defenseModifier) {

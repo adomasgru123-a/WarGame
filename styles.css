@@ -1797,6 +1797,76 @@ body {
     box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
 }
 
+/* Atomic War Styling */
+.atomic-war-item {
+    background: linear-gradient(135deg, rgba(255, 100, 0, 0.3), rgba(255, 50, 0, 0.2));
+    border: 2px solid #ff6600;
+    animation: atomicGlow 2s ease-in-out infinite;
+}
+
+@keyframes atomicGlow {
+    0%, 100% { box-shadow: 0 0 10px rgba(255, 100, 0, 0.3); }
+    50% { box-shadow: 0 0 25px rgba(255, 100, 0, 0.6); }
+}
+
+.atomic-name {
+    color: #ff6600;
+    font-size: 1.3rem;
+}
+
+.atomic-desc {
+    color: #ffaa00;
+}
+
+.atomic-btn {
+    background: linear-gradient(135deg, #ff6600, #cc3300);
+    font-size: 1rem;
+    padding: 12px 25px;
+}
+
+.atomic-btn:hover {
+    box-shadow: 0 0 20px rgba(255, 100, 0, 0.7);
+}
+
+/* City info extras */
+.city-forces {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    color: #e74c3c;
+}
+
+.city-recommended {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    color: #2ecc71;
+}
+
+/* City divider */
+.city-divider {
+    text-align: center;
+    padding: 15px 0;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.9rem;
+    position: relative;
+}
+
+.city-divider span {
+    background: #1a1a2e;
+    padding: 0 15px;
+    position: relative;
+    z-index: 1;
+}
+
+.city-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+}
+
 /* ==================== LANGUAGE SETTINGS ==================== */
 
 .language-selector {
