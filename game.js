@@ -2,6 +2,707 @@
 
 const API_URL = ''; // Empty for same server, or 'http://localhost:3000' for different server
 
+// Current language
+let currentLanguage = localStorage.getItem('warGame_language') || 'en';
+
+// ==================== TRANSLATIONS ====================
+
+const translations = {
+    en: {
+        // Country Selection
+        chooseCountry: 'Choose Your Country',
+        startGame: 'Start Game',
+        selectOnMap: 'Or select on the map below',
+
+        // Header
+        gold: 'Gold',
+        army: 'Army',
+        tanks: 'Tanks',
+        planes: 'Planes',
+        ships: 'Ships',
+        drones: 'Drones',
+        teamMode: 'Team Mode',
+
+        // Menu buttons
+        attack: 'Attack',
+        shop: 'Shop',
+        stats: 'Stats',
+        settings: 'Settings',
+        quests: 'Quests',
+        codes: 'Codes',
+        teams: 'Teams',
+
+        // Shop
+        shopTitle: 'Shop',
+        soldiers: 'Soldiers',
+        tank: 'Tank',
+        plane: 'Plane',
+        battleship: 'Battleship',
+        combatDrone: 'Combat Drone',
+        powerEach: 'power each',
+        buy: 'Buy',
+
+        // Stats
+        statsTitle: 'Statistics',
+        country: 'Country',
+        totalPurchased: 'Total Purchased',
+        goldSpent: 'Gold Spent',
+        battlesWon: 'Battles Won',
+        battlesLost: 'Battles Lost',
+
+        // Settings
+        settingsTitle: 'Settings',
+        language: 'Language',
+        sound: 'Sound',
+        notifications: 'Notifications',
+        resetGame: 'Reset Game',
+
+        // Attack
+        attackTitle: 'Select Target',
+        selectCity: 'Select City to Attack',
+        launchAttack: 'Launch Attack!',
+        soldiersToSend: 'Soldiers to send',
+        tanksToSend: 'Tanks to send',
+        planesToSend: 'Planes to send',
+        shipsToSend: 'Battleships to send',
+        dronesToSend: 'Combat Drones to send',
+        totalPower: 'Total Attack Power',
+        available: 'Available',
+
+        // Battle
+        attacking: 'Attacking',
+        preparingForces: 'Preparing forces...',
+        deployingTroops: 'Deploying troops...',
+        engagingEnemy: 'Engaging enemy...',
+        battleInProgress: 'Battle in progress...',
+        finalizingAssault: 'Finalizing assault...',
+        victory: 'Victory!',
+        defeat: 'Defeat!',
+        youWon: 'You Won!',
+        youLost: 'You Lost!',
+        battleAgainst: 'Battle against',
+        enemyForces: 'Enemy Forces',
+        soldierLosses: 'Soldier Losses',
+        tankLosses: 'Tank Losses',
+        planeLosses: 'Plane Losses',
+        shipLosses: 'Ship Losses',
+        droneLosses: 'Drone Losses',
+        soldiersCaptured: 'Soldiers Captured',
+        tanksCaptured: 'Tanks Captured',
+        planesCaptured: 'Planes Captured',
+        shipsCaptured: 'Ships Captured',
+        dronesCaptured: 'Drones Captured',
+        goldLooted: 'Gold Looted',
+        yourForcesNow: 'Your Forces Now',
+
+        // Quests
+        questsTitle: 'Quests',
+        starterQuests: 'Starter Quests',
+        normalQuests: 'Normal Quests',
+        hardQuests: 'Hard Quests',
+        allQuestsCompleted: 'All Quests Completed!',
+        completed: 'Completed',
+        inProgress: 'In Progress',
+        claim: 'Claim',
+        attackCountry: 'Attack a country',
+        buy10Army: 'Buy +10 army from shop',
+        get100Army: 'Get 100 army',
+        win5Battles: 'Win 5 battles',
+        get500Army: 'Get 500 army',
+        spend2000Gold: 'Spend 2000 gold in shop',
+        win15Battles: 'Win 15 battles',
+        get2000Army: 'Get 2000 army',
+        spend10000Gold: 'Spend 10000 gold in shop',
+
+        // Codes
+        codesTitle: 'Redeem Code',
+        enterCode: 'Enter a code to receive rewards!',
+        redeem: 'Redeem',
+        redeemedCodes: 'Redeemed Codes',
+        noCodesYet: 'No codes redeemed yet',
+        codeRedeemed: 'Code redeemed!',
+        invalidCode: 'Invalid code!',
+        alreadyRedeemed: 'Code already redeemed!',
+        enterCodePlease: 'Please enter a code!',
+
+        // Teams
+        teamsTitle: 'Teams',
+        createTeam: 'Create Team',
+        joinTeam: 'Join Team',
+        joinByCode: 'Join by Code',
+        leaveTeam: 'Leave Team',
+        playingSolo: 'Playing Solo',
+        playingAsTeam: 'Playing as Team',
+        teamName: 'Team Name',
+        teamCountry: 'Team Country',
+        description: 'Description',
+        privacy: 'Privacy',
+        public: 'Public',
+        private: 'Private',
+        members: 'members',
+        teamCode: 'Team Code',
+        resourcesShared: 'Resources are shared in real-time!',
+        createOrJoin: 'Create or join a team to share resources!',
+        publicTeams: 'Public Teams',
+        serverOffline: 'Server Offline',
+
+        // Difficulty
+        easy: 'Easy',
+        medium: 'Medium',
+        hard: 'Hard',
+        veryHard: 'Very Hard',
+        boss: 'BOSS',
+        legendary: 'LEGENDARY',
+        mythic: 'MYTHIC',
+        impossible: 'IMPOSSIBLE',
+
+        // Misc
+        notEnoughGold: 'Not enough gold!',
+        notEnoughUnits: 'Not enough units!',
+        sendAtLeast1: 'You must send at least 1 soldier!',
+        confirmReset: 'Are you sure you want to reset the game?',
+        synced: 'Synced!'
+    },
+    lt: {
+        // Country Selection
+        chooseCountry: 'Pasirinkite Savo Sali',
+        startGame: 'Pradeti Zaidima',
+        selectOnMap: 'Arba pasirinkite zemelappy',
+
+        // Header
+        gold: 'Auksas',
+        army: 'Kariuomene',
+        tanks: 'Tankai',
+        planes: 'Lektuvai',
+        ships: 'Laivai',
+        drones: 'Dronai',
+        teamMode: 'Komandos Rezimas',
+
+        // Menu buttons
+        attack: 'Pulti',
+        shop: 'Parduotuve',
+        stats: 'Statistika',
+        settings: 'Nustatymai',
+        quests: 'Uzduotys',
+        codes: 'Kodai',
+        teams: 'Komandos',
+
+        // Shop
+        shopTitle: 'Parduotuve',
+        soldiers: 'Kariai',
+        tank: 'Tankas',
+        plane: 'Lektuvas',
+        battleship: 'Karo Laivas',
+        combatDrone: 'Kovos Dronas',
+        powerEach: 'galia kiekvienam',
+        buy: 'Pirkti',
+
+        // Stats
+        statsTitle: 'Statistika',
+        country: 'Salis',
+        totalPurchased: 'Viso Nupirkta',
+        goldSpent: 'Isleista Aukso',
+        battlesWon: 'Laimeti Musiai',
+        battlesLost: 'Pralaimeti Musiai',
+
+        // Settings
+        settingsTitle: 'Nustatymai',
+        language: 'Kalba',
+        sound: 'Garsas',
+        notifications: 'Pranesimai',
+        resetGame: 'Atstatyti Zaidima',
+
+        // Attack
+        attackTitle: 'Pasirinkite Taikini',
+        selectCity: 'Pasirinkite Miesta Pulti',
+        launchAttack: 'Pradeti Puolima!',
+        soldiersToSend: 'Siusti kariu',
+        tanksToSend: 'Siusti tanku',
+        planesToSend: 'Siusti lektuvu',
+        shipsToSend: 'Siusti laivu',
+        dronesToSend: 'Siusti dronu',
+        totalPower: 'Bendra Puolimo Galia',
+        available: 'Turima',
+
+        // Battle
+        attacking: 'Puolama',
+        preparingForces: 'Ruosiamos pajegos...',
+        deployingTroops: 'Dislokuojami kariai...',
+        engagingEnemy: 'Susiduriama su priesu...',
+        battleInProgress: 'Musis vyksta...',
+        finalizingAssault: 'Baigiamas puolimas...',
+        victory: 'Pergale!',
+        defeat: 'Pralaimejimas!',
+        youWon: 'Jus Laimejote!',
+        youLost: 'Jus Pralaimejote!',
+        battleAgainst: 'Musis pries',
+        enemyForces: 'Prieso Pajegos',
+        soldierLosses: 'Prarasti Kariai',
+        tankLosses: 'Prarasti Tankai',
+        planeLosses: 'Prarasti Lektuvai',
+        shipLosses: 'Prarasti Laivai',
+        droneLosses: 'Prarasti Dronai',
+        soldiersCaptured: 'Paimti Kariai',
+        tanksCaptured: 'Paimti Tankai',
+        planesCaptured: 'Paimti Lektuvai',
+        shipsCaptured: 'Paimti Laivai',
+        dronesCaptured: 'Paimti Dronai',
+        goldLooted: 'Paimtas Auksas',
+        yourForcesNow: 'Jusu Dabartines Pajegos',
+
+        // Quests
+        questsTitle: 'Uzduotys',
+        starterQuests: 'Pradines Uzduotys',
+        normalQuests: 'Iprastos Uzduotys',
+        hardQuests: 'Sunkios Uzduotys',
+        allQuestsCompleted: 'Visos Uzduotys Atliktos!',
+        completed: 'Atlikta',
+        inProgress: 'Vykdoma',
+        claim: 'Gauti',
+        attackCountry: 'Pulti sali',
+        buy10Army: 'Nupirkti +10 kariu',
+        get100Army: 'Tureti 100 kariu',
+        win5Battles: 'Laimeti 5 musius',
+        get500Army: 'Tureti 500 kariu',
+        spend2000Gold: 'Isleisti 2000 aukso',
+        win15Battles: 'Laimeti 15 musiu',
+        get2000Army: 'Tureti 2000 kariu',
+        spend10000Gold: 'Isleisti 10000 aukso',
+
+        // Codes
+        codesTitle: 'Ivesti Koda',
+        enterCode: 'Iveskite koda ir gaukite apdovanojimus!',
+        redeem: 'Patvirtinti',
+        redeemedCodes: 'Panaudoti Kodai',
+        noCodesYet: 'Dar nepanaudota jokiu kodu',
+        codeRedeemed: 'Kodas panaudotas!',
+        invalidCode: 'Neteisingas kodas!',
+        alreadyRedeemed: 'Kodas jau panaudotas!',
+        enterCodePlease: 'Iveskite koda!',
+
+        // Teams
+        teamsTitle: 'Komandos',
+        createTeam: 'Sukurti Komanda',
+        joinTeam: 'Prisijungti prie Komandos',
+        joinByCode: 'Prisijungti su Kodu',
+        leaveTeam: 'Iseit is Komandos',
+        playingSolo: 'Zaidi Vienas',
+        playingAsTeam: 'Zaidi Komandoje',
+        teamName: 'Komandos Pavadinimas',
+        teamCountry: 'Komandos Salis',
+        description: 'Aprasymas',
+        privacy: 'Privatumas',
+        public: 'Viesas',
+        private: 'Privatus',
+        members: 'nariai',
+        teamCode: 'Komandos Kodas',
+        resourcesShared: 'Istekliai dalijami realiu laiku!',
+        createOrJoin: 'Sukurkite arba prisijunkite prie komandos!',
+        publicTeams: 'Viesos Komandos',
+        serverOffline: 'Serveris Nepasiekiamas',
+
+        // Difficulty
+        easy: 'Lengva',
+        medium: 'Vidutine',
+        hard: 'Sunki',
+        veryHard: 'Labai Sunki',
+        boss: 'BOSAS',
+        legendary: 'LEGENDINIS',
+        mythic: 'MITINIS',
+        impossible: 'NEIMANOMA',
+
+        // Misc
+        notEnoughGold: 'Nepakanka aukso!',
+        notEnoughUnits: 'Nepakanka vienetu!',
+        sendAtLeast1: 'Turite siusti bent 1 kari!',
+        confirmReset: 'Ar tikrai norite atstatyti zaidima?',
+        synced: 'Sinchronizuota!'
+    },
+    es: {
+        // Country Selection
+        chooseCountry: 'Elige Tu Pais',
+        startGame: 'Iniciar Juego',
+        selectOnMap: 'O selecciona en el mapa',
+
+        // Header
+        gold: 'Oro',
+        army: 'Ejercito',
+        tanks: 'Tanques',
+        planes: 'Aviones',
+        ships: 'Barcos',
+        drones: 'Drones',
+        teamMode: 'Modo Equipo',
+
+        // Menu buttons
+        attack: 'Atacar',
+        shop: 'Tienda',
+        stats: 'Estadisticas',
+        settings: 'Ajustes',
+        quests: 'Misiones',
+        codes: 'Codigos',
+        teams: 'Equipos',
+
+        // Shop
+        shopTitle: 'Tienda',
+        soldiers: 'Soldados',
+        tank: 'Tanque',
+        plane: 'Avion',
+        battleship: 'Acorazado',
+        combatDrone: 'Dron de Combate',
+        powerEach: 'poder cada uno',
+        buy: 'Comprar',
+
+        // Stats
+        statsTitle: 'Estadisticas',
+        country: 'Pais',
+        totalPurchased: 'Total Comprado',
+        goldSpent: 'Oro Gastado',
+        battlesWon: 'Batallas Ganadas',
+        battlesLost: 'Batallas Perdidas',
+
+        // Settings
+        settingsTitle: 'Ajustes',
+        language: 'Idioma',
+        sound: 'Sonido',
+        notifications: 'Notificaciones',
+        resetGame: 'Reiniciar Juego',
+
+        // Attack
+        attackTitle: 'Seleccionar Objetivo',
+        selectCity: 'Seleccionar Ciudad para Atacar',
+        launchAttack: 'Lanzar Ataque!',
+        soldiersToSend: 'Soldados a enviar',
+        tanksToSend: 'Tanques a enviar',
+        planesToSend: 'Aviones a enviar',
+        shipsToSend: 'Barcos a enviar',
+        dronesToSend: 'Drones a enviar',
+        totalPower: 'Poder Total de Ataque',
+        available: 'Disponible',
+
+        // Battle
+        attacking: 'Atacando',
+        preparingForces: 'Preparando fuerzas...',
+        deployingTroops: 'Desplegando tropas...',
+        engagingEnemy: 'Enfrentando al enemigo...',
+        battleInProgress: 'Batalla en progreso...',
+        finalizingAssault: 'Finalizando asalto...',
+        victory: 'Victoria!',
+        defeat: 'Derrota!',
+        youWon: 'Ganaste!',
+        youLost: 'Perdiste!',
+        battleAgainst: 'Batalla contra',
+        enemyForces: 'Fuerzas Enemigas',
+        soldierLosses: 'Soldados Perdidos',
+        tankLosses: 'Tanques Perdidos',
+        planeLosses: 'Aviones Perdidos',
+        shipLosses: 'Barcos Perdidos',
+        droneLosses: 'Drones Perdidos',
+        soldiersCaptured: 'Soldados Capturados',
+        tanksCaptured: 'Tanques Capturados',
+        planesCaptured: 'Aviones Capturados',
+        shipsCaptured: 'Barcos Capturados',
+        dronesCaptured: 'Drones Capturados',
+        goldLooted: 'Oro Saqueado',
+        yourForcesNow: 'Tus Fuerzas Ahora',
+
+        // Quests
+        questsTitle: 'Misiones',
+        starterQuests: 'Misiones Iniciales',
+        normalQuests: 'Misiones Normales',
+        hardQuests: 'Misiones Dificiles',
+        allQuestsCompleted: 'Todas las Misiones Completadas!',
+        completed: 'Completado',
+        inProgress: 'En Progreso',
+        claim: 'Reclamar',
+        attackCountry: 'Atacar un pais',
+        buy10Army: 'Comprar +10 ejercito',
+        get100Army: 'Tener 100 ejercito',
+        win5Battles: 'Ganar 5 batallas',
+        get500Army: 'Tener 500 ejercito',
+        spend2000Gold: 'Gastar 2000 oro',
+        win15Battles: 'Ganar 15 batallas',
+        get2000Army: 'Tener 2000 ejercito',
+        spend10000Gold: 'Gastar 10000 oro',
+
+        // Codes
+        codesTitle: 'Canjear Codigo',
+        enterCode: 'Introduce un codigo para recibir recompensas!',
+        redeem: 'Canjear',
+        redeemedCodes: 'Codigos Canjeados',
+        noCodesYet: 'Ningun codigo canjeado',
+        codeRedeemed: 'Codigo canjeado!',
+        invalidCode: 'Codigo invalido!',
+        alreadyRedeemed: 'Codigo ya canjeado!',
+        enterCodePlease: 'Introduce un codigo!',
+
+        // Teams
+        teamsTitle: 'Equipos',
+        createTeam: 'Crear Equipo',
+        joinTeam: 'Unirse al Equipo',
+        joinByCode: 'Unirse con Codigo',
+        leaveTeam: 'Abandonar Equipo',
+        playingSolo: 'Jugando Solo',
+        playingAsTeam: 'Jugando en Equipo',
+        teamName: 'Nombre del Equipo',
+        teamCountry: 'Pais del Equipo',
+        description: 'Descripcion',
+        privacy: 'Privacidad',
+        public: 'Publico',
+        private: 'Privado',
+        members: 'miembros',
+        teamCode: 'Codigo del Equipo',
+        resourcesShared: 'Los recursos se comparten en tiempo real!',
+        createOrJoin: 'Crea o unete a un equipo!',
+        publicTeams: 'Equipos Publicos',
+        serverOffline: 'Servidor Desconectado',
+
+        // Difficulty
+        easy: 'Facil',
+        medium: 'Medio',
+        hard: 'Dificil',
+        veryHard: 'Muy Dificil',
+        boss: 'JEFE',
+        legendary: 'LEGENDARIO',
+        mythic: 'MITICO',
+        impossible: 'IMPOSIBLE',
+
+        // Misc
+        notEnoughGold: 'No hay suficiente oro!',
+        notEnoughUnits: 'No hay suficientes unidades!',
+        sendAtLeast1: 'Debes enviar al menos 1 soldado!',
+        confirmReset: 'Estas seguro de reiniciar el juego?',
+        synced: 'Sincronizado!'
+    },
+    ru: {
+        // Country Selection
+        chooseCountry: 'Выберите Страну',
+        startGame: 'Начать Игру',
+        selectOnMap: 'Или выберите на карте',
+
+        // Header
+        gold: 'Золото',
+        army: 'Армия',
+        tanks: 'Танки',
+        planes: 'Самолеты',
+        ships: 'Корабли',
+        drones: 'Дроны',
+        teamMode: 'Командный Режим',
+
+        // Menu buttons
+        attack: 'Атака',
+        shop: 'Магазин',
+        stats: 'Статистика',
+        settings: 'Настройки',
+        quests: 'Задания',
+        codes: 'Коды',
+        teams: 'Команды',
+
+        // Shop
+        shopTitle: 'Магазин',
+        soldiers: 'Солдаты',
+        tank: 'Танк',
+        plane: 'Самолет',
+        battleship: 'Линкор',
+        combatDrone: 'Боевой Дрон',
+        powerEach: 'сила каждого',
+        buy: 'Купить',
+
+        // Stats
+        statsTitle: 'Статистика',
+        country: 'Страна',
+        totalPurchased: 'Всего Куплено',
+        goldSpent: 'Потрачено Золота',
+        battlesWon: 'Побед',
+        battlesLost: 'Поражений',
+
+        // Settings
+        settingsTitle: 'Настройки',
+        language: 'Язык',
+        sound: 'Звук',
+        notifications: 'Уведомления',
+        resetGame: 'Сбросить Игру',
+
+        // Attack
+        attackTitle: 'Выбрать Цель',
+        selectCity: 'Выберите Город для Атаки',
+        launchAttack: 'Начать Атаку!',
+        soldiersToSend: 'Солдат отправить',
+        tanksToSend: 'Танков отправить',
+        planesToSend: 'Самолетов отправить',
+        shipsToSend: 'Кораблей отправить',
+        dronesToSend: 'Дронов отправить',
+        totalPower: 'Общая Сила Атаки',
+        available: 'Доступно',
+
+        // Battle
+        attacking: 'Атакуем',
+        preparingForces: 'Подготовка сил...',
+        deployingTroops: 'Развертывание войск...',
+        engagingEnemy: 'Вступаем в бой...',
+        battleInProgress: 'Битва идет...',
+        finalizingAssault: 'Завершение атаки...',
+        victory: 'Победа!',
+        defeat: 'Поражение!',
+        youWon: 'Вы Победили!',
+        youLost: 'Вы Проиграли!',
+        battleAgainst: 'Битва против',
+        enemyForces: 'Силы Противника',
+        soldierLosses: 'Потери Солдат',
+        tankLosses: 'Потери Танков',
+        planeLosses: 'Потери Самолетов',
+        shipLosses: 'Потери Кораблей',
+        droneLosses: 'Потери Дронов',
+        soldiersCaptured: 'Захвачено Солдат',
+        tanksCaptured: 'Захвачено Танков',
+        planesCaptured: 'Захвачено Самолетов',
+        shipsCaptured: 'Захвачено Кораблей',
+        dronesCaptured: 'Захвачено Дронов',
+        goldLooted: 'Захвачено Золота',
+        yourForcesNow: 'Ваши Силы Сейчас',
+
+        // Quests
+        questsTitle: 'Задания',
+        starterQuests: 'Начальные Задания',
+        normalQuests: 'Обычные Задания',
+        hardQuests: 'Сложные Задания',
+        allQuestsCompleted: 'Все Задания Выполнены!',
+        completed: 'Выполнено',
+        inProgress: 'В Процессе',
+        claim: 'Получить',
+        attackCountry: 'Атаковать страну',
+        buy10Army: 'Купить +10 армии',
+        get100Army: 'Получить 100 армии',
+        win5Battles: 'Выиграть 5 битв',
+        get500Army: 'Получить 500 армии',
+        spend2000Gold: 'Потратить 2000 золота',
+        win15Battles: 'Выиграть 15 битв',
+        get2000Army: 'Получить 2000 армии',
+        spend10000Gold: 'Потратить 10000 золота',
+
+        // Codes
+        codesTitle: 'Ввести Код',
+        enterCode: 'Введите код для получения награды!',
+        redeem: 'Применить',
+        redeemedCodes: 'Использованные Коды',
+        noCodesYet: 'Коды еще не использованы',
+        codeRedeemed: 'Код применен!',
+        invalidCode: 'Неверный код!',
+        alreadyRedeemed: 'Код уже использован!',
+        enterCodePlease: 'Введите код!',
+
+        // Teams
+        teamsTitle: 'Команды',
+        createTeam: 'Создать Команду',
+        joinTeam: 'Присоединиться',
+        joinByCode: 'Присоединиться по Коду',
+        leaveTeam: 'Покинуть Команду',
+        playingSolo: 'Одиночная Игра',
+        playingAsTeam: 'Командная Игра',
+        teamName: 'Название Команды',
+        teamCountry: 'Страна Команды',
+        description: 'Описание',
+        privacy: 'Приватность',
+        public: 'Публичная',
+        private: 'Приватная',
+        members: 'участников',
+        teamCode: 'Код Команды',
+        resourcesShared: 'Ресурсы общие в реальном времени!',
+        createOrJoin: 'Создайте или присоединитесь к команде!',
+        publicTeams: 'Публичные Команды',
+        serverOffline: 'Сервер Недоступен',
+
+        // Difficulty
+        easy: 'Легко',
+        medium: 'Средне',
+        hard: 'Сложно',
+        veryHard: 'Очень Сложно',
+        boss: 'БОСС',
+        legendary: 'ЛЕГЕНДАРНЫЙ',
+        mythic: 'МИФИЧЕСКИЙ',
+        impossible: 'НЕВОЗМОЖНО',
+
+        // Misc
+        notEnoughGold: 'Недостаточно золота!',
+        notEnoughUnits: 'Недостаточно юнитов!',
+        sendAtLeast1: 'Нужно отправить минимум 1 солдата!',
+        confirmReset: 'Вы уверены что хотите сбросить игру?',
+        synced: 'Синхронизировано!'
+    },
+    de: {
+        chooseCountry: 'Wahle Dein Land',
+        startGame: 'Spiel Starten',
+        selectOnMap: 'Oder wahle auf der Karte',
+        gold: 'Gold',
+        army: 'Armee',
+        tanks: 'Panzer',
+        planes: 'Flugzeuge',
+        ships: 'Schiffe',
+        drones: 'Drohnen',
+        teamMode: 'Team Modus',
+        attack: 'Angriff',
+        shop: 'Laden',
+        stats: 'Statistik',
+        settings: 'Einstellungen',
+        quests: 'Aufgaben',
+        codes: 'Codes',
+        teams: 'Teams',
+        shopTitle: 'Laden',
+        soldiers: 'Soldaten',
+        tank: 'Panzer',
+        plane: 'Flugzeug',
+        battleship: 'Kriegsschiff',
+        combatDrone: 'Kampfdrohne',
+        powerEach: 'Kraft pro Stuck',
+        buy: 'Kaufen',
+        settingsTitle: 'Einstellungen',
+        language: 'Sprache',
+        resetGame: 'Spiel Zurucksetzen',
+        victory: 'Sieg!',
+        defeat: 'Niederlage!',
+        notEnoughGold: 'Nicht genug Gold!',
+        confirmReset: 'Bist du sicher?'
+    },
+    fr: {
+        chooseCountry: 'Choisissez Votre Pays',
+        startGame: 'Commencer',
+        selectOnMap: 'Ou selectionnez sur la carte',
+        gold: 'Or',
+        army: 'Armee',
+        tanks: 'Chars',
+        planes: 'Avions',
+        ships: 'Navires',
+        drones: 'Drones',
+        teamMode: 'Mode Equipe',
+        attack: 'Attaquer',
+        shop: 'Boutique',
+        stats: 'Statistiques',
+        settings: 'Parametres',
+        quests: 'Quetes',
+        codes: 'Codes',
+        teams: 'Equipes',
+        shopTitle: 'Boutique',
+        soldiers: 'Soldats',
+        tank: 'Char',
+        plane: 'Avion',
+        battleship: 'Cuirasse',
+        combatDrone: 'Drone de Combat',
+        powerEach: 'puissance chacun',
+        buy: 'Acheter',
+        settingsTitle: 'Parametres',
+        language: 'Langue',
+        resetGame: 'Reinitialiser',
+        victory: 'Victoire!',
+        defeat: 'Defaite!',
+        notEnoughGold: 'Pas assez dor!',
+        confirmReset: 'Etes-vous sur?'
+    }
+};
+
+// Get translation
+function t(key) {
+    return translations[currentLanguage]?.[key] || translations['en'][key] || key;
+}
+
 // Available codes
 const availableCodes = {
     'Free': { reward: 'army', amount: 10000, description: '+10,000 Army' },
@@ -11,53 +712,74 @@ const availableCodes = {
     'Algirdas': { reward: 'gold', amount: 30000, description: '+30,000 Gold' }
 };
 
-// All countries data with FIXED power levels
+// All countries data with FIXED power levels and cities
 const allCountries = [
     // Easy countries (difficulty 1)
-    { name: 'Spain', flag: '🇪🇸', difficulty: 1, soldiers: 30, tanks: 0, planes: 0, ships: 0, drones: 0 },
-    { name: 'France', flag: '🇫🇷', difficulty: 1, soldiers: 40, tanks: 0, planes: 0, ships: 0, drones: 0 },
-    { name: 'Italy', flag: '🇮🇹', difficulty: 1, soldiers: 35, tanks: 0, planes: 0, ships: 0, drones: 0 },
-    { name: 'Lithuania', flag: '🇱🇹', difficulty: 1, soldiers: 25, tanks: 0, planes: 0, ships: 0, drones: 0 },
-    { name: 'Belgium', flag: '🇧🇪', difficulty: 1, soldiers: 30, tanks: 0, planes: 0, ships: 0, drones: 0 },
+    { name: 'Spain', flag: '🇪🇸', difficulty: 1, soldiers: 30, tanks: 0, planes: 0, ships: 0, drones: 0,
+      cities: ['Madrid', 'Barcelona', 'Valencia', 'Seville', 'Bilbao'] },
+    { name: 'France', flag: '🇫🇷', difficulty: 1, soldiers: 40, tanks: 0, planes: 0, ships: 0, drones: 0,
+      cities: ['Paris', 'Lyon', 'Marseille', 'Toulouse', 'Nice'] },
+    { name: 'Italy', flag: '🇮🇹', difficulty: 1, soldiers: 35, tanks: 0, planes: 0, ships: 0, drones: 0,
+      cities: ['Rome', 'Milan', 'Naples', 'Turin', 'Florence'] },
+    { name: 'Lithuania', flag: '🇱🇹', difficulty: 1, soldiers: 25, tanks: 0, planes: 0, ships: 0, drones: 0,
+      cities: ['Vilnius', 'Kaunas', 'Klaipeda', 'Siauliai', 'Panevezys'] },
+    { name: 'Belgium', flag: '🇧🇪', difficulty: 1, soldiers: 30, tanks: 0, planes: 0, ships: 0, drones: 0,
+      cities: ['Brussels', 'Antwerp', 'Ghent', 'Bruges', 'Liege'] },
     // Medium countries (difficulty 2)
-    { name: 'Germany', flag: '🇩🇪', difficulty: 2, soldiers: 100, tanks: 2, planes: 0, ships: 0, drones: 0 },
-    { name: 'United Kingdom', flag: '🇬🇧', difficulty: 2, soldiers: 120, tanks: 1, planes: 1, ships: 0, drones: 0 },
-    { name: 'Poland', flag: '🇵🇱', difficulty: 2, soldiers: 90, tanks: 2, planes: 0, ships: 0, drones: 0 },
-    { name: 'Netherlands', flag: '🇳🇱', difficulty: 2, soldiers: 80, tanks: 1, planes: 1, ships: 1, drones: 0 },
+    { name: 'Germany', flag: '🇩🇪', difficulty: 2, soldiers: 100, tanks: 2, planes: 0, ships: 0, drones: 0,
+      cities: ['Berlin', 'Munich', 'Hamburg', 'Frankfurt', 'Cologne'] },
+    { name: 'United Kingdom', flag: '🇬🇧', difficulty: 2, soldiers: 120, tanks: 1, planes: 1, ships: 0, drones: 0,
+      cities: ['London', 'Manchester', 'Birmingham', 'Glasgow', 'Liverpool'] },
+    { name: 'Poland', flag: '🇵🇱', difficulty: 2, soldiers: 90, tanks: 2, planes: 0, ships: 0, drones: 0,
+      cities: ['Warsaw', 'Krakow', 'Gdansk', 'Wroclaw', 'Poznan'] },
+    { name: 'Netherlands', flag: '🇳🇱', difficulty: 2, soldiers: 80, tanks: 1, planes: 1, ships: 1, drones: 0,
+      cities: ['Amsterdam', 'Rotterdam', 'The Hague', 'Utrecht', 'Eindhoven'] },
     // Hard countries (difficulty 3)
-    { name: 'Russia', flag: '🇷🇺', difficulty: 3, soldiers: 300, tanks: 5, planes: 3, ships: 2, drones: 1 },
-    { name: 'China', flag: '🇨🇳', difficulty: 3, soldiers: 350, tanks: 4, planes: 4, ships: 2, drones: 2 },
-    { name: 'Japan', flag: '🇯🇵', difficulty: 3, soldiers: 250, tanks: 3, planes: 6, ships: 4, drones: 3 },
-    { name: 'Brazil', flag: '🇧🇷', difficulty: 3, soldiers: 280, tanks: 4, planes: 2, ships: 3, drones: 1 },
+    { name: 'Russia', flag: '🇷🇺', difficulty: 3, soldiers: 300, tanks: 5, planes: 3, ships: 2, drones: 1,
+      cities: ['Moscow', 'St. Petersburg', 'Novosibirsk', 'Yekaterinburg', 'Kazan'] },
+    { name: 'China', flag: '🇨🇳', difficulty: 3, soldiers: 350, tanks: 4, planes: 4, ships: 2, drones: 2,
+      cities: ['Beijing', 'Shanghai', 'Guangzhou', 'Shenzhen', 'Chengdu'] },
+    { name: 'Japan', flag: '🇯🇵', difficulty: 3, soldiers: 250, tanks: 3, planes: 6, ships: 4, drones: 3,
+      cities: ['Tokyo', 'Osaka', 'Kyoto', 'Yokohama', 'Nagoya'] },
+    { name: 'Brazil', flag: '🇧🇷', difficulty: 3, soldiers: 280, tanks: 4, planes: 2, ships: 3, drones: 1,
+      cities: ['Sao Paulo', 'Rio de Janeiro', 'Brasilia', 'Salvador', 'Fortaleza'] },
     // Very Hard countries (difficulty 4)
-    { name: 'USA', flag: '🇺🇸', difficulty: 4, soldiers: 600, tanks: 10, planes: 15, ships: 8, drones: 10 },
-    { name: 'India', flag: '🇮🇳', difficulty: 4, soldiers: 700, tanks: 8, planes: 6, ships: 5, drones: 5 },
-    { name: 'South Korea', flag: '🇰🇷', difficulty: 4, soldiers: 500, tanks: 12, planes: 10, ships: 6, drones: 8 },
+    { name: 'USA', flag: '🇺🇸', difficulty: 4, soldiers: 600, tanks: 10, planes: 15, ships: 8, drones: 10,
+      cities: ['Washington D.C.', 'New York', 'Los Angeles', 'Chicago', 'Houston'] },
+    { name: 'India', flag: '🇮🇳', difficulty: 4, soldiers: 700, tanks: 8, planes: 6, ships: 5, drones: 5,
+      cities: ['New Delhi', 'Mumbai', 'Bangalore', 'Kolkata', 'Chennai'] },
+    { name: 'South Korea', flag: '🇰🇷', difficulty: 4, soldiers: 500, tanks: 12, planes: 10, ships: 6, drones: 8,
+      cities: ['Seoul', 'Busan', 'Incheon', 'Daegu', 'Daejeon'] },
     // Boss countries (difficulty 5+)
-    { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true, soldiers: 2000, tanks: 20, planes: 10, ships: 10, drones: 5 },
-    { name: 'Mongol Empire', flag: '🐎', difficulty: 6, isBoss: true, soldiers: 4000, tanks: 30, planes: 20, ships: 15, drones: 10 },
-    { name: 'Ottoman Empire', flag: '🌙', difficulty: 6, isBoss: true, soldiers: 3500, tanks: 35, planes: 25, ships: 20, drones: 15 },
-    { name: 'British Empire', flag: '👑', difficulty: 7, isBoss: true, soldiers: 8000, tanks: 50, planes: 40, ships: 50, drones: 30 },
-    { name: 'Galactic Federation', flag: '🌌', difficulty: 8, isBoss: true, isSuperboss: true, soldiers: 20000, tanks: 100, planes: 100, ships: 2000, drones: 500 }
+    { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true, soldiers: 2000, tanks: 20, planes: 10, ships: 10, drones: 5,
+      cities: ['Rome', 'Constantinople', 'Alexandria', 'Carthage', 'Athens'] },
+    { name: 'Mongol Empire', flag: '🐎', difficulty: 6, isBoss: true, soldiers: 4000, tanks: 30, planes: 20, ships: 15, drones: 10,
+      cities: ['Karakorum', 'Samarkand', 'Bukhara', 'Tabriz', 'Baghdad'] },
+    { name: 'Ottoman Empire', flag: '🌙', difficulty: 6, isBoss: true, soldiers: 3500, tanks: 35, planes: 25, ships: 20, drones: 15,
+      cities: ['Constantinople', 'Ankara', 'Baghdad', 'Damascus', 'Cairo'] },
+    { name: 'British Empire', flag: '👑', difficulty: 7, isBoss: true, soldiers: 8000, tanks: 50, planes: 40, ships: 50, drones: 30,
+      cities: ['London', 'Delhi', 'Sydney', 'Cape Town', 'Hong Kong'] },
+    { name: 'Galactic Federation', flag: '🌌', difficulty: 8, isBoss: true, isSuperboss: true, soldiers: 20000, tanks: 100, planes: 100, ships: 2000, drones: 500,
+      cities: ['Alpha Centauri', 'Andromeda Prime', 'Nebula City', 'Starbase Omega', 'Cosmic Capital'] }
 ];
 
 // Quest definitions
 const starterQuests = [
-    { id: 'attack_country', name: 'Attack a country', reward: 100, check: () => gameState.battlesWon + gameState.battlesLost >= 1 },
-    { id: 'buy_10_army', name: 'Buy +10 army from shop', reward: 300, check: () => gameState.totalPurchased >= 10 },
-    { id: 'get_100_army', name: 'Get 100 army', reward: 500, check: () => gameState.army >= 100 }
+    { id: 'attack_country', name: () => t('attackCountry'), reward: 100, check: () => gameState.battlesWon + gameState.battlesLost >= 1 },
+    { id: 'buy_10_army', name: () => t('buy10Army'), reward: 300, check: () => gameState.totalPurchased >= 10 },
+    { id: 'get_100_army', name: () => t('get100Army'), reward: 500, check: () => gameState.army >= 100 }
 ];
 
 const normalQuests = [
-    { id: 'win_5_battles', name: 'Win 5 battles', reward: 800, check: () => gameState.battlesWon >= 5 },
-    { id: 'get_500_army', name: 'Get 500 army', reward: 1500, check: () => gameState.army >= 500 },
-    { id: 'spend_2000_gold', name: 'Spend 2000 gold in shop', reward: 1000, check: () => gameState.goldSpent >= 2000 }
+    { id: 'win_5_battles', name: () => t('win5Battles'), reward: 800, check: () => gameState.battlesWon >= 5 },
+    { id: 'get_500_army', name: () => t('get500Army'), reward: 1500, check: () => gameState.army >= 500 },
+    { id: 'spend_2000_gold', name: () => t('spend2000Gold'), reward: 1000, check: () => gameState.goldSpent >= 2000 }
 ];
 
 const hardQuests = [
-    { id: 'win_15_battles', name: 'Win 15 battles', reward: 2000, check: () => gameState.battlesWon >= 15 },
-    { id: 'get_2000_army', name: 'Get 2000 army', reward: 5000, check: () => gameState.army >= 2000 },
-    { id: 'spend_10000_gold', name: 'Spend 10000 gold in shop', reward: 3000, check: () => gameState.goldSpent >= 10000 }
+    { id: 'win_15_battles', name: () => t('win15Battles'), reward: 2000, check: () => gameState.battlesWon >= 15 },
+    { id: 'get_2000_army', name: () => t('get2000Army'), reward: 5000, check: () => gameState.army >= 2000 },
+    { id: 'spend_10000_gold', name: () => t('spend10000Gold'), reward: 3000, check: () => gameState.goldSpent >= 10000 }
 ];
 
 // Countries for team selection
@@ -79,6 +801,26 @@ const teamCountries = [
     { name: 'Canada', flag: '🇨🇦' },
     { name: 'Australia', flag: '🇦🇺' }
 ];
+
+// Map country positions (percentage based)
+const countryPositions = {
+    'Spain': { x: 42, y: 42 },
+    'France': { x: 47, y: 38 },
+    'Italy': { x: 52, y: 42 },
+    'Lithuania': { x: 56, y: 32 },
+    'Belgium': { x: 48, y: 35 },
+    'Germany': { x: 51, y: 35 },
+    'United Kingdom': { x: 45, y: 32 },
+    'Poland': { x: 54, y: 35 },
+    'Netherlands': { x: 49, y: 34 },
+    'Russia': { x: 70, y: 30 },
+    'China': { x: 78, y: 42 },
+    'Japan': { x: 88, y: 40 },
+    'Brazil': { x: 30, y: 65 },
+    'USA': { x: 20, y: 40 },
+    'India': { x: 73, y: 48 },
+    'South Korea': { x: 85, y: 42 }
+};
 
 // ==================== GAME STATE ====================
 
@@ -105,7 +847,8 @@ let gameState = {
 };
 
 // Attack state
-let attackTarget = { name: '', flag: '', difficulty: 1, isBoss: false, isSuperboss: false };
+let attackTarget = { name: '', flag: '', difficulty: 1, isBoss: false, isSuperboss: false, cities: [] };
+let selectedCity = null;
 
 // Team form state
 let selectedPrivacy = 'public';
@@ -138,21 +881,14 @@ async function initializeGame() {
         }
     }
 
-    // Setup country selection
-    const countryCards = document.querySelectorAll('.country-card');
-    const startBtn = document.getElementById('start-btn');
+    // Apply language
+    applyLanguage();
 
-    countryCards.forEach(card => {
-        card.addEventListener('click', () => {
-            countryCards.forEach(c => c.classList.remove('selected'));
-            card.classList.add('selected');
-            gameState.country = card.dataset.country;
-            gameState.flag = card.dataset.flag;
-            startBtn.classList.add('active');
-        });
-    });
+    // Setup country selection - both cards and map
+    setupCountrySelection();
 
     // Setup start button
+    const startBtn = document.getElementById('start-btn');
     startBtn.addEventListener('click', startGame);
 
     // Setup modal close on outside click
@@ -163,6 +899,95 @@ async function initializeGame() {
             }
         });
     });
+
+    // Initialize world map
+    initWorldMap();
+}
+
+function setupCountrySelection() {
+    const countryCards = document.querySelectorAll('.country-card');
+    const startBtn = document.getElementById('start-btn');
+
+    countryCards.forEach(card => {
+        card.addEventListener('click', () => {
+            countryCards.forEach(c => c.classList.remove('selected'));
+            card.classList.add('selected');
+            gameState.country = card.dataset.country;
+            gameState.flag = card.dataset.flag;
+            startBtn.classList.add('active');
+
+            // Also highlight on map
+            highlightMapCountry(gameState.country);
+        });
+    });
+}
+
+// ==================== WORLD MAP ====================
+
+function initWorldMap() {
+    const mapContainer = document.getElementById('world-map');
+    if (!mapContainer) return;
+
+    // Create map markers for each playable country
+    const playableCountries = ['Spain', 'France', 'Italy', 'Lithuania', 'Belgium', 'Germany', 'United Kingdom', 'Poland', 'Netherlands'];
+
+    playableCountries.forEach(countryName => {
+        const country = allCountries.find(c => c.name === countryName);
+        const pos = countryPositions[countryName];
+        if (country && pos) {
+            const marker = document.createElement('div');
+            marker.className = 'map-marker';
+            marker.dataset.country = countryName;
+            marker.dataset.flag = country.flag;
+            marker.style.left = pos.x + '%';
+            marker.style.top = pos.y + '%';
+            marker.innerHTML = `<span class="marker-flag">${country.flag}</span><span class="marker-name">${countryName}</span>`;
+
+            marker.addEventListener('click', () => selectCountryFromMap(countryName, country.flag));
+            mapContainer.appendChild(marker);
+        }
+    });
+}
+
+function selectCountryFromMap(countryName, flag) {
+    gameState.country = countryName;
+    gameState.flag = flag;
+
+    // Update card selection
+    document.querySelectorAll('.country-card').forEach(card => {
+        card.classList.toggle('selected', card.dataset.country === countryName);
+    });
+
+    // Enable start button
+    document.getElementById('start-btn').classList.add('active');
+
+    // Highlight on map
+    highlightMapCountry(countryName);
+}
+
+function highlightMapCountry(countryName) {
+    document.querySelectorAll('.map-marker').forEach(marker => {
+        marker.classList.toggle('selected', marker.dataset.country === countryName);
+    });
+}
+
+// ==================== LANGUAGE SYSTEM ====================
+
+function changeLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('warGame_language', lang);
+    applyLanguage();
+}
+
+function applyLanguage() {
+    // Update all translatable elements
+    document.querySelectorAll('[data-translate]').forEach(el => {
+        const key = el.dataset.translate;
+        el.textContent = t(key);
+    });
+
+    // Update dynamic content
+    updateDisplays();
 }
 
 // ==================== GAME START ====================
@@ -264,36 +1089,45 @@ function loadGame(country, flag) {
 // ==================== DISPLAY UPDATES ====================
 
 function updateDisplays() {
-    document.getElementById('gold-display').textContent = gameState.gold;
-    document.getElementById('army-display').textContent = gameState.army;
-    document.getElementById('army-header-display').textContent = gameState.army;
-    document.getElementById('tanks-display').textContent = gameState.tanks;
-    document.getElementById('tanks-header-display').textContent = gameState.tanks;
-    document.getElementById('planes-display').textContent = gameState.planes;
-    document.getElementById('planes-header-display').textContent = gameState.planes;
-    document.getElementById('ships-display').textContent = gameState.ships;
-    document.getElementById('ships-header-display').textContent = gameState.ships;
-    document.getElementById('drones-display').textContent = gameState.drones;
-    document.getElementById('drones-header-display').textContent = gameState.drones;
-    document.getElementById('stat-country').textContent = gameState.country;
-    document.getElementById('stat-gold').textContent = gameState.gold;
-    document.getElementById('stat-army').textContent = gameState.army;
-    document.getElementById('stat-tanks').textContent = gameState.tanks;
-    document.getElementById('stat-planes').textContent = gameState.planes;
-    document.getElementById('stat-ships').textContent = gameState.ships;
-    document.getElementById('stat-drones').textContent = gameState.drones;
-    document.getElementById('stat-purchased').textContent = gameState.totalPurchased;
-    document.getElementById('stat-spent').textContent = gameState.goldSpent;
-    document.getElementById('stat-won').textContent = gameState.battlesWon || 0;
-    document.getElementById('stat-lost').textContent = gameState.battlesLost || 0;
+    const elements = {
+        'gold-display': gameState.gold,
+        'army-display': gameState.army,
+        'army-header-display': gameState.army,
+        'tanks-display': gameState.tanks,
+        'tanks-header-display': gameState.tanks,
+        'planes-display': gameState.planes,
+        'planes-header-display': gameState.planes,
+        'ships-display': gameState.ships,
+        'ships-header-display': gameState.ships,
+        'drones-display': gameState.drones,
+        'drones-header-display': gameState.drones,
+        'stat-country': gameState.country,
+        'stat-gold': gameState.gold,
+        'stat-army': gameState.army,
+        'stat-tanks': gameState.tanks,
+        'stat-planes': gameState.planes,
+        'stat-ships': gameState.ships,
+        'stat-drones': gameState.drones,
+        'stat-purchased': gameState.totalPurchased,
+        'stat-spent': gameState.goldSpent,
+        'stat-won': gameState.battlesWon || 0,
+        'stat-lost': gameState.battlesLost || 0
+    };
+
+    for (const [id, value] of Object.entries(elements)) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+    }
 
     // Update team indicator
     const teamIndicator = document.getElementById('team-indicator');
-    if (gameState.activeTeamCode) {
-        teamIndicator.textContent = '👥 Team Mode';
-        teamIndicator.classList.add('active');
-    } else {
-        teamIndicator.classList.remove('active');
+    if (teamIndicator) {
+        if (gameState.activeTeamCode) {
+            teamIndicator.textContent = '👥 ' + t('teamMode');
+            teamIndicator.classList.add('active');
+        } else {
+            teamIndicator.classList.remove('active');
+        }
     }
 }
 
@@ -314,6 +1148,9 @@ function openModal(type) {
     if (type === 'team') {
         renderTeamContent();
     }
+    if (type === 'settings') {
+        updateSettingsModal();
+    }
     document.getElementById(type + '-modal').classList.add('active');
     updateDisplays();
 }
@@ -322,41 +1159,21 @@ function closeModal(type) {
     document.getElementById(type + '-modal').classList.remove('active');
 }
 
-// ==================== SHOP FUNCTIONS ====================
-
-function buyArmy(amount, cost) {
-    if (gameState.gold >= cost) {
-        gameState.gold -= cost;
-        gameState.army += amount;
-        gameState.totalPurchased += amount;
-        gameState.goldSpent += cost;
-        updateDisplays();
-        saveGame();
-    } else {
-        alert('Not enough gold!');
-    }
-}
-
-function buyUnit(unitType, amount, cost) {
-    if (gameState.gold >= cost) {
-        gameState.gold -= cost;
-        gameState[unitType] += amount;
-        gameState.goldSpent += cost;
-        updateDisplays();
-        saveGame();
-    } else {
-        alert('Not enough gold!');
-    }
-}
-
 // ==================== SETTINGS ====================
+
+function updateSettingsModal() {
+    const langSelect = document.getElementById('language-select');
+    if (langSelect) {
+        langSelect.value = currentLanguage;
+    }
+}
 
 function toggleSetting(btn) {
     btn.classList.toggle('active');
 }
 
 function resetGame() {
-    if (confirm('Are you sure you want to reset the game?')) {
+    if (confirm(t('confirmReset'))) {
         if (gameState.country) {
             localStorage.removeItem('warGame_' + gameState.country);
         }
@@ -390,6 +1207,33 @@ function resetGame() {
     }
 }
 
+// ==================== SHOP FUNCTIONS ====================
+
+function buyArmy(amount, cost) {
+    if (gameState.gold >= cost) {
+        gameState.gold -= cost;
+        gameState.army += amount;
+        gameState.totalPurchased += amount;
+        gameState.goldSpent += cost;
+        updateDisplays();
+        saveGame();
+    } else {
+        alert(t('notEnoughGold'));
+    }
+}
+
+function buyUnit(unitType, amount, cost) {
+    if (gameState.gold >= cost) {
+        gameState.gold -= cost;
+        gameState[unitType] += amount;
+        gameState.goldSpent += cost;
+        updateDisplays();
+        saveGame();
+    } else {
+        alert(t('notEnoughGold'));
+    }
+}
+
 // ==================== ATTACK SYSTEM ====================
 
 function generateEnemyList() {
@@ -409,17 +1253,16 @@ function generateEnemyList() {
             let diffLabel = '';
             let diffClass = '';
             switch(country.difficulty) {
-                case 1: diffLabel = '⭐ Easy'; diffClass = 'diff-easy'; break;
-                case 2: diffLabel = '⭐⭐ Medium'; diffClass = 'diff-medium'; break;
-                case 3: diffLabel = '⭐⭐⭐ Hard'; diffClass = 'diff-hard'; break;
-                case 4: diffLabel = '⭐⭐⭐⭐ Very Hard'; diffClass = 'diff-veryhard'; break;
-                case 5: diffLabel = '💀 BOSS'; diffClass = 'diff-boss'; break;
-                case 6: diffLabel = '🔥 LEGENDARY'; diffClass = 'diff-legendary'; break;
-                case 7: diffLabel = '⚡ MYTHIC'; diffClass = 'diff-mythic'; break;
-                case 8: diffLabel = '☠️ IMPOSSIBLE'; diffClass = 'diff-impossible'; break;
+                case 1: diffLabel = '⭐ ' + t('easy'); diffClass = 'diff-easy'; break;
+                case 2: diffLabel = '⭐⭐ ' + t('medium'); diffClass = 'diff-medium'; break;
+                case 3: diffLabel = '⭐⭐⭐ ' + t('hard'); diffClass = 'diff-hard'; break;
+                case 4: diffLabel = '⭐⭐⭐⭐ ' + t('veryHard'); diffClass = 'diff-veryhard'; break;
+                case 5: diffLabel = '💀 ' + t('boss'); diffClass = 'diff-boss'; break;
+                case 6: diffLabel = '🔥 ' + t('legendary'); diffClass = 'diff-legendary'; break;
+                case 7: diffLabel = '⚡ ' + t('mythic'); diffClass = 'diff-mythic'; break;
+                case 8: diffLabel = '☠️ ' + t('impossible'); diffClass = 'diff-impossible'; break;
             }
 
-            // Calculate total power (drones = 150 power each)
             const totalPower = country.soldiers + (country.tanks * 50) + (country.planes * 75) + (country.ships * 100) + (country.drones * 150);
 
             enemyDiv.innerHTML = `
@@ -431,7 +1274,7 @@ function generateEnemyList() {
                         <div class="enemy-army">⚔️${country.soldiers} 🛡️${country.tanks} ✈️${country.planes} 🚢${country.ships} 🤖${country.drones} = 💪${totalPower}</div>
                     </div>
                 </div>
-                <button class="attack-country-btn ${country.isSuperboss ? 'superboss-attack-btn' : (country.isBoss ? 'boss-attack-btn' : '')}" onclick="selectTarget('${country.name}', '${country.flag}', ${country.difficulty}, ${country.isBoss || false}, ${country.isSuperboss || false})">⚔️ Attack</button>
+                <button class="attack-country-btn ${country.isSuperboss ? 'superboss-attack-btn' : (country.isBoss ? 'boss-attack-btn' : '')}" onclick="selectTarget('${country.name}', '${country.flag}', ${country.difficulty}, ${country.isBoss || false}, ${country.isSuperboss || false})">⚔️ ${t('attack')}</button>
             `;
             container.appendChild(enemyDiv);
         }
@@ -439,11 +1282,54 @@ function generateEnemyList() {
 }
 
 function selectTarget(name, flag, difficulty = 1, isBoss = false, isSuperboss = false) {
-    attackTarget = { name, flag, difficulty, isBoss, isSuperboss };
+    const countryData = allCountries.find(c => c.name === name);
+    attackTarget = { name, flag, difficulty, isBoss, isSuperboss, cities: countryData?.cities || ['Capital'] };
+    selectedCity = null;
+
     closeModal('attack');
 
-    document.getElementById('target-country-name').textContent = name;
-    document.getElementById('target-country-flag').textContent = flag;
+    // Show city selection modal
+    showCitySelection();
+}
+
+function showCitySelection() {
+    const container = document.getElementById('city-list');
+    const titleEl = document.getElementById('city-selection-title');
+
+    titleEl.textContent = `${attackTarget.flag} ${attackTarget.name} - ${t('selectCity')}`;
+    container.innerHTML = '';
+
+    attackTarget.cities.forEach((city, index) => {
+        const cityDiv = document.createElement('div');
+        cityDiv.className = 'city-item';
+
+        // Each city has slightly different defense based on position
+        const defenseModifier = 1 + (index * 0.1);
+        const cityDefense = Math.floor(100 * defenseModifier);
+
+        cityDiv.innerHTML = `
+            <div class="city-info">
+                <span class="city-icon">🏙️</span>
+                <div>
+                    <div class="city-name">${city}</div>
+                    <div class="city-defense">🛡️ Defense: ${cityDefense}%</div>
+                </div>
+            </div>
+            <button class="attack-city-btn" onclick="selectCity('${city}', ${defenseModifier})">⚔️ ${t('attack')}</button>
+        `;
+        container.appendChild(cityDiv);
+    });
+
+    openModal('city-selection');
+}
+
+function selectCity(cityName, defenseModifier) {
+    selectedCity = { name: cityName, defenseModifier: defenseModifier };
+    closeModal('city-selection');
+
+    // Now show attack setup
+    document.getElementById('target-country-name').textContent = `${attackTarget.name} - ${cityName}`;
+    document.getElementById('target-country-flag').textContent = attackTarget.flag;
     document.getElementById('available-soldiers').textContent = gameState.army;
     document.getElementById('available-tanks').textContent = gameState.tanks;
     document.getElementById('available-planes').textContent = gameState.planes;
@@ -504,19 +1390,20 @@ function launchAttack() {
     const dronesSent = parseInt(document.getElementById('drones-input').value) || 0;
 
     if (soldiersSent < 1) {
-        alert('You must send at least 1 soldier!');
+        alert(t('sendAtLeast1'));
         return;
     }
     if (soldiersSent > gameState.army || tanksSent > gameState.tanks ||
         planesSent > gameState.planes || shipsSent > gameState.ships || dronesSent > gameState.drones) {
-        alert('Not enough units!');
+        alert(t('notEnoughUnits'));
         return;
     }
 
     closeModal('attack-setup');
 
     // Show attacking progress screen
-    document.getElementById('attacking-target-display').textContent = `${attackTarget.flag} ${attackTarget.name}`;
+    const targetText = selectedCity ? `${attackTarget.flag} ${attackTarget.name} - ${selectedCity.name}` : `${attackTarget.flag} ${attackTarget.name}`;
+    document.getElementById('attacking-target-display').textContent = targetText;
     openModal('attacking');
 
     // Animate progress bar
@@ -525,7 +1412,7 @@ function launchAttack() {
     const progressText = document.getElementById('attack-progress-text');
     const statusText = document.getElementById('attacking-status');
 
-    const statusMessages = ['Preparing forces...', 'Deploying troops...', 'Engaging enemy...', 'Battle in progress...', 'Finalizing assault...'];
+    const statusMessages = [t('preparingForces'), t('deployingTroops'), t('engagingEnemy'), t('battleInProgress'), t('finalizingAssault')];
 
     const interval = setInterval(() => {
         progress += 2;
@@ -549,7 +1436,7 @@ function launchAttack() {
 }
 
 function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dronesSent) {
-    // Calculate player power (drones = 150)
+    // Calculate player power
     const playerPower = soldiersSent + (tanksSent * 50) + (planesSent * 75) + (shipsSent * 100) + (dronesSent * 150);
 
     // Get fixed enemy forces
@@ -564,7 +1451,12 @@ function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dro
     const enemyShips = countryData ? countryData.ships : 0;
     const enemyDrones = countryData ? countryData.drones : 0;
 
-    const enemyPower = enemySoldiers + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100) + (enemyDrones * 150);
+    let enemyPower = enemySoldiers + (enemyTanks * 50) + (enemyPlanes * 75) + (enemyShips * 100) + (enemyDrones * 150);
+
+    // Apply city defense modifier
+    if (selectedCity) {
+        enemyPower = Math.floor(enemyPower * selectedCity.defenseModifier);
+    }
 
     // Battle calculation
     const powerRatio = playerPower / Math.max(enemyPower, 1);
@@ -622,7 +1514,8 @@ function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dro
         gameState.battlesLost = (gameState.battlesLost || 0) + 1;
     }
 
-    showBattleResult(victory, attackTarget.name, attackTarget.flag,
+    const cityName = selectedCity ? ` - ${selectedCity.name}` : '';
+    showBattleResult(victory, attackTarget.name + cityName, attackTarget.flag,
         { soldiers: enemySoldiers, tanks: enemyTanks, planes: enemyPlanes, ships: enemyShips, drones: enemyDrones, power: enemyPower },
         losses, gained, goldReward);
     updateDisplays();
@@ -633,42 +1526,42 @@ function showBattleResult(victory, enemyName, enemyFlag, enemyForces, losses, ga
     const resultDiv = document.getElementById('battle-result');
     const title = document.getElementById('battle-title');
 
-    title.textContent = victory ? '🎉 Victory!' : '💀 Defeat!';
+    title.textContent = victory ? '🎉 ' + t('victory') : '💀 ' + t('defeat');
 
     resultDiv.innerHTML = `
         <div class="battle-result-content">
             <div class="battle-icon">${victory ? '🏆' : '💔'}</div>
             <div class="battle-status ${victory ? 'victory' : 'defeat'}">
-                ${victory ? 'You Won!' : 'You Lost!'}
+                ${victory ? t('youWon') : t('youLost')}
             </div>
-            <p>Battle against ${enemyFlag} ${enemyName}</p>
+            <p>${t('battleAgainst')} ${enemyFlag} ${enemyName}</p>
 
             <div class="enemy-forces">
-                <div class="enemy-forces-title">Enemy Forces:</div>
-                <div class="battle-detail-row"><span>⚔️ Soldiers</span><span>${enemyForces.soldiers}</span></div>
-                <div class="battle-detail-row"><span>🛡️ Tanks</span><span>${enemyForces.tanks}</span></div>
-                <div class="battle-detail-row"><span>✈️ Planes</span><span>${enemyForces.planes}</span></div>
-                <div class="battle-detail-row"><span>🚢 Ships</span><span>${enemyForces.ships}</span></div>
-                <div class="battle-detail-row"><span>🤖 Drones</span><span>${enemyForces.drones}</span></div>
-                <div class="battle-detail-row"><span>💪 Total Power</span><span>${enemyForces.power}</span></div>
+                <div class="enemy-forces-title">${t('enemyForces')}:</div>
+                <div class="battle-detail-row"><span>⚔️ ${t('soldiers')}</span><span>${enemyForces.soldiers}</span></div>
+                <div class="battle-detail-row"><span>🛡️ ${t('tanks')}</span><span>${enemyForces.tanks}</span></div>
+                <div class="battle-detail-row"><span>✈️ ${t('planes')}</span><span>${enemyForces.planes}</span></div>
+                <div class="battle-detail-row"><span>🚢 ${t('ships')}</span><span>${enemyForces.ships}</span></div>
+                <div class="battle-detail-row"><span>🤖 ${t('drones')}</span><span>${enemyForces.drones}</span></div>
+                <div class="battle-detail-row"><span>💪 ${t('totalPower')}</span><span>${enemyForces.power}</span></div>
             </div>
 
             <div class="battle-details">
-                <div class="battle-detail-row"><span>Soldier Losses</span><span class="battle-loss">-${losses.soldiers}</span></div>
-                ${losses.tanks > 0 ? `<div class="battle-detail-row"><span>Tank Losses</span><span class="battle-loss">-${losses.tanks}</span></div>` : ''}
-                ${losses.planes > 0 ? `<div class="battle-detail-row"><span>Plane Losses</span><span class="battle-loss">-${losses.planes}</span></div>` : ''}
-                ${losses.ships > 0 ? `<div class="battle-detail-row"><span>Ship Losses</span><span class="battle-loss">-${losses.ships}</span></div>` : ''}
-                ${losses.drones > 0 ? `<div class="battle-detail-row"><span>Drone Losses</span><span class="battle-loss">-${losses.drones}</span></div>` : ''}
+                <div class="battle-detail-row"><span>${t('soldierLosses')}</span><span class="battle-loss">-${losses.soldiers}</span></div>
+                ${losses.tanks > 0 ? `<div class="battle-detail-row"><span>${t('tankLosses')}</span><span class="battle-loss">-${losses.tanks}</span></div>` : ''}
+                ${losses.planes > 0 ? `<div class="battle-detail-row"><span>${t('planeLosses')}</span><span class="battle-loss">-${losses.planes}</span></div>` : ''}
+                ${losses.ships > 0 ? `<div class="battle-detail-row"><span>${t('shipLosses')}</span><span class="battle-loss">-${losses.ships}</span></div>` : ''}
+                ${losses.drones > 0 ? `<div class="battle-detail-row"><span>${t('droneLosses')}</span><span class="battle-loss">-${losses.drones}</span></div>` : ''}
                 ${victory ? `
-                <div class="battle-detail-row"><span>Soldiers Captured</span><span class="battle-reward">+${gained.soldiers}</span></div>
-                ${gained.tanks > 0 ? `<div class="battle-detail-row"><span>Tanks Captured</span><span class="battle-reward">+${gained.tanks}</span></div>` : ''}
-                ${gained.planes > 0 ? `<div class="battle-detail-row"><span>Planes Captured</span><span class="battle-reward">+${gained.planes}</span></div>` : ''}
-                ${gained.ships > 0 ? `<div class="battle-detail-row"><span>Ships Captured</span><span class="battle-reward">+${gained.ships}</span></div>` : ''}
-                ${gained.drones > 0 ? `<div class="battle-detail-row"><span>Drones Captured</span><span class="battle-reward">+${gained.drones}</span></div>` : ''}
-                <div class="battle-detail-row"><span>Gold Looted</span><span class="battle-reward">+${goldReward}</span></div>
+                <div class="battle-detail-row"><span>${t('soldiersCaptured')}</span><span class="battle-reward">+${gained.soldiers}</span></div>
+                ${gained.tanks > 0 ? `<div class="battle-detail-row"><span>${t('tanksCaptured')}</span><span class="battle-reward">+${gained.tanks}</span></div>` : ''}
+                ${gained.planes > 0 ? `<div class="battle-detail-row"><span>${t('planesCaptured')}</span><span class="battle-reward">+${gained.planes}</span></div>` : ''}
+                ${gained.ships > 0 ? `<div class="battle-detail-row"><span>${t('shipsCaptured')}</span><span class="battle-reward">+${gained.ships}</span></div>` : ''}
+                ${gained.drones > 0 ? `<div class="battle-detail-row"><span>${t('dronesCaptured')}</span><span class="battle-reward">+${gained.drones}</span></div>` : ''}
+                <div class="battle-detail-row"><span>${t('goldLooted')}</span><span class="battle-reward">+${goldReward}</span></div>
                 ` : ''}
                 <div class="battle-detail-row" style="border-top: 1px solid rgba(255,255,255,0.2); margin-top: 10px; padding-top: 15px;">
-                    <span>Your Forces Now</span>
+                    <span>${t('yourForcesNow')}</span>
                     <span>⚔️${gameState.army} 🛡️${gameState.tanks} ✈️${gameState.planes} 🚢${gameState.ships} 🤖${gameState.drones}</span>
                 </div>
             </div>
@@ -688,10 +1581,10 @@ function getCurrentQuests() {
 }
 
 function getQuestLevelTitle() {
-    if (gameState.questLevel === 'starter') return '🌟 Starter Quests';
-    if (gameState.questLevel === 'normal') return '⚔️ Normal Quests';
-    if (gameState.questLevel === 'hard') return '🔥 Hard Quests';
-    return '🏆 All Quests Completed!';
+    if (gameState.questLevel === 'starter') return '🌟 ' + t('starterQuests');
+    if (gameState.questLevel === 'normal') return '⚔️ ' + t('normalQuests');
+    if (gameState.questLevel === 'hard') return '🔥 ' + t('hardQuests');
+    return '🏆 ' + t('allQuestsCompleted');
 }
 
 function checkQuestLevelComplete() {
@@ -713,9 +1606,9 @@ function renderQuests() {
     if (gameState.questLevel === 'completed') {
         container.innerHTML = `
             <div class="quest-category">
-                <div class="quest-category-title">🏆 All Quests Completed!</div>
+                <div class="quest-category-title">🏆 ${t('allQuestsCompleted')}</div>
                 <p style="text-align: center; opacity: 0.8; padding: 20px;">
-                    Congratulations! You have completed all quests!
+                    ${t('allQuestsCompleted')}
                 </p>
             </div>
         `;
@@ -727,17 +1620,18 @@ function renderQuests() {
     quests.forEach(quest => {
         const isComplete = quest.check();
         const isClaimed = gameState.questsCompleted.includes(quest.id);
+        const questName = typeof quest.name === 'function' ? quest.name() : quest.name;
 
         html += `
             <div class="quest-item ${isClaimed ? 'completed' : ''}">
                 <div class="quest-info">
-                    <div class="quest-name">${quest.name}</div>
-                    <div class="quest-progress">${isComplete ? '✅ Completed' : '⏳ In Progress'}</div>
+                    <div class="quest-name">${questName}</div>
+                    <div class="quest-progress">${isComplete ? '✅ ' + t('completed') : '⏳ ' + t('inProgress')}</div>
                 </div>
                 ${isClaimed
                     ? '<span class="quest-check">✓</span>'
                     : isComplete
-                        ? `<button class="claim-btn" onclick="claimQuest('${quest.id}', ${quest.reward})">Claim 💰${quest.reward}</button>`
+                        ? `<button class="claim-btn" onclick="claimQuest('${quest.id}', ${quest.reward})">${t('claim')} 💰${quest.reward}</button>`
                         : `<span class="quest-reward">💰 ${quest.reward}</span>`
                 }
             </div>
@@ -771,13 +1665,13 @@ function redeemCode() {
 
     if (!code) {
         message.className = 'code-message error';
-        message.textContent = 'Please enter a code!';
+        message.textContent = t('enterCodePlease');
         return;
     }
 
     if (gameState.redeemedCodes && gameState.redeemedCodes.includes(code)) {
         message.className = 'code-message error';
-        message.textContent = 'Code already redeemed!';
+        message.textContent = t('alreadyRedeemed');
         return;
     }
 
@@ -795,7 +1689,7 @@ function redeemCode() {
         gameState.redeemedCodes.push(code);
 
         message.className = 'code-message success';
-        message.textContent = `Code redeemed! ${codeData.description}`;
+        message.textContent = `${t('codeRedeemed')} ${codeData.description}`;
         input.value = '';
 
         updateDisplays();
@@ -803,14 +1697,14 @@ function redeemCode() {
         renderRedeemedCodes();
     } else {
         message.className = 'code-message error';
-        message.textContent = 'Invalid code!';
+        message.textContent = t('invalidCode');
     }
 }
 
 function renderRedeemedCodes() {
     const list = document.getElementById('redeemed-list');
     if (!gameState.redeemedCodes || gameState.redeemedCodes.length === 0) {
-        list.innerHTML = '<p style="opacity: 0.5;">No codes redeemed yet</p>';
+        list.innerHTML = `<p style="opacity: 0.5;">${t('noCodesYet')}</p>`;
     } else {
         list.innerHTML = gameState.redeemedCodes.map(code => {
             const codeData = availableCodes[code];
@@ -836,7 +1730,7 @@ async function renderTeamContent() {
                 const team = data.team;
                 html += `
                     <div class="current-mode team-mode">
-                        <div class="mode-title">🎮 Playing as Team</div>
+                        <div class="mode-title">🎮 ${t('playingAsTeam')}</div>
                         <div class="mode-team-name">${team.flag} ${team.name}</div>
                         <div class="mode-resources">
                             <span>💰 ${gameState.gold}</span>
@@ -846,19 +1740,19 @@ async function renderTeamContent() {
                             <span>🚢 ${gameState.ships}</span>
                             <span>🤖 ${gameState.drones}</span>
                         </div>
-                        <div class="mode-info">👥 ${team.members.length} member(s) • Code: ${team.code}</div>
-                        <div class="mode-info">Resources are shared in real-time!</div>
-                        <button class="leave-team-btn" onclick="leaveTeam()">🚪 Leave Team</button>
+                        <div class="mode-info">👥 ${team.members.length} ${t('members')} • Code: ${team.code}</div>
+                        <div class="mode-info">${t('resourcesShared')}</div>
+                        <button class="leave-team-btn" onclick="leaveTeam()">🚪 ${t('leaveTeam')}</button>
                     </div>
                 `;
             }
         } catch (e) {
-            html += `<div class="current-mode team-mode"><div class="mode-title">⚠️ Server Offline</div></div>`;
+            html += `<div class="current-mode team-mode"><div class="mode-title">⚠️ ${t('serverOffline')}</div></div>`;
         }
     } else {
         html += `
             <div class="current-mode solo-mode">
-                <div class="mode-title">👤 Playing Solo</div>
+                <div class="mode-title">👤 ${t('playingSolo')}</div>
                 <div class="mode-resources">
                     <span>💰 ${gameState.gold}</span>
                     <span>⚔️ ${gameState.army}</span>
@@ -867,7 +1761,7 @@ async function renderTeamContent() {
                     <span>🚢 ${gameState.ships}</span>
                     <span>🤖 ${gameState.drones}</span>
                 </div>
-                <div class="mode-info">Create or join a team to share resources!</div>
+                <div class="mode-info">${t('createOrJoin')}</div>
             </div>
         `;
     }
@@ -877,7 +1771,7 @@ async function renderTeamContent() {
         const response = await fetch(API_URL + '/api/teams');
         const data = await response.json();
         if (data.success && data.teams.length > 0) {
-            html += '<div class="teams-section-title">Public Teams:</div>';
+            html += `<div class="teams-section-title">${t('publicTeams')}:</div>`;
             html += '<div class="teams-list">';
             data.teams.forEach(team => {
                 const isActive = gameState.activeTeamCode === team.code;
@@ -889,11 +1783,11 @@ async function renderTeamContent() {
                                 <div class="team-list-name">${team.name}</div>
                                 <div class="team-list-desc">${team.description || 'No description'}</div>
                                 <div class="team-resources-preview">💰${team.gold} ⚔️${team.army} 🛡️${team.tanks} ✈️${team.planes} 🚢${team.ships} 🤖${team.drones || 0}</div>
-                                <div class="team-members-count">👥 ${team.memberCount} member(s)</div>
+                                <div class="team-members-count">👥 ${team.memberCount} ${t('members')}</div>
                             </div>
                         </div>
                         <button class="team-join-btn ${isActive ? 'active' : ''}" onclick="${isActive ? '' : `joinTeamByCode('${team.code}')`}">
-                            ${isActive ? '✓ Active' : '→ Join'}
+                            ${isActive ? '✓ Active' : '→ ' + t('joinTeam')}
                         </button>
                     </div>
                 `;
@@ -907,8 +1801,8 @@ async function renderTeamContent() {
     // Show create/join buttons
     html += `
         <div class="team-options" style="margin-top: 15px;">
-            <button class="team-option-btn create-btn" onclick="openCreateTeam()">✨ Create Team</button>
-            <button class="team-option-btn join-btn" onclick="openJoinTeam()">🔗 Join by Code</button>
+            <button class="team-option-btn create-btn" onclick="openCreateTeam()">✨ ${t('createTeam')}</button>
+            <button class="team-option-btn join-btn" onclick="openJoinTeam()">🔗 ${t('joinByCode')}</button>
         </div>
     `;
 
@@ -1206,6 +2100,7 @@ async function fetchTeamResources() {
             // Show sync indicator
             const syncIndicator = document.getElementById('sync-indicator');
             if (syncIndicator) {
+                syncIndicator.textContent = '🔄 ' + t('synced');
                 syncIndicator.classList.add('active');
                 setTimeout(() => syncIndicator.classList.remove('active'), 1000);
             }

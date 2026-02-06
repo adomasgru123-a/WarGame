@@ -12,7 +12,7 @@
 
     <!-- Country Selection Screen -->
     <div id="country-selection">
-        <h1>Choose Your Country</h1>
+        <h1 data-translate="chooseCountry">Choose Your Country</h1>
         <div class="countries-container">
             <div class="country-card" data-country="Spain" data-flag="🇪🇸">
                 <div class="country-flag">🇪🇸</div>
@@ -99,7 +99,16 @@
                 <div class="country-name">Galactic Federation</div>
             </div>
         </div>
-        <button id="start-btn">START GAME</button>
+
+        <!-- World Map -->
+        <div class="map-section">
+            <div class="map-section-title" data-translate="selectOnMap">Or select on the map below</div>
+            <div class="world-map-container">
+                <div id="world-map"></div>
+            </div>
+        </div>
+
+        <button id="start-btn" data-translate="startGame">START GAME</button>
     </div>
 
     <!-- Game Screen -->
@@ -348,11 +357,22 @@
     <div class="modal-overlay" id="settings-modal">
         <div class="modal">
             <div class="modal-header">
-                <h2>⚙️ Settings</h2>
+                <h2>⚙️ <span data-translate="settingsTitle">Settings</span></h2>
                 <button class="close-btn" onclick="closeModal('settings')">&times;</button>
             </div>
             <div class="setting-row">
-                <span>Sound Effects</span>
+                <span class="setting-label" data-translate="language">Language</span>
+                <select id="language-select" class="language-select" onchange="changeLanguage(this.value)">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="lt">🇱🇹 Lietuviu</option>
+                    <option value="es">🇪🇸 Espanol</option>
+                    <option value="ru">🇷🇺 Russkiy</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="fr">🇫🇷 Francais</option>
+                </select>
+            </div>
+            <div class="setting-row">
+                <span data-translate="sound">Sound Effects</span>
                 <button class="toggle-btn active" onclick="toggleSetting(this)"></button>
             </div>
             <div class="setting-row">
@@ -360,10 +380,10 @@
                 <button class="toggle-btn active" onclick="toggleSetting(this)"></button>
             </div>
             <div class="setting-row">
-                <span>Notifications</span>
+                <span data-translate="notifications">Notifications</span>
                 <button class="toggle-btn" onclick="toggleSetting(this)"></button>
             </div>
-            <button class="reset-btn" onclick="resetGame()">Reset Game</button>
+            <button class="reset-btn" onclick="resetGame()" data-translate="resetGame">Reset Game</button>
         </div>
     </div>
 
@@ -371,11 +391,23 @@
     <div class="modal-overlay" id="attack-modal">
         <div class="modal">
             <div class="modal-header">
-                <h2>⚔️ Attack Country</h2>
+                <h2>⚔️ <span data-translate="attackTitle">Select Target</span></h2>
                 <button class="close-btn" onclick="closeModal('attack')">&times;</button>
             </div>
             <p style="margin-bottom: 20px; opacity: 0.8;">Choose a country to attack:</p>
             <div id="attack-countries-list"></div>
+        </div>
+    </div>
+
+    <!-- City Selection Modal -->
+    <div class="modal-overlay" id="city-selection-modal">
+        <div class="modal large">
+            <div class="modal-header">
+                <h2>🏙️ <span data-translate="selectCity">Select City to Attack</span></h2>
+                <button class="close-btn" onclick="closeModal('city-selection')">&times;</button>
+            </div>
+            <div id="city-selection-title"></div>
+            <div class="city-list" id="city-list"></div>
         </div>
     </div>
 
