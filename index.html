@@ -15,12 +15,335 @@
         <h1 data-translate="chooseCountry">Choose Your Country</h1>
         <div class="countries-container">
             <div class="country-card" data-country="Spain" data-flag="🇪🇸">
-                 <div class="country-flag">🇪🇸</div>
+                <div class="country-flag">🇪🇸</div>
                 <div class="country-name">Spain</div>
             </div>
             <div class="country-card" data-country="France" data-flag="🇫🇷">
                 <div class="country-flag">🇫🇷</div>
-      <option value="fr">🇫🇷 Francais</option>
+                <div class="country-name">France</div>
+            </div>
+            <div class="country-card" data-country="Italy" data-flag="🇮🇹">
+                <div class="country-flag">🇮🇹</div>
+                <div class="country-name">Italy</div>
+            </div>
+            <div class="country-card" data-country="Lithuania" data-flag="🇱🇹">
+                <div class="country-flag">🇱🇹</div>
+                <div class="country-name">Lithuania</div>
+            </div>
+            <div class="country-card" data-country="Belgium" data-flag="🇧🇪">
+                <div class="country-flag">🇧🇪</div>
+                <div class="country-name">Belgium</div>
+            </div>
+            <div class="country-card" data-country="Germany" data-flag="🇩🇪">
+                <div class="country-flag">🇩🇪</div>
+                <div class="country-name">Germany</div>
+            </div>
+            <div class="country-card" data-country="United Kingdom" data-flag="🇬🇧">
+                <div class="country-flag">🇬🇧</div>
+                <div class="country-name">United Kingdom</div>
+            </div>
+            <div class="country-card" data-country="Poland" data-flag="🇵🇱">
+                <div class="country-flag">🇵🇱</div>
+                <div class="country-name">Poland</div>
+            </div>
+            <div class="country-card" data-country="Netherlands" data-flag="🇳🇱">
+                <div class="country-flag">🇳🇱</div>
+                <div class="country-name">Netherlands</div>
+            </div>
+        </div>
+
+        <!-- World Map -->
+        <div class="map-section">
+            <div class="map-section-title" data-translate="selectOnMap">Or select on the map below</div>
+            <div class="world-map-container">
+                <div id="world-map"></div>
+            </div>
+        </div>
+
+        <button id="start-btn" data-translate="startGame">START GAME</button>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen">
+        <div class="game-header">
+            <div class="player-info">
+                <span class="player-flag" id="player-flag">🇪🇸</span>
+                <span class="player-country" id="player-country">Spain</span>
+                <span class="team-indicator" id="team-indicator">👥 Team Mode</span>
+            </div>
+            <div class="resources">
+                <div class="resource">
+                    <span class="resource-icon">💰</span>
+                    <span class="resource-value" id="gold-display">1000</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon">⚔️</span>
+                    <span class="resource-value" id="army-header-display">10</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon">🛡️</span>
+                    <span class="resource-value" id="tanks-header-display">0</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon">✈️</span>
+                    <span class="resource-value" id="planes-header-display">0</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon">🚢</span>
+                    <span class="resource-value" id="ships-header-display">0</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon">🤖</span>
+                    <span class="resource-value" id="drones-header-display">0</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon">💣</span>
+                    <span class="resource-value" id="bombs-header-display">0</span>
+                </div>
+            </div>
+        </div>
+        <div class="game-content">
+            <div class="main-area">
+                <div class="units-grid">
+                    <div class="army-display">
+                        <h2>Soldiers</h2>
+                        <div class="army-count" id="army-display">10</div>
+                        <div class="army-icon">⚔️</div>
+                    </div>
+                    <div class="army-display">
+                        <h2>Tanks</h2>
+                        <div class="army-count" id="tanks-display" style="color: #f39c12;">0</div>
+                        <div class="army-icon">🛡️</div>
+                    </div>
+                    <div class="army-display">
+                        <h2>Planes</h2>
+                        <div class="army-count" id="planes-display" style="color: #3498db;">0</div>
+                        <div class="army-icon">✈️</div>
+                    </div>
+                    <div class="army-display">
+                        <h2>Battleships</h2>
+                        <div class="army-count" id="ships-display" style="color: #9b59b6;">0</div>
+                        <div class="army-icon">🚢</div>
+                    </div>
+                    <div class="army-display">
+                        <h2>Combat Drones</h2>
+                        <div class="army-count" id="drones-display" style="color: #00d4ff;">0</div>
+                        <div class="army-icon">🤖</div>
+                    </div>
+                    <div class="army-display">
+                        <h2>Bombs</h2>
+                        <div class="army-count" id="bombs-display" style="color: #ff4500;">0</div>
+                        <div class="army-icon">💣</div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-menu">
+                <button class="menu-btn attack-btn" onclick="openModal('attack')">
+                    <span class="menu-btn-icon">⚔️</span>
+                    Attack
+                </button>
+                <button class="menu-btn" onclick="openModal('shop')">
+                    <span class="menu-btn-icon">🛒</span>
+                    Shop
+                </button>
+                <button class="menu-btn" onclick="openModal('stats')">
+                    <span class="menu-btn-icon">📊</span>
+                    Stats
+                </button>
+                <button class="menu-btn quests-btn" onclick="openModal('quests')">
+                    <span class="menu-btn-icon">📜</span>
+                    Quests
+                </button>
+                <button class="menu-btn" onclick="openModal('settings')">
+                    <span class="menu-btn-icon">⚙️</span>
+                    Settings
+                </button>
+                <button class="menu-btn" onclick="openModal('codes')">
+                    <span class="menu-btn-icon">🎁</span>
+                    Codes
+                </button>
+                <button class="menu-btn" onclick="openModal('teams')">
+                    <span class="menu-btn-icon">👥</span>
+                    Teams
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop Modal -->
+    <div class="modal-overlay" id="shop-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>🛒 <span data-translate="shopTitle">Shop</span></h2>
+                <button class="close-btn" onclick="closeModal('shop')">&times;</button>
+            </div>
+
+            <!-- Soldiers -->
+            <div class="shop-item">
+                <div class="shop-item-info">
+                    <span class="shop-item-icon">⚔️</span>
+                    <div>
+                        <div class="shop-item-name" data-translate="soldiers">Soldiers</div>
+                        <div class="shop-item-desc">💰 10 gold each (1 power)</div>
+                    </div>
+                </div>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-soldiers" class="shop-qty-input" value="10" min="1" onchange="updateShopCost('soldiers', 10)">
+                    <button class="buy-btn" onclick="buyFromShop('soldiers', 10)">💰 <span id="cost-soldiers">100</span></button>
+                </div>
+            </div>
+
+            <!-- Tanks -->
+            <div class="shop-item" style="border: 2px solid #f39c12;">
+                <div class="shop-item-info">
+                    <span class="shop-item-icon">🛡️</span>
+                    <div>
+                        <div class="shop-item-name" data-translate="tank">Tank</div>
+                        <div class="shop-item-desc">💰 300 gold each (50 power)</div>
+                    </div>
+                </div>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-tanks" class="shop-qty-input" value="1" min="1" onchange="updateShopCost('tanks', 300)">
+                    <button class="buy-btn" onclick="buyFromShop('tanks', 300)">💰 <span id="cost-tanks">300</span></button>
+                </div>
+            </div>
+
+            <!-- Planes -->
+            <div class="shop-item" style="border: 2px solid #3498db;">
+                <div class="shop-item-info">
+                    <span class="shop-item-icon">✈️</span>
+                    <div>
+                        <div class="shop-item-name" data-translate="plane">Plane</div>
+                        <div class="shop-item-desc">💰 400 gold each (75 power)</div>
+                    </div>
+                </div>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-planes" class="shop-qty-input" value="1" min="1" onchange="updateShopCost('planes', 400)">
+                    <button class="buy-btn" onclick="buyFromShop('planes', 400)">💰 <span id="cost-planes">400</span></button>
+                </div>
+            </div>
+
+            <!-- Battleships -->
+            <div class="shop-item" style="border: 2px solid #9b59b6;">
+                <div class="shop-item-info">
+                    <span class="shop-item-icon">🚢</span>
+                    <div>
+                        <div class="shop-item-name" data-translate="battleship">Battleship</div>
+                        <div class="shop-item-desc">💰 500 gold each (100 power)</div>
+                    </div>
+                </div>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-ships" class="shop-qty-input" value="1" min="1" onchange="updateShopCost('ships', 500)">
+                    <button class="buy-btn" onclick="buyFromShop('ships', 500)">💰 <span id="cost-ships">500</span></button>
+                </div>
+            </div>
+
+            <!-- Combat Drones -->
+            <div class="shop-item" style="border: 2px solid #00d4ff;">
+                <div class="shop-item-info">
+                    <span class="shop-item-icon">🤖</span>
+                    <div>
+                        <div class="shop-item-name" data-translate="combatDrone">Combat Drone</div>
+                        <div class="shop-item-desc">💰 700 gold each (150 power)</div>
+                    </div>
+                </div>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-drones" class="shop-qty-input" value="1" min="1" onchange="updateShopCost('drones', 700)">
+                    <button class="buy-btn" onclick="buyFromShop('drones', 700)">💰 <span id="cost-drones">700</span></button>
+                </div>
+            </div>
+
+            <!-- Bombs -->
+            <div class="shop-item" style="border: 2px solid #ff4500;">
+                <div class="shop-item-info">
+                    <span class="shop-item-icon">💣</span>
+                    <div>
+                        <div class="shop-item-name" data-translate="bomb">Bomb</div>
+                        <div class="shop-item-desc">💰 1000 gold each (300 power)</div>
+                    </div>
+                </div>
+                <div class="shop-buy-controls">
+                    <input type="number" id="buy-bombs" class="shop-qty-input" value="1" min="1" onchange="updateShopCost('bombs', 1000)">
+                    <button class="buy-btn" onclick="buyFromShop('bombs', 1000)">💰 <span id="cost-bombs">1000</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Modal -->
+    <div class="modal-overlay" id="stats-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>📊 <span data-translate="statsTitle">Statistics</span></h2>
+                <button class="close-btn" onclick="closeModal('stats')">&times;</button>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="country">Country</span>
+                <span class="stat-value" id="stat-country">-</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="gold">Gold</span>
+                <span class="stat-value" id="stat-gold">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="army">Army</span>
+                <span class="stat-value" id="stat-army">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="tanks">Tanks</span>
+                <span class="stat-value" id="stat-tanks">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="planes">Planes</span>
+                <span class="stat-value" id="stat-planes">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="ships">Ships</span>
+                <span class="stat-value" id="stat-ships">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="drones">Drones</span>
+                <span class="stat-value" id="stat-drones">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="bombs">Bombs</span>
+                <span class="stat-value" id="stat-bombs">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="totalPurchased">Total Purchased</span>
+                <span class="stat-value" id="stat-purchased">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="goldSpent">Gold Spent</span>
+                <span class="stat-value" id="stat-spent">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="battlesWon">Battles Won</span>
+                <span class="stat-value" id="stat-won">0</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label" data-translate="battlesLost">Battles Lost</span>
+                <span class="stat-value" id="stat-lost">0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal-overlay" id="settings-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>⚙️ <span data-translate="settingsTitle">Settings</span></h2>
+                <button class="close-btn" onclick="closeModal('settings')">&times;</button>
+            </div>
+            <div class="setting-row">
+                <span class="setting-label" data-translate="language">Language</span>
+                <select id="language-select" class="language-select" onchange="changeLanguage(this.value)">
+                    <option value="en">🇬🇧 English</option>
+                    <option value="lt">🇱🇹 Lietuviu</option>
+                    <option value="es">🇪🇸 Espanol</option>
+                    <option value="ru">🇷🇺 Russkiy</option>
+                    <option value="de">🇩🇪 Deutsch</option>
+                    <option value="fr">🇫🇷 Francais</option>
                 </select>
             </div>
             <div class="setting-row">
@@ -161,11 +484,9 @@
     <div class="modal-overlay" id="attacking-modal">
         <div class="modal">
             <div class="modal-header">
-                <h2>⚔️ Attacking...</h2>
+                <h2>⚔️ <span data-translate="attacking">Attacking</span>...</h2>
             </div>
             <div class="attacking-content">
-                <div class="attacking-icon">⚔️</div>
-                <div class="attacking-title">ATTACKING</div>
                 <div class="attacking-target" id="attacking-target-display"></div>
                 <div class="progress-container">
                     <div class="progress-bar" id="attack-progress-bar"></div>
@@ -176,45 +497,62 @@
         </div>
     </div>
 
+    <!-- Result Modal -->
+    <div class="modal-overlay" id="result-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="result-title" class="result-title">Victory!</h2>
+                <button class="close-btn" onclick="closeModal('result')">&times;</button>
+            </div>
+            <div class="result-content">
+                <div id="result-country" class="result-country"></div>
+                <div id="enemy-forces-display" class="result-section"></div>
+                <div id="losses-display" class="result-section"></div>
+                <div id="gains-display" class="result-section"></div>
+                <div id="post-battle-stats" class="result-section"></div>
+            </div>
+            <button class="close-result-btn" onclick="closeModal('result')">Continue</button>
+        </div>
+    </div>
+
     <!-- Quests Modal -->
     <div class="modal-overlay" id="quests-modal">
         <div class="modal">
             <div class="modal-header">
-                <h2>📜 Quests</h2>
+                <h2>📜 <span data-translate="questsTitle">Quests</span></h2>
                 <button class="close-btn" onclick="closeModal('quests')">&times;</button>
             </div>
-            <div id="quests-content"></div>
+            <div id="quests-list"></div>
         </div>
     </div>
 
-    <!-- Code Redemption Modal -->
-    <div class="modal-overlay" id="code-modal">
+    <!-- Codes Modal -->
+    <div class="modal-overlay" id="codes-modal">
         <div class="modal">
             <div class="modal-header">
-                <h2>🎁 Redeem Code</h2>
-                <button class="close-btn" onclick="closeModal('code')">&times;</button>
+                <h2>🎁 <span data-translate="codesTitle">Redeem Code</span></h2>
+                <button class="close-btn" onclick="closeModal('codes')">&times;</button>
             </div>
-            <p style="margin-bottom: 20px; opacity: 0.8;">Enter a code to receive rewards!</p>
-            <div class="code-input-container">
-                <input type="text" id="code-input" placeholder="Enter code here..." class="code-input">
-                <button class="redeem-btn" onclick="redeemCode()">Redeem</button>
-            </div>
+            <p data-translate="enterCode">Enter a code to receive rewards!</p>
+            <input type="text" id="code-input" class="code-input" placeholder="Enter code...">
+            <button class="redeem-btn" onclick="redeemCode()" data-translate="redeem">Redeem</button>
             <div id="code-message" class="code-message"></div>
             <div class="redeemed-codes">
-                <h3>Redeemed Codes:</h3>
+                <h3 data-translate="redeemedCodes">Redeemed Codes</h3>
                 <div id="redeemed-list"></div>
             </div>
         </div>
     </div>
 
-    <!-- Team Modal -->
-    <div class="modal-overlay" id="team-modal">
+    <!-- Teams Modal -->
+    <div class="modal-overlay" id="teams-modal">
         <div class="modal">
             <div class="modal-header">
-                <h2>👥 Teams</h2>
-                <button class="close-btn" onclick="closeModal('team')">&times;</button>
+                <h2>👥 <span data-translate="teamsTitle">Teams</span></h2>
+                <button class="close-btn" onclick="closeModal('teams')">&times;</button>
             </div>
-            <div id="team-content"></div>
+            <div id="team-status"></div>
+            <div id="team-actions"></div>
         </div>
     </div>
 
@@ -222,34 +560,29 @@
     <div class="modal-overlay" id="create-team-modal">
         <div class="modal">
             <div class="modal-header">
-                <h2>✨ Create Team</h2>
+                <h2>➕ <span data-translate="createTeam">Create Team</span></h2>
                 <button class="close-btn" onclick="closeModal('create-team')">&times;</button>
             </div>
-            <div class="team-form-group">
-                <label>Team Name</label>
-                <input type="text" id="team-name-input" class="team-input" placeholder="Enter team name..." maxlength="20">
+            <div class="form-group">
+                <label data-translate="teamName">Team Name</label>
+                <input type="text" id="team-name-input" class="form-input" placeholder="Enter team name...">
             </div>
-            <div class="team-form-group">
-                <label>Team Country</label>
-                <div class="country-select-grid" id="team-country-select"></div>
+            <div class="form-group">
+                <label data-translate="description">Description</label>
+                <input type="text" id="team-desc-input" class="form-input" placeholder="Team description...">
             </div>
-            <div class="team-form-group">
-                <label>Description</label>
-                <textarea id="team-desc-input" class="team-textarea" placeholder="Describe your team..." maxlength="100"></textarea>
+            <div class="form-group">
+                <label data-translate="teamCountry">Team Country</label>
+                <div id="team-country-select" class="team-country-grid"></div>
             </div>
-            <div class="team-form-group">
-                <label>Privacy</label>
-                <div class="privacy-toggle">
-                    <button class="privacy-option selected" id="privacy-public" onclick="selectPrivacy('public')">🌍 Public</button>
-                    <button class="privacy-option" id="privacy-private" onclick="selectPrivacy('private')">🔒 Private</button>
+            <div class="form-group">
+                <label data-translate="privacy">Privacy</label>
+                <div class="privacy-options">
+                    <button class="privacy-btn selected" onclick="selectPrivacy('public')" data-translate="public">Public</button>
+                    <button class="privacy-btn" onclick="selectPrivacy('private')" data-translate="private">Private</button>
                 </div>
             </div>
-            <div id="team-code-container" style="display: none;">
-                <div class="team-code-display">
-                    <p style="margin-bottom: 10px; opacity: 0.8;">Your team code will appear after creation</p>
-                    <div class="code" id="generated-team-code">-----</div>
-                </div>
-            </div>
+            <div id="create-team-message" class="code-message"></div>
             <button class="create-team-btn" onclick="createTeam()">🚀 Create Team</button>
         </div>
     </div>
@@ -258,13 +591,12 @@
     <div class="modal-overlay" id="join-team-modal">
         <div class="modal">
             <div class="modal-header">
-                <h2>🔗 Join Team</h2>
+                <h2>🔗 <span data-translate="joinByCode">Join by Code</span></h2>
                 <button class="close-btn" onclick="closeModal('join-team')">&times;</button>
             </div>
-            <p style="margin-bottom: 20px; opacity: 0.8;">Enter a team code to join:</p>
-            <div class="team-form-group">
-                <label>Team Code</label>
-                <input type="text" id="join-team-code" class="team-input" placeholder="Enter 5-digit code..." maxlength="5">
+            <div class="form-group">
+                <label data-translate="teamCode">Team Code</label>
+                <input type="text" id="join-code-input" class="form-input" placeholder="Enter 5-digit code...">
             </div>
             <div id="join-team-message" class="code-message"></div>
             <button class="create-team-btn" style="background: linear-gradient(135deg, #0984e3, #0773c7);" onclick="joinTeamByCode()">🔗 Join Team</button>
