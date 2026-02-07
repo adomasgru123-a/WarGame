@@ -1192,6 +1192,7 @@ function loadGame(country, flag) {
             planes: typeof parsed.planes === 'number' ? parsed.planes : 0,
             ships: typeof parsed.ships === 'number' ? parsed.ships : 0,
             drones: typeof parsed.drones === 'number' ? parsed.drones : 0,
+            bombs: typeof parsed.bombs === 'number' ? parsed.bombs : 0,
 
             // Stats
             totalPurchased: parsed.totalPurchased || 0,
@@ -1211,18 +1212,19 @@ function loadGame(country, flag) {
         };
 
         // Update save version for future compatibility
-        gameState.saveVersion = 2;
+        gameState.saveVersion = 3;
     } else {
         gameState = {
             country: country,
             flag: flag,
-            saveVersion: 2,
+            saveVersion: 3,
             gold: 1000,
             army: 10,
             tanks: 0,
             planes: 0,
             ships: 0,
             drones: 0,
+            bombs: 0,
             totalPurchased: 0,
             goldSpent: 0,
             battlesWon: 0,
