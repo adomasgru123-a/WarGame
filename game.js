@@ -1552,6 +1552,8 @@ function showCitySelection() {
 }
 
 function launchAtomicWar(cost) {
+    console.log('launchAtomicWar called with cost:', cost, 'current gold:', gameState.gold);
+
     if (gameState.gold < cost) {
         alert(t('notEnoughGold'));
         return;
@@ -1560,6 +1562,7 @@ function launchAtomicWar(cost) {
     // Deduct cost
     gameState.gold -= cost;
     gameState.goldSpent += cost;
+    console.log('Gold deducted, new gold:', gameState.gold);
 
     closeModal('city-selection');
 
@@ -1590,14 +1593,22 @@ function launchAtomicWar(cost) {
             clearInterval(interval);
             setTimeout(() => {
                 closeModal('attacking');
-                showAtomicResult();
+                try {
+                    showAtomicResult();
+                } catch (error) {
+                    console.error('Error in showAtomicResult:', error);
+                    alert('Error in atomic war result: ' + error.message);
+                }
             }, 300);
         }
     }, 80);
 }
 
 function showAtomicResult() {
+    console.log('showAtomicResult called, attackTarget:', attackTarget);
+
     const countryData = allCountries.find(c => c.name === attackTarget.name);
+    console.log('Found countryData:', countryData);
 
     // Capture ALL enemy forces
     const gained = {
@@ -1611,10 +1622,14 @@ function showAtomicResult() {
 
     // Calculate gold reward - MUCH higher for atomic war (3x base + bonus multiplier)
     const difficulty = attackTarget.difficulty || 1;
+    const cityCount = (attackTarget.cities && attackTarget.cities.length) || 1;
     const baseGold = 1500 * difficulty * difficulty; // 3x more than normal
-    const cityBonus = baseGold * attackTarget.cities.length;
+    const cityBonus = baseGold * cityCount;
     const atomicBonus = difficulty >= 10 ? 500000 : (difficulty >= 8 ? 100000 : (difficulty >= 6 ? 50000 : 10000));
     const goldReward = cityBonus + atomicBonus;
+
+    console.log('Atomic war rewards:', { gained, goldReward, difficulty, cityCount });
+    console.log('gameState BEFORE atomic war:', JSON.parse(JSON.stringify(gameState)));
 
     // Update game state
     gameState.army += gained.soldiers;
@@ -1624,7 +1639,9 @@ function showAtomicResult() {
     gameState.drones += gained.drones;
     gameState.bombs = (gameState.bombs || 0) + gained.bombs;
     gameState.gold += goldReward;
-    gameState.battlesWon += attackTarget.cities.length; // Count as winning all city battles
+    gameState.battlesWon += cityCount; // Count as winning all city battles
+
+    console.log('gameState AFTER atomic war:', JSON.parse(JSON.stringify(gameState)));
 
     updateDisplays();
     saveGame();
@@ -1663,6 +1680,7 @@ function showAtomicResult() {
         <div class="post-stat">💰 ${t('gold')}: ${gameState.gold.toLocaleString()}</div>
     `;
 
+    console.log('Opening result modal, gameState after atomic war:', gameState);
     openModal('result');
 }
 
