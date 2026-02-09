@@ -1296,12 +1296,12 @@ function openModal(type) {
     if (type === 'quests') {
         renderQuests();
     }
-    if (type === 'code') {
+    if (type === 'codes') {
         renderRedeemedCodes();
         document.getElementById('code-input').value = '';
         document.getElementById('code-message').className = 'code-message';
     }
-    if (type === 'team') {
+    if (type === 'teams') {
         renderTeamContent();
     }
     if (type === 'settings') {
@@ -1343,6 +1343,7 @@ function resetGame() {
             planes: 0,
             ships: 0,
             drones: 0,
+            bombs: 0,
             totalPurchased: 0,
             goldSpent: 0,
             battlesWon: 0,
@@ -1645,7 +1646,7 @@ function showAtomicResult() {
 
     updateDisplays();
     saveGame();
-    syncWithTeam();
+    syncTeamResources();
 
     // Show result
     document.getElementById('result-title').textContent = `☢️ ${t('atomicVictory')}!`;
@@ -1974,7 +1975,7 @@ function checkQuestLevelComplete() {
 }
 
 function renderQuests() {
-    const container = document.getElementById('quests-content');
+    const container = document.getElementById('quests-list');
     const quests = getCurrentQuests();
     const title = getQuestLevelTitle();
 
@@ -2092,7 +2093,7 @@ function renderRedeemedCodes() {
 // ==================== TEAM SYSTEM ====================
 
 async function renderTeamContent() {
-    const container = document.getElementById('team-content');
+    const container = document.getElementById('team-status');
 
     let html = '';
 
@@ -2185,7 +2186,7 @@ async function renderTeamContent() {
 }
 
 function openCreateTeam() {
-    closeModal('team');
+    closeModal('teams');
     document.getElementById('team-name-input').value = '';
     document.getElementById('team-desc-input').value = '';
     selectedTeamCountry = null;
@@ -2196,8 +2197,8 @@ function openCreateTeam() {
 }
 
 function openJoinTeam() {
-    closeModal('team');
-    document.getElementById('join-team-code').value = '';
+    closeModal('teams');
+    document.getElementById('join-code-input').value = '';
     document.getElementById('join-team-message').className = 'code-message';
     openModal('join-team');
 }
@@ -2221,15 +2222,9 @@ function selectTeamCountry(name, flag, element) {
 
 function selectPrivacy(privacy) {
     selectedPrivacy = privacy;
-    document.getElementById('privacy-public').classList.toggle('selected', privacy === 'public');
-    document.getElementById('privacy-private').classList.toggle('selected', privacy === 'private');
-
-    const codeContainer = document.getElementById('team-code-container');
-    if (privacy === 'private') {
-        codeContainer.style.display = 'block';
-    } else {
-        codeContainer.style.display = 'none';
-    }
+    document.querySelectorAll('.privacy-btn').forEach(btn => {
+        btn.classList.toggle('selected', btn.dataset.translate === privacy);
+    });
 }
 
 async function createTeam() {
@@ -2283,16 +2278,17 @@ async function createTeam() {
         const data = await response.json();
         if (data.success) {
             gameState.activeTeamCode = data.team.code;
-            document.getElementById('generated-team-code').textContent = data.team.code;
 
-            if (selectedPrivacy === 'private') {
-                alert(`Team created! Your code is: ${data.team.code}`);
+            const msg = document.getElementById('create-team-message');
+            if (msg) {
+                msg.className = 'code-message success';
+                msg.textContent = `Team created! Code: ${data.team.code}`;
             }
 
             saveGame();
             startTeamSync();
             closeModal('create-team');
-            openModal('team');
+            openModal('teams');
         } else {
             alert('Failed to create team: ' + data.error);
         }
@@ -2303,7 +2299,7 @@ async function createTeam() {
 
 async function joinTeamByCode(code) {
     if (!code) {
-        code = document.getElementById('join-team-code').value.trim();
+        code = document.getElementById('join-code-input').value.trim();
     }
 
     const message = document.getElementById('join-team-message');
@@ -2361,7 +2357,7 @@ async function joinTeamByCode(code) {
 
             setTimeout(() => {
                 closeModal('join-team');
-                openModal('team');
+                openModal('teams');
             }, 1000);
         } else {
             if (message) {
