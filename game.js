@@ -870,6 +870,27 @@ const allCountries = [
       cities: ['Seoul', 'Busan', 'Incheon', 'Daegu', 'Daejeon'] },
     { name: 'Australia', flag: '🇦🇺', difficulty: 4, soldiers: 800, tanks: 20, planes: 25, ships: 20, drones: 15, bombs: 2,
       cities: ['Canberra', 'Sydney', 'Melbourne', 'Brisbane', 'Perth'] },
+    // Very Strong countries (difficulty 4-5) - NEW ADDITIONS
+    { name: 'Canada', flag: '🇨🇦', difficulty: 4, soldiers: 1200, tanks: 28, planes: 30, ships: 22, drones: 25, bombs: 8,
+      cities: ['Ottawa', 'Toronto', 'Vancouver', 'Montreal', 'Calgary'] },
+    { name: 'Mexico', flag: '🇲🇽', difficulty: 4, soldiers: 1100, tanks: 25, planes: 22, ships: 18, drones: 20, bombs: 6,
+      cities: ['Mexico City', 'Guadalajara', 'Monterrey', 'Puebla', 'Tijuana'] },
+    { name: 'Argentina', flag: '🇦🇷', difficulty: 4, soldiers: 950, tanks: 22, planes: 20, ships: 16, drones: 18, bombs: 5,
+      cities: ['Buenos Aires', 'Cordoba', 'Rosario', 'Mendoza', 'La Plata'] },
+    { name: 'Saudi Arabia', flag: '🇸🇦', difficulty: 5, soldiers: 1600, tanks: 35, planes: 45, ships: 20, drones: 35, bombs: 12,
+      cities: ['Riyadh', 'Jeddah', 'Mecca', 'Medina', 'Dammam'] },
+    { name: 'Iran', flag: '🇮🇷', difficulty: 5, soldiers: 1700, tanks: 38, planes: 30, ships: 18, drones: 40, bombs: 10,
+      cities: ['Tehran', 'Mashhad', 'Isfahan', 'Shiraz', 'Tabriz'] },
+    { name: 'Pakistan', flag: '🇵🇰', difficulty: 5, soldiers: 1800, tanks: 32, planes: 28, ships: 15, drones: 30, bombs: 15,
+      cities: ['Islamabad', 'Karachi', 'Lahore', 'Faisalabad', 'Rawalpindi'] },
+    { name: 'Indonesia', flag: '🇮🇩', difficulty: 5, soldiers: 1550, tanks: 30, planes: 35, ships: 28, drones: 25, bombs: 8,
+      cities: ['Jakarta', 'Surabaya', 'Bandung', 'Medan', 'Semarang'] },
+    { name: 'Nigeria', flag: '🇳🇬', difficulty: 4, soldiers: 1350, tanks: 26, planes: 24, ships: 14, drones: 22, bombs: 7,
+      cities: ['Abuja', 'Lagos', 'Kano', 'Ibadan', 'Port Harcourt'] },
+    { name: 'Egypt', flag: '🇪🇬', difficulty: 5, soldiers: 1650, tanks: 36, planes: 32, ships: 22, drones: 28, bombs: 11,
+      cities: ['Cairo', 'Alexandria', 'Giza', 'Luxor', 'Aswan'] },
+    { name: 'Ukraine', flag: '🇺🇦', difficulty: 5, soldiers: 1450, tanks: 34, planes: 26, ships: 16, drones: 32, bombs: 9,
+      cities: ['Kyiv', 'Kharkiv', 'Odesa', 'Dnipro', 'Lviv'] },
     // Boss countries (difficulty 5+)
     { name: 'Roman Empire', flag: '🏛️', difficulty: 5, isBoss: true, soldiers: 5000, tanks: 50, planes: 30, ships: 30, drones: 20, bombs: 5,
       cities: ['Rome', 'Constantinople', 'Alexandria', 'Carthage', 'Athens'] },
@@ -932,7 +953,16 @@ const teamCountries = [
     { name: 'Japan', flag: '🇯🇵' },
     { name: 'Brazil', flag: '🇧🇷' },
     { name: 'Canada', flag: '🇨🇦' },
-    { name: 'Australia', flag: '🇦🇺' }
+    { name: 'Australia', flag: '🇦🇺' },
+    { name: 'Mexico', flag: '🇲🇽' },
+    { name: 'Argentina', flag: '🇦🇷' },
+    { name: 'Saudi Arabia', flag: '🇸🇦' },
+    { name: 'Iran', flag: '🇮🇷' },
+    { name: 'Pakistan', flag: '🇵🇰' },
+    { name: 'Indonesia', flag: '🇮🇩' },
+    { name: 'Nigeria', flag: '🇳🇬' },
+    { name: 'Egypt', flag: '🇪🇬' },
+    { name: 'Ukraine', flag: '🇺🇦' }
 ];
 
 // Map country positions (percentage based)
@@ -952,7 +982,17 @@ const countryPositions = {
     'Brazil': { x: 30, y: 65 },
     'USA': { x: 20, y: 40 },
     'India': { x: 73, y: 48 },
-    'South Korea': { x: 85, y: 42 }
+    'South Korea': { x: 85, y: 42 },
+    'Canada': { x: 22, y: 28 },
+    'Mexico': { x: 18, y: 48 },
+    'Argentina': { x: 28, y: 72 },
+    'Saudi Arabia': { x: 62, y: 50 },
+    'Iran': { x: 66, y: 46 },
+    'Pakistan': { x: 71, y: 46 },
+    'Indonesia': { x: 82, y: 62 },
+    'Nigeria': { x: 50, y: 58 },
+    'Egypt': { x: 55, y: 50 },
+    'Ukraine': { x: 57, y: 36 }
 };
 
 // ==================== GAME STATE ====================
@@ -1844,20 +1884,22 @@ function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dro
         losses.drones = Math.floor(dronesSent * Math.random() * 0.15);
         losses.bombs = Math.floor(bombsSent * Math.random() * 0.1);
 
-        gained.soldiers = Math.floor(enemySoldiers * 0.5);
-        gained.tanks = Math.floor(enemyTanks * 0.3);
-        gained.planes = Math.floor(enemyPlanes * 0.25);
-        gained.ships = Math.floor(enemyShips * 0.2);
-        gained.drones = Math.floor(enemyDrones * 0.2);
-        gained.bombs = Math.floor(enemyBombs * 0.15);
+        // INCREASED capture rates on victory - you get much more when you win!
+        gained.soldiers = Math.floor(enemySoldiers * 0.75);  // was 0.5
+        gained.tanks = Math.floor(enemyTanks * 0.5);         // was 0.3
+        gained.planes = Math.floor(enemyPlanes * 0.45);      // was 0.25
+        gained.ships = Math.floor(enemyShips * 0.4);         // was 0.2
+        gained.drones = Math.floor(enemyDrones * 0.4);       // was 0.2
+        gained.bombs = Math.floor(enemyBombs * 0.3);         // was 0.15
 
-        const baseGold = 200 * difficulty * difficulty;
-        const bonusGold = Math.floor(Math.random() * 500 * difficulty);
+        // INCREASED gold rewards - you get much more gold when you win!
+        const baseGold = 300 * difficulty * difficulty;       // was 200
+        const bonusGold = Math.floor(Math.random() * 800 * difficulty); // was 500
         let bossGoldBonus = 0;
-        if (isSuperboss) bossGoldBonus = 50000;
-        else if (difficulty >= 7) bossGoldBonus = 20000;
-        else if (difficulty >= 6) bossGoldBonus = 10000;
-        else if (isBoss) bossGoldBonus = 5000;
+        if (isSuperboss) bossGoldBonus = 75000;              // was 50000
+        else if (difficulty >= 7) bossGoldBonus = 30000;     // was 20000
+        else if (difficulty >= 6) bossGoldBonus = 15000;     // was 10000
+        else if (isBoss) bossGoldBonus = 7500;               // was 5000
         goldReward = baseGold + bonusGold + bossGoldBonus;
 
         gameState.army = gameState.army - losses.soldiers + gained.soldiers;
@@ -1869,12 +1911,13 @@ function processBattleResult(soldiersSent, tanksSent, planesSent, shipsSent, dro
         gameState.gold += goldReward;
         gameState.battlesWon = (gameState.battlesWon || 0) + 1;
     } else {
-        losses.soldiers = Math.floor(soldiersSent * (0.4 + Math.random() * 0.3));
-        losses.tanks = Math.floor(tanksSent * (0.3 + Math.random() * 0.3));
-        losses.planes = Math.floor(planesSent * (0.3 + Math.random() * 0.3));
-        losses.ships = Math.floor(shipsSent * (0.25 + Math.random() * 0.25));
-        losses.drones = Math.floor(dronesSent * (0.25 + Math.random() * 0.25));
-        losses.bombs = Math.floor(bombsSent * (0.2 + Math.random() * 0.2));
+        // INCREASED defeat losses - you lose MUCH more when you lose!
+        losses.soldiers = Math.floor(soldiersSent * (0.6 + Math.random() * 0.3));  // was 0.4-0.7, now 0.6-0.9
+        losses.tanks = Math.floor(tanksSent * (0.5 + Math.random() * 0.4));        // was 0.3-0.6, now 0.5-0.9
+        losses.planes = Math.floor(planesSent * (0.5 + Math.random() * 0.4));      // was 0.3-0.6, now 0.5-0.9
+        losses.ships = Math.floor(shipsSent * (0.45 + Math.random() * 0.4));       // was 0.25-0.5, now 0.45-0.85
+        losses.drones = Math.floor(dronesSent * (0.45 + Math.random() * 0.4));     // was 0.25-0.5, now 0.45-0.85
+        losses.bombs = Math.floor(bombsSent * (0.4 + Math.random() * 0.4));        // was 0.2-0.4, now 0.4-0.8
         gained = { soldiers: 0, tanks: 0, planes: 0, ships: 0, drones: 0, bombs: 0 };
         goldReward = 0;
 
